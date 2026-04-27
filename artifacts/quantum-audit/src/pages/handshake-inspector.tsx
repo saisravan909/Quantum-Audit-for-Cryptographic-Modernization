@@ -9,14 +9,14 @@ const STEPS = [
     sublabel: "The conversation starts",
     classic: {
       payload: "Supported: RSA-2048, ECDH P-256, AES-256-GCM",
-      plain: "Your device announces it wants to connect and lists the encryption methods it supports — some of which are vulnerable to future quantum computers.",
+      plain: "Your device announces it wants to connect and lists the encryption methods it supports, some of which are vulnerable to future quantum computers.",
       risk: "HIGH",
       riskNote: "RSA-2048 and ECDH are on CNSA 2.0 deprecated list. Any data agreed here can be harvested today and decrypted later.",
       color: "#ef4444",
     },
     pqc: {
       payload: "Supported: ML-KEM-768, X25519Kyber768, AES-256-GCM",
-      plain: "Your device announces it wants to connect and lists quantum-safe encryption methods — including the new NIST-standardized ML-KEM-768 algorithm.",
+      plain: "Your device announces it wants to connect and lists quantum-safe encryption methods, including the new NIST-standardized ML-KEM-768 algorithm.",
       risk: "LOW",
       riskNote: "ML-KEM-768 is mathematically secure even against a cryptographically relevant quantum computer (CRQC).",
       color: "#22c55e",
@@ -28,7 +28,7 @@ const STEPS = [
     sublabel: "Server responds with its choice",
     classic: {
       payload: "Selected: TLS_ECDHE_RSA_AES_256_GCM_SHA384",
-      plain: "The server picks RSA with elliptic curves — the standard today, but a known vulnerability. Anyone recording this session can decrypt it once quantum computers arrive.",
+      plain: "The server picks RSA with elliptic curves. This is the current standard, but a known vulnerability. Anyone recording this session can decrypt it once quantum computers arrive.",
       risk: "HIGH",
       riskNote: "ECDHE with RSA does not provide post-quantum security. The key agreement is breakable by Shor's algorithm on a CRQC.",
       color: "#ef4444",
@@ -54,7 +54,7 @@ const STEPS = [
     },
     pqc: {
       payload: "Certificate: ML-DSA-65 / ECDSA P-384 (hybrid)",
-      plain: "The server proves its identity using a quantum-safe digital signature. It cannot be forged even with a quantum computer — your connection is guaranteed to be authentic.",
+      plain: "The server proves its identity using a quantum-safe digital signature. It cannot be forged even with a quantum computer. Your connection is guaranteed to be authentic.",
       risk: "PROTECTED",
       riskNote: "ML-DSA-65 is FIPS-approved under FIPS 204. Hybrid with ECDSA ensures compatibility with systems not yet PQC-capable.",
       color: "#22c55e",
@@ -66,14 +66,14 @@ const STEPS = [
     sublabel: "Creating the shared secret",
     classic: {
       payload: "ECDH key_share: x25519, 32-byte public key 4a7f...",
-      plain: "Both sides perform a mathematical dance to create a shared encryption key — but this dance can be solved by a quantum computer, breaking the secrecy of everything that follows.",
+      plain: "Both sides perform a mathematical dance to create a shared encryption key. This dance can be solved by a quantum computer, breaking the secrecy of everything that follows.",
       risk: "CRITICAL",
       riskNote: "This is the exact HNDL attack vector. Encrypted key exchange is recorded today for quantum decryption tomorrow. This is the highest-priority migration target.",
       color: "#ef4444",
     },
     pqc: {
       payload: "ML-KEM-768 encapsulation: ciphertext 1088 bytes, shared secret 32 bytes",
-      plain: "The quantum-safe key encapsulation creates a shared secret that is mathematically impossible to extract — even with unlimited quantum computing power.",
+      plain: "The quantum-safe key encapsulation creates a shared secret that is mathematically impossible to extract, even with unlimited quantum computing power.",
       risk: "PROTECTED",
       riskNote: "ML-KEM-768 security is based on the Module Learning With Errors (M-LWE) problem, which has no known quantum speedup.",
       color: "#22c55e",
@@ -85,14 +85,14 @@ const STEPS = [
     sublabel: "Secure channel established",
     classic: {
       payload: "Finished: HMAC-SHA384 verified. Session: AES-256-GCM",
-      plain: "The encrypted session is open — but the keys that protect it were agreed using vulnerable methods. The session content is safe today, but not from future quantum threats.",
+      plain: "The encrypted session is open, but the keys that protect it were agreed using vulnerable methods. The session content is safe today, but not from future quantum threats.",
       risk: "HIGH",
       riskNote: "Post-handshake session data is secure against classical attacks but all key material is HNDL-vulnerable. Harvest-now attacks already in progress.",
       color: "#f97316",
     },
     pqc: {
       payload: "Finished: HMAC-SHA384 verified. Session: AES-256-GCM + ML-KEM keys",
-      plain: "The encrypted session is open — protected by quantum-safe key material. This session cannot be broken today, tomorrow, or after quantum computers exist.",
+      plain: "The encrypted session is open, protected by quantum-safe key material. This session cannot be broken today, tomorrow, or after quantum computers exist.",
       risk: "PROTECTED",
       riskNote: "Full CNSA 2.0 compliance achieved for this session. Keys, certificates, and symmetric cipher all meet NIST post-quantum standards.",
       color: "#22c55e",
@@ -144,7 +144,7 @@ export default function HandshakeInspector() {
           Classical vs Quantum-Safe Encryption
         </h1>
         <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
-          Every time two computers communicate securely, they perform a handshake. See exactly what is different between a vulnerable connection and a quantum-safe one — step by step.
+          Every time two computers communicate securely, they perform a handshake. See exactly what is different between a vulnerable connection and a quantum-safe one, step by step.
         </p>
       </div>
 
@@ -229,7 +229,7 @@ export default function HandshakeInspector() {
             <div className="px-4 py-3 border-b flex items-center justify-between" style={{ borderColor: "#ef444422", background: "#ef44440d" }}>
               <div className="flex items-center gap-2">
                 <Unlock className="w-4 h-4 text-red-400" />
-                <span className="font-bold text-red-400 text-sm uppercase tracking-wider">Classical — Vulnerable</span>
+                <span className="font-bold text-red-400 text-sm uppercase tracking-wider">Classical / Vulnerable</span>
               </div>
               <div className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase tracking-wider ${RISK_COLOR[current.classic.risk]}`}>
                 {current.classic.risk} RISK
@@ -319,7 +319,7 @@ export default function HandshakeInspector() {
           <div>
             <div className="font-bold text-orange-400 text-sm mb-1">The Key Difference</div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Both handshakes look identical to users. The difference is invisible — until a quantum computer exists. 
+              Both handshakes look identical to users. The difference is invisible until a quantum computer exists. 
               Today, nation-states are recording classical handshakes to decrypt them in 5-15 years. 
               <span className="text-orange-300 font-medium"> Migrating to quantum-safe encryption now protects data that must stay secret for years to come.</span>
             </p>

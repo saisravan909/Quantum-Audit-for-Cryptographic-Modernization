@@ -24,7 +24,7 @@ const PHASES: Phase[] = [
   {
     number: 1,
     name: "Foundation",
-    quarter: "Q2 – Q3 2025",
+    quarter: "Q2/Q3 2025",
     color: "#00cc88",
     summary: "Core platform shipped: real-time telemetry, node inventory, CBOM explorer, compliance velocity, and Zero Trust alerting.",
   },
@@ -105,7 +105,7 @@ const ITEMS: RoadmapItem[] = [
   {
     id: "p3-2", phase: 3, quarter: "Q1 2026", status: "planned", label: "cbom", githubIssue: 2,
     title: "Automated CBOM Diff Alerts When Algorithm Dependencies Change",
-    description: "Continuous comparison of CBOM snapshots to detect any change in cryptographic dependencies — new algorithms, removed certificates, or modified key parameters — with automated alerting.",
+    description: "Continuous comparison of CBOM snapshots to detect any change in cryptographic dependencies: new algorithms, removed certificates, or modified key parameters, with automated alerting.",
   },
   // Phase 4
   {
@@ -197,7 +197,7 @@ export default function RoadmapPage() {
 
       {/* Timeline visual */}
       <div className="rounded-xl border border-border bg-card p-6 overflow-x-auto">
-        <div className="mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-5">Project Timeline — Started June 2025</div>
+        <div className="mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-5">Project Timeline · Started June 2025</div>
         <div className="flex items-start gap-0 min-w-[600px]">
           {PHASES.map((ph, i) => {
             const phItems = ITEMS.filter(it => it.phase === ph.number);

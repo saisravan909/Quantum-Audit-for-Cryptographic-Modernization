@@ -73,7 +73,7 @@ function buildReport(f: FormData, score: number): string {
   return `# Quantum Readiness Assessment Report
 ## ${f.orgName || "Your Organization"}
 **Date:** ${date}  
-**Readiness Score:** ${score}/100 — ${risk.label}
+**Readiness Score:** ${score}/100: ${risk.label}
 
 ---
 
@@ -101,37 +101,37 @@ ${score < 40 ? "Immediate action is recommended. Critical gaps in post-quantum c
 
 ## Risk Findings
 
-### Finding 1 — Algorithm Exposure
-${f.tlsVersion === "tls10" ? "TLS 1.0/1.1 in use — immediately deprecated by NSA and CISA. All sessions are vulnerable to classical and quantum attacks." : f.tlsVersion === "tls12" ? "TLS 1.2 in use — supported under CNSA 2.0 transitionally, but key exchange algorithms (ECDH, RSA) are quantum-vulnerable." : "TLS 1.3 detected — strong classical baseline. Requires ML-KEM-768 hybrid key exchange layer to achieve CNSA 2.0 compliance."}
+### Finding 1: Algorithm Exposure
+${f.tlsVersion === "tls10" ? "TLS 1.0/1.1 in use, immediately deprecated by NSA and CISA. All sessions are vulnerable to classical and quantum attacks." : f.tlsVersion === "tls12" ? "TLS 1.2 in use, supported under CNSA 2.0 transitionally, but key exchange algorithms (ECDH, RSA) are quantum-vulnerable." : "TLS 1.3 detected, strong classical baseline. Requires ML-KEM-768 hybrid key exchange layer to achieve CNSA 2.0 compliance."}
 
-### Finding 2 — PQC Adoption Gap
-${f.pqcAdoption === "prod" ? "ML-KEM or equivalent in production. Excellent posture. Ensure CBOM reflects all deployed PQC endpoints and maintain monitoring." : f.pqcAdoption === "testing" ? "PQC in testing/staging. Accelerate production rollout — CNSA 2.0 milestones require production deployment." : "No PQC algorithms deployed. Every encrypted session is a potential HNDL target. Migration planning should begin immediately."}
+### Finding 2: PQC Adoption Gap
+${f.pqcAdoption === "prod" ? "ML-KEM or equivalent in production. Excellent posture. Ensure CBOM reflects all deployed PQC endpoints and maintain monitoring." : f.pqcAdoption === "testing" ? "PQC in testing/staging. Accelerate production rollout. CNSA 2.0 milestones require production deployment." : "No PQC algorithms deployed. Every encrypted session is a potential HNDL target. Migration planning should begin immediately."}
 
-### Finding 3 — Asset Visibility
-${f.hasInventory === "yes" ? "Crypto inventory exists. Integrate with QVault for continuous automated tracking — manual inventories drift within weeks." : "No cryptographic inventory. Blind spots are the highest-risk posture. Deploy QVault telemetry to establish ground truth before planning migration."}
+### Finding 3: Asset Visibility
+${f.hasInventory === "yes" ? "Crypto inventory exists. Integrate with QVault for continuous automated tracking. Manual inventories drift within weeks." : "No cryptographic inventory. Blind spots are the highest-risk posture. Deploy QVault telemetry to establish ground truth before planning migration."}
 
-### Finding 4 — Key Management Posture
-${f.keyManagement === "hsm" ? "Hardware Security Module in use — strong key protection baseline. Verify HSM firmware supports PQC key types." : f.keyManagement === "unknown" ? "Key management posture unknown — this is a critical gap. Discovery sprint required before migration can begin." : "Software key management in place. Consider HSM adoption as part of CNSA 2.0 migration, particularly for NSS workloads."}
+### Finding 4: Key Management Posture
+${f.keyManagement === "hsm" ? "Hardware Security Module in use, strong key protection baseline. Verify HSM firmware supports PQC key types." : f.keyManagement === "unknown" ? "Key management posture unknown. This is a critical gap. Discovery sprint required before migration can begin." : "Software key management in place. Consider HSM adoption as part of CNSA 2.0 migration, particularly for NSS workloads."}
 
 ---
 
 ## 90-Day Migration Roadmap
 
-### Phase 1 — Weeks 1–4: Inventory & Baseline
+### Phase 1: Weeks 1-4: Inventory and Baseline
 - Deploy QVault telemetry collectors on all priority nodes
 - Generate live CBOM from eBPF telemetry (no manual inventory required)
 - Classify all nodes by algorithm type and HNDL exposure score
 - Identify top 10 highest-risk systems for immediate attention
 - Establish compliance baseline against selected frameworks
 
-### Phase 2 — Weeks 5–8: Priority Migration
+### Phase 2: Weeks 5-8: Priority Migration
 - Deploy ML-KEM-768 hybrid TLS on top 10 critical nodes
 - Update certificate authority to support ML-DSA-65 signatures
 - Configure OpenSSL 3.x on all RHEL/Ubuntu endpoints
 - Implement Zero Trust alerting for classical-only fallback events
 - Validate CNSA 2.0 compliance on migrated nodes via telemetry
 
-### Phase 3 — Weeks 9–12: Scale & Sustain
+### Phase 3: Weeks 9-12: Scale and Sustain
 - Roll out PQC migration to remaining node inventory
 - Generate audit-ready CBOM for ATO evidence package
 - Implement ISM policies for ongoing compliance monitoring
@@ -142,13 +142,13 @@ ${f.keyManagement === "hsm" ? "Hardware Security Module in use — strong key pr
 
 ## Compliance Frameworks
 
-${f.complianceFrameworks.map(fw => `- **${fw}** — gap analysis available in QVault Compliance Velocity module`).join("\n") || "- No frameworks selected — recommend aligning to CNSA 2.0 minimum"}
+${f.complianceFrameworks.map(fw => `- **${fw}**: gap analysis available in QVault Compliance Velocity module`).join("\n") || "- No frameworks selected. Recommend aligning to CNSA 2.0 minimum"}
 
 ---
 
 ## Recommended Next Steps
 
-1. Deploy QVault telemetry collectors (Fluent Bit + eBPF probes) — see Config Builder
+1. Deploy QVault telemetry collectors (Fluent Bit + eBPF probes). See Config Builder
 2. Run live CBOM generation to replace manual inventory
 3. Schedule stakeholder briefing with Readiness Score and Risk Map findings
 4. Engage key vendor (OpenSSL, PKI provider) for PQC roadmap alignment
@@ -156,7 +156,7 @@ ${f.complianceFrameworks.map(fw => `- **${fw}** — gap analysis available in QV
 
 ---
 
-*Generated by QVault — PQC Command Center*  
+*Generated by QVault: PQC Command Center*  
 *https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization*
 `;
 }
@@ -355,7 +355,7 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           {[
             { icon: BarChart3, title: "Readiness Score", desc: "A single 0–100 metric that benchmarks your PQC posture against CNSA 2.0 and NSM-10 standards." },
-            { icon: Layers, title: "Risk Findings", desc: "Prioritized findings across algorithm exposure, asset visibility, and compliance gaps — with plain-English explanations." },
+            { icon: Layers, title: "Risk Findings", desc: "Prioritized findings across algorithm exposure, asset visibility, and compliance gaps, with plain-English explanations." },
             { icon: Target, title: "90-Day Roadmap", desc: "A phased migration plan built for your infrastructure, compliance obligations, and timeline urgency." },
           ].map(item => (
             <div key={item.title} className="rounded-2xl p-6 text-left" style={{ background: "#fff", border: "1px solid #e5e7eb" }}>
@@ -521,8 +521,8 @@ function StepOrg({ form, set }: { form: FormData; set: (k: keyof FormData) => (v
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Organization Size (Endpoints / Systems)</label>
         {SELECT([
           { id: "small", label: "Under 100 systems" },
-          { id: "medium", label: "100 – 1,000 systems" },
-          { id: "large", label: "1,000 – 10,000 systems" },
+          { id: "medium", label: "100 to 1,000 systems" },
+          { id: "large", label: "1,000 to 10,000 systems" },
           { id: "enterprise", label: "10,000+ systems" },
         ], form.orgSize, set("orgSize"))}
       </div>
@@ -531,10 +531,10 @@ function StepOrg({ form, set }: { form: FormData; set: (k: keyof FormData) => (v
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Timeline Urgency</label>
         <p className="text-xs mb-2" style={{ color: "#9ca3af" }}>How urgent is your quantum readiness mandate?</p>
         {SELECT([
-          { id: "past", label: "Past a compliance deadline — remediation in progress" },
-          { id: "12mo", label: "Deadline within 12 months — active planning required" },
-          { id: "3yr", label: "Deadline in 1–3 years — migration program underway" },
-          { id: "planning", label: "Early planning stage — evaluating options" },
+          { id: "past", label: "Past a compliance deadline: remediation in progress" },
+          { id: "12mo", label: "Deadline within 12 months: active planning required" },
+          { id: "3yr", label: "Deadline in 1 to 3 years: migration program underway" },
+          { id: "planning", label: "Early planning stage: evaluating options" },
         ], form.urgency, set("urgency"))}
       </div>
     </div>
@@ -557,10 +557,10 @@ function StepInfra({ form, set }: { form: FormData; set: (k: keyof FormData) => 
       <div>
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Estimated Server / Node Count</label>
         {SELECT([
-          { id: "1-10", label: "1 – 10 nodes" },
-          { id: "11-50", label: "11 – 50 nodes" },
-          { id: "51-200", label: "51 – 200 nodes" },
-          { id: "201-1000", label: "201 – 1,000 nodes" },
+          { id: "1-10", label: "1 to 10 nodes" },
+          { id: "11-50", label: "11 to 50 nodes" },
+          { id: "51-200", label: "51 to 200 nodes" },
+          { id: "201-1000", label: "201 to 1,000 nodes" },
           { id: "1000+", label: "1,000+ nodes" },
         ], form.serverCount, set("serverCount"))}
       </div>
@@ -628,7 +628,7 @@ function StepCrypto({ form, set }: { form: FormData; set: (k: keyof FormData) =>
         <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#6b7280" }}>Step 3 of 4</div>
         <h2 className="text-2xl font-bold mb-1" style={{ color: "#0f1c36" }}>Your Cryptographic Posture</h2>
         <p className="text-sm leading-relaxed" style={{ color: "#6b7280" }}>
-          These answers directly drive your Quantum Readiness Score. Be as accurate as possible — honest answers produce the most useful recommendations.
+          These answers directly drive your Quantum Readiness Score. Be as accurate as possible. Honest answers produce the most useful recommendations.
         </p>
       </div>
 
@@ -636,11 +636,11 @@ function StepCrypto({ form, set }: { form: FormData; set: (k: keyof FormData) =>
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Current TLS Version in Production</label>
         <p className="text-xs mb-2" style={{ color: "#9ca3af" }}>Select the version most commonly negotiated across your environment.</p>
         {SELECT([
-          { id: "tls13", label: "TLS 1.3 — current standard, still quantum-vulnerable at key exchange" },
-          { id: "tls12", label: "TLS 1.2 — widely deployed, quantum-vulnerable" },
-          { id: "tls10", label: "TLS 1.0 / 1.1 — deprecated, classically and quantum-vulnerable" },
-          { id: "mixed", label: "Mixed across environment — no uniform version enforced" },
-          { id: "unknown", label: "Unknown — no current inventory" },
+          { id: "tls13", label: "TLS 1.3: current standard, still quantum-vulnerable at key exchange" },
+          { id: "tls12", label: "TLS 1.2: widely deployed, quantum-vulnerable" },
+          { id: "tls10", label: "TLS 1.0 / 1.1: deprecated, classically and quantum-vulnerable" },
+          { id: "mixed", label: "Mixed across environment: no uniform version enforced" },
+          { id: "unknown", label: "Unknown: no current inventory" },
         ], form.tlsVersion, set("tlsVersion"))}
       </div>
 
@@ -648,31 +648,31 @@ function StepCrypto({ form, set }: { form: FormData; set: (k: keyof FormData) =>
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>PQC Algorithm Adoption Status</label>
         <p className="text-xs mb-2" style={{ color: "#9ca3af" }}>ML-KEM-768, ML-DSA-65, or equivalent NIST-standardized post-quantum algorithms.</p>
         {SELECT([
-          { id: "prod", label: "In production — PQC algorithms actively negotiated on live systems" },
-          { id: "testing", label: "In testing / staging — deployed but not yet production" },
-          { id: "planned", label: "Planned — on the roadmap but not yet deployed" },
-          { id: "no", label: "Not deployed — no PQC implementation exists" },
-          { id: "unknown", label: "Unknown — posture unclear" },
+          { id: "prod", label: "In production: PQC algorithms actively negotiated on live systems" },
+          { id: "testing", label: "In testing / staging: deployed but not yet production" },
+          { id: "planned", label: "Planned: on the roadmap but not yet deployed" },
+          { id: "no", label: "Not deployed: no PQC implementation exists" },
+          { id: "unknown", label: "Unknown: posture unclear" },
         ], form.pqcAdoption, set("pqcAdoption"))}
       </div>
 
       <div>
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Key Management</label>
         {SELECT([
-          { id: "hsm", label: "Hardware Security Module (HSM) — e.g. Thales, AWS CloudHSM, Entrust" },
-          { id: "kms", label: "Cloud KMS — AWS KMS, Azure Key Vault, GCP Cloud KMS" },
-          { id: "software", label: "Software-based key storage — application-level or file-based" },
-          { id: "manual", label: "Manual key management — no centralized system" },
-          { id: "unknown", label: "Unknown — not assessed" },
+          { id: "hsm", label: "Hardware Security Module (HSM): e.g. Thales, AWS CloudHSM, Entrust" },
+          { id: "kms", label: "Cloud KMS: AWS KMS, Azure Key Vault, GCP Cloud KMS" },
+          { id: "software", label: "Software-based key storage: application-level or file-based" },
+          { id: "manual", label: "Manual key management: no centralized system" },
+          { id: "unknown", label: "Unknown: not assessed" },
         ], form.keyManagement, set("keyManagement"))}
       </div>
 
       <div>
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Do you have an existing cryptographic asset inventory?</label>
         {SELECT([
-          { id: "yes", label: "Yes — we maintain a documented inventory of all cryptographic assets" },
-          { id: "partial", label: "Partial — some systems documented, others not" },
-          { id: "no", label: "No — no formal cryptographic inventory exists" },
+          { id: "yes", label: "Yes: we maintain a documented inventory of all cryptographic assets" },
+          { id: "partial", label: "Partial: some systems documented, others not" },
+          { id: "no", label: "No: no formal cryptographic inventory exists" },
         ], form.hasInventory, set("hasInventory"))}
       </div>
 
@@ -710,25 +710,25 @@ function StepCompliance({ form, set }: { form: FormData; set: (k: keyof FormData
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Applicable Compliance Frameworks</label>
         <p className="text-xs mb-2" style={{ color: "#9ca3af" }}>Select all frameworks your organization must comply with.</p>
         {MULTI([
-          { id: "CNSA 2.0", label: "CNSA 2.0 — NSA Commercial National Security Algorithm Suite" },
-          { id: "NSM-10", label: "NSM-10 — National Security Memorandum on Quantum Computing" },
-          { id: "NIST 800-207", label: "NIST SP 800-207 — Zero Trust Architecture" },
-          { id: "NIST 800-53", label: "NIST SP 800-53 rev5 — Security Controls (SC-12/13)" },
-          { id: "OMB M-23-02", label: "OMB M-23-02 — Federal PQC Migration Guidance" },
-          { id: "EO 14028", label: "EO 14028 — Improving Nation's Cybersecurity" },
-          { id: "FedRAMP", label: "FedRAMP — Federal Cloud Authorization" },
-          { id: "CMMC", label: "CMMC — Cybersecurity Maturity Model Certification" },
-          { id: "HIPAA", label: "HIPAA — Health Insurance Portability & Accountability" },
-          { id: "PCI DSS", label: "PCI DSS — Payment Card Industry Standards" },
+          { id: "CNSA 2.0", label: "CNSA 2.0: NSA Commercial National Security Algorithm Suite" },
+          { id: "NSM-10", label: "NSM-10: National Security Memorandum on Quantum Computing" },
+          { id: "NIST 800-207", label: "NIST SP 800-207: Zero Trust Architecture" },
+          { id: "NIST 800-53", label: "NIST SP 800-53 rev5: Security Controls (SC-12/13)" },
+          { id: "OMB M-23-02", label: "OMB M-23-02: Federal PQC Migration Guidance" },
+          { id: "EO 14028", label: "EO 14028: Improving Nation's Cybersecurity" },
+          { id: "FedRAMP", label: "FedRAMP: Federal Cloud Authorization" },
+          { id: "CMMC", label: "CMMC: Cybersecurity Maturity Model Certification" },
+          { id: "HIPAA", label: "HIPAA: Health Insurance Portability and Accountability" },
+          { id: "PCI DSS", label: "PCI DSS: Payment Card Industry Standards" },
         ], form.complianceFrameworks, set("complianceFrameworks"))}
       </div>
 
       <div>
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Previous PQC Assessment</label>
         {SELECT([
-          { id: "yes", label: "Yes — we have conducted a prior quantum readiness or PQC gap assessment" },
-          { id: "informal", label: "Informal only — internal review, no formal assessment methodology" },
-          { id: "no", label: "No — this is our first formal quantum readiness evaluation" },
+          { id: "yes", label: "Yes: we have conducted a prior quantum readiness or PQC gap assessment" },
+          { id: "informal", label: "Informal only: internal review, no formal assessment methodology" },
+          { id: "no", label: "No: this is our first formal quantum readiness evaluation" },
         ], form.assessmentHistory, set("assessmentHistory"))}
       </div>
 
@@ -736,10 +736,10 @@ function StepCompliance({ form, set }: { form: FormData; set: (k: keyof FormData
         <label className="block text-sm font-semibold mb-1.5" style={{ color: "#374151" }}>Hardest Compliance Deadline</label>
         <p className="text-xs mb-2" style={{ color: "#9ca3af" }}>CNSA 2.0 requires NSS systems to complete PQC migration by 2030. Select where you stand relative to your most pressing deadline.</p>
         {SELECT([
-          { id: "2025", label: "2025 — deadline already passed or imminent" },
-          { id: "2026", label: "2026 — within the next 12 months" },
-          { id: "2028", label: "2028 — NSS soft deadline for key encapsulation" },
-          { id: "2030", label: "2030 — full CNSA 2.0 migration requirement" },
+          { id: "2025", label: "2025: deadline already passed or imminent" },
+          { id: "2026", label: "2026: within the next 12 months" },
+          { id: "2028", label: "2028: NSS soft deadline for key encapsulation" },
+          { id: "2030", label: "2030: full CNSA 2.0 migration requirement" },
           { id: "none", label: "No specific regulatory deadline currently applies" },
         ], form.deadline, set("deadline"))}
       </div>
@@ -825,7 +825,7 @@ function ResultsScreen({ score, finalScore, risk, form, onDownload, onCopy, copi
       color: form.tlsVersion === "tls13" ? "#15803d" : form.tlsVersion === "tls12" ? "#b45309" : "#b91c1c",
       severity: form.tlsVersion === "tls13" ? "Moderate" : form.tlsVersion === "tls12" ? "High" : "Critical",
       desc: form.tlsVersion === "tls13"
-        ? "TLS 1.3 in use — strong classical baseline. Key exchange layer requires ML-KEM-768 upgrade for CNSA 2.0."
+        ? "TLS 1.3 in use, strong classical baseline. Key exchange layer requires ML-KEM-768 upgrade for CNSA 2.0."
         : form.tlsVersion === "tls12"
         ? "TLS 1.2 key exchange (RSA/ECDH) is quantum-vulnerable. All sessions are HNDL targets."
         : "Deprecated TLS version detected. Immediate remediation required across all endpoints.",
@@ -838,7 +838,7 @@ function ResultsScreen({ score, finalScore, risk, form, onDownload, onCopy, copi
       desc: form.pqcAdoption === "prod"
         ? "ML-KEM algorithms in production. Maintain monitoring and expand CBOM coverage."
         : form.pqcAdoption === "testing"
-        ? "PQC in staging — accelerate production rollout to meet CNSA 2.0 milestones."
+        ? "PQC in staging. Accelerate production rollout to meet CNSA 2.0 milestones."
         : "No PQC deployment detected. Every encrypted session is a potential HNDL target.",
     },
     {
@@ -847,7 +847,7 @@ function ResultsScreen({ score, finalScore, risk, form, onDownload, onCopy, copi
       color: form.hasInventory === "yes" ? "#15803d" : form.hasInventory === "partial" ? "#b45309" : "#b91c1c",
       severity: form.hasInventory === "yes" ? "Low" : form.hasInventory === "partial" ? "Moderate" : "High",
       desc: form.hasInventory === "yes"
-        ? "Inventory exists. Integrate with QVault for continuous automated tracking — manual inventories drift."
+        ? "Inventory exists. Integrate with QVault for continuous automated tracking. Manual inventories drift."
         : form.hasInventory === "partial"
         ? "Partial inventory creates blind spots. Deploy telemetry to fill gaps before migration begins."
         : "No cryptographic inventory. You cannot migrate what you cannot see. Start here.",
@@ -858,22 +858,22 @@ function ResultsScreen({ score, finalScore, risk, form, onDownload, onCopy, copi
       color: form.keyManagement === "hsm" ? "#15803d" : form.keyManagement === "unknown" ? "#b91c1c" : "#b45309",
       severity: form.keyManagement === "hsm" ? "Low" : form.keyManagement === "unknown" ? "Critical" : "Moderate",
       desc: form.keyManagement === "hsm"
-        ? "HSM in use — strong key protection. Verify PQC key type support in HSM firmware."
+        ? "HSM in use, strong key protection. Verify PQC key type support in HSM firmware."
         : form.keyManagement === "unknown"
         ? "Key management posture unknown. A discovery sprint is required before migration can begin."
-        : "Software key management — consider HSM adoption for NSS-classified workloads under CNSA 2.0.",
+        : "Software key management. Consider HSM adoption for NSS-classified workloads under CNSA 2.0.",
     },
   ];
 
   const ROADMAP = [
     {
       phase: "Phase 1",
-      weeks: "Weeks 1 – 4",
-      title: "Inventory & Baseline",
+      weeks: "Weeks 1 to 4",
+      title: "Inventory and Baseline",
       color: "#1e3a5f",
       tasks: [
         "Deploy QVault eBPF telemetry collectors on all priority nodes",
-        "Generate live CBOM — no manual spreadsheet required",
+        "Generate live CBOM, no manual spreadsheet required",
         "Classify all nodes by algorithm type and HNDL exposure score",
         "Identify top 10 highest-risk systems for immediate remediation",
       ],
@@ -916,7 +916,7 @@ function ResultsScreen({ score, finalScore, risk, form, onDownload, onCopy, copi
           <div>
             <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#6b7280" }}>Assessment Complete</div>
             <h1 className="text-2xl md:text-3xl font-bold" style={{ color: "#0f1c36" }}>
-              Quantum Readiness Report{form.orgName ? ` — ${form.orgName}` : ""}
+              Quantum Readiness Report{form.orgName ? `: ${form.orgName}` : ""}
             </h1>
             <p className="text-sm mt-1" style={{ color: "#6b7280" }}>Generated {format(new Date(), "MMMM d, yyyy")}</p>
           </div>
@@ -1041,7 +1041,7 @@ function ResultsScreen({ score, finalScore, risk, form, onDownload, onCopy, copi
           <div>
             <div className="font-bold text-white mb-1">Ready to see your live infrastructure?</div>
             <p className="text-sm" style={{ color: "#94a3b8" }}>
-              QVault can generate this same report from real telemetry — continuously and automatically.
+              QVault can generate this same report from real telemetry, continuously and automatically.
             </p>
           </div>
           <div className="flex gap-3 shrink-0">

@@ -4,23 +4,23 @@ import { useListNodes } from "@workspace/api-client-react";
 import { Shield, AlertTriangle, TrendingUp, X, Target, Zap, CheckCircle } from "lucide-react";
 
 const QUADRANT_DEFS = [
-  { id: "act-now", x: "right", y: "top", label: "Act Now", color: "#ef4444", bg: "#ef444408", desc: "High exposure, hard to fix — these need an emergency response plan.", icon: "🔴" },
-  { id: "quick-wins", x: "left", y: "top", label: "Quick Wins", color: "#f97316", bg: "#f9731608", desc: "High exposure but straightforward to fix — start here for maximum risk reduction.", icon: "🟠" },
-  { id: "plan-carefully", x: "right", y: "bottom", label: "Plan Carefully", color: "#eab308", bg: "#eab30808", desc: "Low current exposure but complex migration — schedule and resource properly.", icon: "🟡" },
-  { id: "monitor", x: "left", y: "bottom", label: "Monitor", color: "#22c55e", bg: "#22c55e08", desc: "Low exposure and low effort — address as part of regular maintenance cycle.", icon: "🟢" },
+  { id: "act-now", x: "right", y: "top", label: "Act Now", color: "#ef4444", bg: "#ef444408", desc: "High exposure, hard to fix. These need an emergency response plan." },
+  { id: "quick-wins", x: "left", y: "top", label: "Quick Wins", color: "#f97316", bg: "#f9731608", desc: "High exposure but straightforward to fix. Start here for maximum risk reduction." },
+  { id: "plan-carefully", x: "right", y: "bottom", label: "Plan Carefully", color: "#eab308", bg: "#eab30808", desc: "Low current exposure but complex migration. Schedule and resource properly." },
+  { id: "monitor", x: "left", y: "bottom", label: "Monitor", color: "#22c55e", bg: "#22c55e08", desc: "Low exposure and low effort. Address as part of regular maintenance cycle." },
 ];
 
 const STATIC_SCORES = [
   { id: 1, hostname: "fed-node-alpha", x: 0.72, y: 0.78, riskScore: 87, effort: 0.72, exposure: 0.78, algo: "RSA-2048", env: "FEDERAL", status: "critical", reason: "RSA-2048 on classified segment. HNDL sessions detected. No PQC migration scheduled.", action: "Emergency PQC deployment required. Escalate to CISO." },
-  { id: 2, hostname: "prod-db-primary", x: 0.38, y: 0.85, riskScore: 82, effort: 0.38, exposure: 0.85, algo: "RSA-2048", env: "PROD", status: "critical", reason: "Highest traffic volume of any node. RSA-2048 key encapsulation on all sessions.", action: "Quick win — standard ML-KEM-768 library swap. Prioritize immediately." },
+  { id: 2, hostname: "prod-db-primary", x: 0.38, y: 0.85, riskScore: 82, effort: 0.38, exposure: 0.85, algo: "RSA-2048", env: "PROD", status: "critical", reason: "Highest traffic volume of any node. RSA-2048 key encapsulation on all sessions.", action: "Quick win: standard ML-KEM-768 library swap. Prioritize immediately." },
   { id: 3, hostname: "fed-node-bravo", x: 0.65, y: 0.70, riskScore: 76, effort: 0.65, exposure: 0.70, algo: "ECDH P-256", env: "FEDERAL", status: "high", reason: "ECC P-256 has same quantum vulnerability as RSA. Federal classification increases impact.", action: "Coordinate with ISSO for federated migration plan." },
-  { id: 4, hostname: "prod-auth-svc", x: 0.28, y: 0.75, riskScore: 71, effort: 0.28, exposure: 0.75, algo: "RSA-2048", env: "PROD", status: "high", reason: "Authentication service — compromise enables full session hijacking across the estate.", action: "Replace RSA cert with ML-DSA-65. Update client libraries." },
+  { id: 4, hostname: "prod-auth-svc", x: 0.28, y: 0.75, riskScore: 71, effort: 0.28, exposure: 0.75, algo: "RSA-2048", env: "PROD", status: "high", reason: "Authentication service. Compromise enables full session hijacking across the estate.", action: "Replace RSA cert with ML-DSA-65. Update client libraries." },
   { id: 5, hostname: "prod-api-gateway", x: 0.55, y: 0.58, riskScore: 64, effort: 0.55, exposure: 0.58, algo: "ECDH P-384", env: "PROD", status: "high", reason: "Gateway handles all inbound traffic. ECDH P-384 not in CNSA 2.0 approved algorithms.", action: "Stage ML-KEM migration in next maintenance window." },
-  { id: 6, hostname: "stg-worker-01", x: 0.32, y: 0.55, riskScore: 55, effort: 0.32, exposure: 0.55, algo: "RSA-2048", env: "STAGING", status: "medium", reason: "Staging environment but mirrors production config. Serves as migration test bed.", action: "Use as PQC pilot — deploy ML-KEM here first before production rollout." },
+  { id: 6, hostname: "stg-worker-01", x: 0.32, y: 0.55, riskScore: 55, effort: 0.32, exposure: 0.55, algo: "RSA-2048", env: "STAGING", status: "medium", reason: "Staging environment but mirrors production config. Serves as migration test bed.", action: "Use as PQC pilot. Deploy ML-KEM here first before production rollout." },
   { id: 7, hostname: "prod-search-node", x: 0.48, y: 0.40, riskScore: 44, effort: 0.48, exposure: 0.40, algo: "ML-KEM-768", env: "PROD", status: "compliant", reason: "Fully migrated to ML-KEM-768. Monitoring confirms 100% PQC negotiation.", action: "Maintain. Add to CNSA 2.0 compliance evidence package." },
   { id: 8, hostname: "stg-web-01", x: 0.22, y: 0.32, riskScore: 28, effort: 0.22, exposure: 0.32, algo: "ML-KEM-768", env: "STAGING", status: "compliant", reason: "Low-traffic staging node, fully PQC-migrated. Minimal HNDL exposure.", action: "No action required. Use as reference implementation for other nodes." },
   { id: 9, hostname: "dev-sandbox-01", x: 0.15, y: 0.18, riskScore: 18, effort: 0.15, exposure: 0.18, algo: "AES-256-GCM", env: "DEV", status: "low", reason: "Development sandbox with no production data. AES-256 symmetric only, no key exchange risk.", action: "Schedule PQC library update during next sprint cycle." },
-  { id: 10, hostname: "mgmt-bastion", x: 0.42, y: 0.22, riskScore: 22, effort: 0.42, exposure: 0.22, algo: "ECDH P-256", env: "MGMT", status: "low", reason: "Management plane — access-controlled, low traffic volume, minimal sensitive data.", action: "Include in Q3 migration batch. Low priority but don't skip." },
+  { id: 10, hostname: "mgmt-bastion", x: 0.42, y: 0.22, riskScore: 22, effort: 0.42, exposure: 0.22, algo: "ECDH P-256", env: "MGMT", status: "low", reason: "Management plane, access-controlled, low traffic volume, minimal sensitive data.", action: "Include in Q3 migration batch. Low priority but don't skip." },
 ];
 
 const STATUS_DOT: Record<string, { fill: string; stroke: string; size: number }> = {
@@ -59,7 +59,7 @@ export default function RiskScorecard() {
           Every Node, Ranked by Risk
         </h1>
         <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
-          Not every system needs fixing today. This map ranks your entire infrastructure by how exposed it is to quantum threats versus how difficult it is to fix — so you always work on the right problem first.
+          Not every system needs fixing today. This map ranks your entire infrastructure by how exposed it is to quantum threats versus how difficult it is to fix, so you always work on the right problem first.
         </p>
       </div>
 
@@ -110,7 +110,7 @@ export default function RiskScorecard() {
         {/* Risk Matrix */}
         <div className="lg:col-span-2 rounded-xl border border-border bg-card p-4 overflow-x-auto">
           <div className="font-mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-3">
-            Risk Matrix: Exposure vs Migration Effort — Click any node for details
+            Risk Matrix: Exposure vs Migration Effort. Click any node for details
           </div>
           <div className="relative" style={{ minWidth: `${svgW}px` }}>
             <svg width={svgW} height={svgH} className="overflow-visible">
@@ -193,11 +193,11 @@ export default function RiskScorecard() {
             <div className="font-mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-3">Legend</div>
             <div className="space-y-2">
               {[
-                { status: "critical", label: "Critical — Act Today", color: "#ef4444" },
-                { status: "high", label: "High Risk — This Quarter", color: "#f97316" },
-                { status: "medium", label: "Medium — This Year", color: "#eab308" },
-                { status: "compliant", label: "Compliant — PQC-Ready", color: "#22d3ee" },
-                { status: "low", label: "Low — Scheduled", color: "#22c55e" },
+                { status: "critical", label: "Critical: Act Today", color: "#ef4444" },
+                { status: "high", label: "High Risk: This Quarter", color: "#f97316" },
+                { status: "medium", label: "Medium: This Year", color: "#eab308" },
+                { status: "compliant", label: "Compliant: PQC-Ready", color: "#22d3ee" },
+                { status: "low", label: "Low: Scheduled", color: "#22c55e" },
               ].map(l => (
                 <div key={l.status} className="flex items-center gap-2.5 text-xs">
                   <div className="w-3 h-3 rounded-full shrink-0" style={{ background: l.color, boxShadow: `0 0 6px ${l.color}` }} />

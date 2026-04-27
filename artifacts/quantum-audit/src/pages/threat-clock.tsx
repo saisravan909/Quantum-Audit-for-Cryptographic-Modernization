@@ -5,10 +5,10 @@ import { AlertTriangle, Clock, Zap, Shield, Database, Activity, ChevronDown } fr
 const ALGORITHMS = [
   { id: "rsa2048", label: "RSA-2048", yearsLeft: 12, urgency: 0.85, status: "CRITICAL", detail: "Most widely deployed key exchange algorithm. Broken by Shor's algorithm in polynomial time on a CRQC estimated at 4000+ logical qubits." },
   { id: "aes128", label: "AES-128", yearsLeft: 22, urgency: 0.4, status: "MODERATE", detail: "Grover's algorithm provides quadratic speedup, effectively reducing AES-128 to AES-64 security. CNSA 2.0 requires AES-256 minimum." },
-  { id: "ecc256", label: "ECC P-256", yearsLeft: 11, urgency: 0.9, status: "CRITICAL", detail: "Elliptic Curve Cryptography is fully broken by Shor's algorithm — same threat as RSA but with smaller key sizes, so potentially easier to attack." },
+  { id: "ecc256", label: "ECC P-256", yearsLeft: 11, urgency: 0.9, status: "CRITICAL", detail: "Elliptic Curve Cryptography is fully broken by Shor's algorithm, same threat as RSA but with smaller key sizes, so potentially easier to attack." },
   { id: "ecc384", label: "ECC P-384", yearsLeft: 13, urgency: 0.8, status: "HIGH", detail: "P-384 provides marginally higher classical security than P-256, but quantum threat profile is essentially identical. Not in CNSA 2.0 approved list." },
   { id: "aes256", label: "AES-256", yearsLeft: 35, urgency: 0.1, status: "LOW", detail: "AES-256 with 256-bit keys retains ~128-bit security against Grover's algorithm. Approved in CNSA 2.0 for symmetric encryption of classified data." },
-  { id: "mlkem768", label: "ML-KEM-768", yearsLeft: 9999, urgency: 0.0, status: "PROTECTED", detail: "NIST FIPS 203 standardized. Security based on Module Learning With Errors — no known quantum speedup. Fully compliant with CNSA 2.0 and NSM-10." },
+  { id: "mlkem768", label: "ML-KEM-768", yearsLeft: 9999, urgency: 0.0, status: "PROTECTED", detail: "NIST FIPS 203 standardized. Security based on Module Learning With Errors, no known quantum speedup. Fully compliant with CNSA 2.0 and NSM-10." },
 ];
 
 const STATUS_STYLE: Record<string, { text: string; bg: string; border: string; glow: string }> = {
@@ -71,7 +71,7 @@ export default function ThreatClock() {
           Your Data Has an Expiry Date
         </h1>
         <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
-          Harvest Now, Decrypt Later (HNDL) is not a future threat — it is happening today. Adversaries are recording encrypted traffic to decrypt it once quantum computers exist. Select an algorithm to see how much time is left.
+          Harvest Now, Decrypt Later (HNDL) is not a future threat. It is happening today. Adversaries are recording encrypted traffic to decrypt it once quantum computers exist. Select an algorithm to see how much time is left.
         </p>
       </div>
 
@@ -264,7 +264,7 @@ export default function ThreatClock() {
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="w-2 h-2 rounded-full bg-red-500"
               />
-              <span className="text-xs font-mono text-red-400 uppercase tracking-widest">Simulated Harvest Events — Live Feed</span>
+              <span className="text-xs font-mono text-red-400 uppercase tracking-widest">Simulated Harvest Events: Live Feed</span>
             </div>
             <div className="p-3 space-y-2">
               <AnimatePresence mode="popLayout">
@@ -296,7 +296,7 @@ export default function ThreatClock() {
                 <div className="font-bold text-cyan-400 text-sm mb-1">The Executive Summary</div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Every day your infrastructure runs classical cryptography, adversaries record more sessions for future decryption. The window to act is closing.
-                  <span className="text-cyan-300 font-medium"> QVault identifies exactly which systems need urgent migration — so you fix the right ones first.</span>
+                  <span className="text-cyan-300 font-medium"> QVault identifies exactly which systems need urgent migration, so you fix the right ones first.</span>
                 </p>
               </div>
             </div>

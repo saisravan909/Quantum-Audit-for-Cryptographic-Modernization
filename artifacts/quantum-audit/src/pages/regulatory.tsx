@@ -66,7 +66,7 @@ const FRAMEWORKS: Framework[] = [
   },
   {
     id: "eo14028",
-    name: "Executive Order 14028 — Improving the Nation's Cybersecurity",
+    name: "Executive Order 14028: Improving the Nation's Cybersecurity",
     shortName: "EO 14028",
     issuer: "White House",
     year: 2021,
@@ -97,7 +97,7 @@ const FRAMEWORKS: Framework[] = [
     requirements: [
       { id: "zt-1", text: "Verify all users and devices before granting access (never trust, always verify)", qvaultModule: "Zero Trust Alerts", status: "covered" },
       { id: "zt-2", text: "Use least-privilege access controls enforced at every transaction", qvaultModule: "Node Inventory (posture scoring)", status: "covered" },
-      { id: "zt-3", text: "Assume breach — monitor all network traffic continuously", qvaultModule: "Telemetry Feed", status: "covered" },
+      { id: "zt-3", text: "Assume breach. Monitor all network traffic continuously", qvaultModule: "Telemetry Feed", status: "covered" },
       { id: "zt-4", text: "Authenticate and authorize all connections using cryptography", qvaultModule: "Compliance Dashboard", status: "covered" },
       { id: "zt-5", text: "Collect and analyze security telemetry in real time", qvaultModule: "Command Center + Telemetry Feed", status: "covered" },
       { id: "zt-6", text: "Classify and protect all data based on sensitivity", qvaultModule: "CBOM Explorer", status: "partial" },
@@ -105,7 +105,7 @@ const FRAMEWORKS: Framework[] = [
   },
   {
     id: "fips205",
-    name: "FIPS 205 — Module-Lattice-Based Digital Signature Standard (ML-DSA)",
+    name: "FIPS 205: Module-Lattice-Based Digital Signature Standard (ML-DSA)",
     shortName: "FIPS 205",
     issuer: "NIST",
     year: 2024,
@@ -123,7 +123,7 @@ const FRAMEWORKS: Framework[] = [
   },
   {
     id: "fips206",
-    name: "FIPS 206 — Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM)",
+    name: "FIPS 206: Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM)",
     shortName: "FIPS 206",
     issuer: "NIST",
     year: 2024,
@@ -141,13 +141,13 @@ const FRAMEWORKS: Framework[] = [
   },
   {
     id: "sp800235",
-    name: "NIST SP 800-235 — Cryptographic Bill of Materials (CBOM)",
+    name: "NIST SP 800-235: Cryptographic Bill of Materials (CBOM)",
     shortName: "SP 800-235",
     issuer: "NIST",
     year: 2024,
     deadline: "Guidance (not yet mandatory)",
     color: "#008855",
-    description: "Defines the structure and content requirements for a Cryptographic Bill of Materials (CBOM) — a machine-readable inventory of all cryptographic assets in a software system or organization. Analogous to SBOM but focused on algorithms, key lengths, and protocols.",
+    description: "Defines the structure and content requirements for a Cryptographic Bill of Materials (CBOM): a machine-readable inventory of all cryptographic assets in a software system or organization. Analogous to SBOM but focused on algorithms, key lengths, and protocols.",
     scope: "Federal agencies, software vendors, critical infrastructure operators",
     url: "https://csrc.nist.gov/publications/detail/sp/800-235/draft",
     requirements: [
@@ -155,7 +155,7 @@ const FRAMEWORKS: Framework[] = [
       { id: "cbom-2", text: "Record algorithm name, key length, mode, and usage context", qvaultModule: "CBOM Explorer (detail view)", status: "covered" },
       { id: "cbom-3", text: "Map each cryptographic asset to the system or component using it", qvaultModule: "CBOM Explorer + Node Inventory", status: "covered" },
       { id: "cbom-4", text: "Identify deprecated or non-compliant algorithms in the CBOM", qvaultModule: "Compliance Dashboard", status: "covered" },
-      { id: "cbom-5", text: "Enable CBOM export in machine-readable format", qvaultModule: "CBOM Explorer (export — roadmap)", status: "roadmap" },
+      { id: "cbom-5", text: "Enable CBOM export in machine-readable format", qvaultModule: "CBOM Explorer (export, roadmap)", status: "roadmap" },
     ],
   },
 ];
@@ -225,7 +225,7 @@ function FrameworkCard({ fw }: { fw: Framework }) {
             <div className="rounded border border-border bg-secondary/20 p-3 flex items-center justify-between">
               <div>
                 <div className="mono text-muted-foreground/60 text-[9px] uppercase tracking-widest mb-1">Official Reference</div>
-                <div className="text-muted-foreground">{fw.shortName} — {fw.issuer}</div>
+                <div className="text-muted-foreground">{fw.shortName}: {fw.issuer}</div>
               </div>
               <a
                 href={fw.url}

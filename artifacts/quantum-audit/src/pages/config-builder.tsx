@@ -11,10 +11,10 @@ const OS_OPTIONS = [
 ];
 
 const COMPLIANCE_OPTIONS = [
-  { id: "cnsa20", label: "CNSA 2.0", short: "CNSA", desc: "NSA Commercial National Security Algorithm Suite 2.0 — required for NSS systems", color: "#f97316" },
+  { id: "cnsa20", label: "CNSA 2.0", short: "CNSA", desc: "NSA Commercial National Security Algorithm Suite 2.0: required for NSS systems", color: "#f97316" },
   { id: "nist80053", label: "NIST SP 800-53 rev5", short: "800-53", desc: "Security and Privacy Controls for Information Systems (SC-12, SC-13)", color: "#22d3ee" },
-  { id: "nist800207", label: "NIST SP 800-207", short: "ZTA", desc: "Zero Trust Architecture — cryptographic session verification requirements", color: "#a855f7" },
-  { id: "eo14028", label: "EO 14028", short: "EO", desc: "Executive Order on Improving the Nation's Cybersecurity — federal logging and PQC readiness", color: "#22c55e" },
+  { id: "nist800207", label: "NIST SP 800-207", short: "ZTA", desc: "Zero Trust Architecture: cryptographic session verification requirements", color: "#a855f7" },
+  { id: "eo14028", label: "EO 14028", short: "EO", desc: "Executive Order on Improving the Nation's Cybersecurity: federal logging and PQC readiness", color: "#22c55e" },
 ];
 
 const ENVIRONMENT_OPTIONS = [
@@ -256,7 +256,7 @@ export default function ConfigBuilder() {
           Your Custom Security Config in 30 Seconds
         </h1>
         <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
-          Select your operating system and compliance requirements. QVault generates a ready-to-deploy configuration for the entire data collection pipeline — no guesswork required.
+          Select your operating system and compliance requirements. QVault generates a ready-to-deploy configuration for the entire data collection pipeline, no guesswork required.
         </p>
       </div>
 
@@ -266,7 +266,7 @@ export default function ConfigBuilder() {
           {/* OS selector */}
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="font-mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-              <Settings className="w-3 h-3" /> Step 1 — Select Your Operating System
+              <Settings className="w-3 h-3" /> Step 1: Select Your Operating System
             </div>
             <div className="relative">
               <button
@@ -306,7 +306,7 @@ export default function ConfigBuilder() {
           {/* Compliance targets */}
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="font-mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-              <FileText className="w-3 h-3" /> Step 2 — Compliance Requirements (select all that apply)
+              <FileText className="w-3 h-3" /> Step 2: Compliance Requirements (select all that apply)
             </div>
             <div className="space-y-2">
               {COMPLIANCE_OPTIONS.map(opt => {
@@ -337,7 +337,7 @@ export default function ConfigBuilder() {
           {/* Environment */}
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="font-mono text-[9px] text-muted-foreground/50 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-              <Zap className="w-3 h-3" /> Step 3 — Target Environment
+              <Zap className="w-3 h-3" /> Step 3: Target Environment
             </div>
             <div className="relative">
               <button

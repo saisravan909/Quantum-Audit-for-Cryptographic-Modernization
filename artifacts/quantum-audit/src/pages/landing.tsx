@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Building2, Eye, Archive, Cpu, Unlock, Target, Monitor, ClipboardList, Bell, TrendingUp, Radio, Zap, CheckCircle, FileText, BarChart3, Lock, Scale, BookOpen, Landmark } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 /* ────────────────────────────────────────────────────────────
    Shared styles injected once
@@ -134,25 +135,25 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
 ──────────────────────────────────────────────────────────── */
 function HndlDiagram() {
   const steps = [
-    { icon: "🏛️", label: "Your Systems", sub: "RSA-2048 / ECC-256 encrypted traffic leaves your network every day", color: "#94a3b8" },
-    { icon: "🕵️", label: "Adversary Harvests", sub: "Nation-state actors intercept and archive encrypted sessions at scale", color: "#f87171" },
-    { icon: "🗄️", label: "Data Stored Cold", sub: "Archives sit in secure storage — unreadable today, waiting for tomorrow", color: "#fb923c" },
-    { icon: "⚛️", label: "CRQC Arrives ~2031", sub: "A cryptographically-relevant quantum computer breaks RSA and ECC in hours", color: "#facc15" },
-    { icon: "🔓", label: "Plaintext Revealed", sub: "Every archived session — years of classified data — becomes readable", color: "#f87171" },
+    { icon: Building2, label: "Your Systems", sub: "RSA-2048 / ECC-256 encrypted traffic leaves your network every day", color: "#94a3b8" },
+    { icon: Eye, label: "Adversary Harvests", sub: "Nation-state actors intercept and archive encrypted sessions at scale", color: "#f87171" },
+    { icon: Archive, label: "Data Stored Cold", sub: "Archives sit in secure storage, unreadable today and waiting for tomorrow", color: "#fb923c" },
+    { icon: Cpu, label: "CRQC Arrives ~2031", sub: "A cryptographically-relevant quantum computer breaks RSA and ECC in hours", color: "#facc15" },
+    { icon: Unlock, label: "Plaintext Revealed", sub: "Every archived session, years of classified data, becomes readable", color: "#f87171" },
   ];
   return (
     <div className="rounded-xl border border-red-500/20 bg-red-950/20 p-8">
       <div className="mono text-red-400/80 text-xs uppercase tracking-widest mb-6 text-center">
-        The HNDL Attack Chain — happening right now
+        The HNDL Attack Chain · Happening Right Now
       </div>
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-0">
         {steps.map((s, i) => (
           <div key={s.label} className="flex flex-col lg:flex-row items-center flex-1 min-w-0">
             {/* Node */}
             <div className="flex flex-col items-center text-center px-2 flex-1">
-              <div className="node-glow w-14 h-14 rounded-full border-2 flex items-center justify-center text-2xl mb-3 shrink-0"
+              <div className="node-glow w-14 h-14 rounded-full border-2 flex items-center justify-center mb-3 shrink-0"
                 style={{ borderColor: s.color + "60", background: s.color + "12" }}>
-                {s.icon}
+                <s.icon className="w-6 h-6" style={{ color: s.color }} />
               </div>
               <div className="font-semibold text-sm mb-1" style={{ color: s.color }}>{s.label}</div>
               <div className="text-slate-400 text-xs leading-relaxed max-w-[140px]">{s.sub}</div>
@@ -176,7 +177,7 @@ function HndlDiagram() {
       </div>
       <div className="mt-6 rounded-lg border border-orange-500/20 bg-orange-500/8 p-4 text-center">
         <p className="text-orange-200 text-sm leading-relaxed">
-          <strong className="text-orange-300">The risk is retroactive.</strong> Data encrypted yesterday with RSA-2048 is already archived and waiting to be decrypted. Migration cannot wait for the quantum computer to arrive — it has to happen before.
+          <strong className="text-orange-300">The risk is retroactive.</strong> Data encrypted yesterday with RSA-2048 is already archived and waiting to be decrypted. Migration cannot wait for the quantum computer to arrive; it has to happen before.
         </p>
       </div>
     </div>
@@ -189,17 +190,17 @@ function HndlDiagram() {
 function PipelineDiagram() {
   const sources = ["SCADA / ICS", "TLS Endpoints", "Cloud APIs", "On-Prem Servers", "IoT / OT Devices"];
   const modules = [
-    { icon: "🎯", label: "Command Center", color: "#ff8800", desc: "HNDL score, posture, risk" },
-    { icon: "🖥️", label: "Node Inventory", color: "#ff6600", desc: "Per-asset cipher audit" },
-    { icon: "📋", label: "CBOM Explorer", color: "#ff4400", desc: "NIST SP 800-235 output" },
-    { icon: "🚨", label: "Zero Trust Alerts", color: "#cc3300", desc: "Real-time violations" },
-    { icon: "📈", label: "Compliance Velocity", color: "#ff8800", desc: "CNSA 2.0 progress" },
-    { icon: "📡", label: "Telemetry Feed", color: "#ffaa00", desc: "eBPF event stream" },
+    { icon: Target, label: "Command Center", color: "#ff8800", desc: "HNDL score, posture, risk" },
+    { icon: Monitor, label: "Node Inventory", color: "#ff6600", desc: "Per-asset cipher audit" },
+    { icon: ClipboardList, label: "CBOM Explorer", color: "#ff4400", desc: "NIST SP 800-235 output" },
+    { icon: Bell, label: "Zero Trust Alerts", color: "#cc3300", desc: "Real-time violations" },
+    { icon: TrendingUp, label: "Compliance Velocity", color: "#ff8800", desc: "CNSA 2.0 progress" },
+    { icon: Radio, label: "Telemetry Feed", color: "#ffaa00", desc: "eBPF event stream" },
   ];
   return (
     <div className="rounded-xl border border-orange-500/20 bg-[#0b1120]/80 p-8">
       <div className="mono text-orange-400/80 text-xs uppercase tracking-widest mb-8 text-center">
-        How QVault Works — The Data Pipeline
+        How QVault Works: The Data Pipeline
       </div>
       <div className="flex flex-col gap-6">
         {/* Layer 1: Sources */}
@@ -252,13 +253,13 @@ function PipelineDiagram() {
 
         {/* Layer 3: Modules */}
         <div>
-          <div className="mono text-[10px] text-slate-500 uppercase tracking-widest mb-3 text-center">Dashboard Modules — Operator Visibility</div>
+          <div className="mono text-[10px] text-slate-500 uppercase tracking-widest mb-3 text-center">Dashboard Modules: Operator Visibility</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {modules.map(m => (
               <div key={m.label} className="rounded-lg border bg-[#0e1728]/80 p-4 hover:bg-orange-500/5 transition-colors"
                 style={{ borderColor: m.color + "33" }}>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-lg">{m.icon}</span>
+                  <m.icon className="w-4 h-4 shrink-0" style={{ color: m.color }} />
                   <span className="text-xs font-semibold" style={{ color: m.color }}>{m.label}</span>
                 </div>
                 <div className="text-slate-400 text-[11px] leading-relaxed">{m.desc}</div>
@@ -288,23 +289,23 @@ function MigrationJourneyDiagram() {
     { algo: "AES-256", use: "Symmetric encryption", safe: true },
   ];
   const phases = [
-    { phase: "1", title: "Inventory", desc: "CBOM scan all systems", icon: "📋", color: "#94a3b8" },
-    { phase: "2", title: "Prioritize", desc: "Score by HNDL exposure", icon: "🎯", color: "#fb923c" },
-    { phase: "3", title: "Migrate", desc: "Deploy ML-KEM / ML-DSA", icon: "⚡", color: "#ff8800" },
-    { phase: "4", title: "Verify", desc: "Telemetry confirms PQC", icon: "✅", color: "#4ade80" },
-    { phase: "5", title: "Report", desc: "NSM-10 evidence package", icon: "📄", color: "#60a5fa" },
+    { phase: "1", title: "Inventory", desc: "CBOM scan all systems", icon: ClipboardList, color: "#94a3b8" },
+    { phase: "2", title: "Prioritize", desc: "Score by HNDL exposure", icon: Target, color: "#fb923c" },
+    { phase: "3", title: "Migrate", desc: "Deploy ML-KEM / ML-DSA", icon: Zap, color: "#ff8800" },
+    { phase: "4", title: "Verify", desc: "Telemetry confirms PQC", icon: CheckCircle, color: "#4ade80" },
+    { phase: "5", title: "Report", desc: "NSM-10 evidence package", icon: FileText, color: "#60a5fa" },
   ];
   return (
     <div className="rounded-xl border border-green-500/20 bg-[#071210]/60 p-8 space-y-8">
       <div className="mono text-green-400/70 text-xs uppercase tracking-widest text-center">
-        The Migration Journey — Before and After
+        The Migration Journey: Before and After
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Before */}
         <div className="rounded-lg border border-red-500/20 bg-red-950/20 p-5">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <div className="mono text-red-400 text-xs uppercase tracking-widest">Current State — Vulnerable</div>
+            <div className="mono text-red-400 text-xs uppercase tracking-widest">Current State: Vulnerable</div>
           </div>
           <div className="space-y-2">
             {before.map(b => (
@@ -328,7 +329,7 @@ function MigrationJourneyDiagram() {
         <div className="rounded-lg border border-green-500/20 bg-green-950/20 p-5">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <div className="mono text-green-400 text-xs uppercase tracking-widest">Target State — Quantum-Safe</div>
+            <div className="mono text-green-400 text-xs uppercase tracking-widest">Target State: Quantum-Safe</div>
           </div>
           <div className="space-y-2">
             {after.map(a => (
@@ -352,9 +353,9 @@ function MigrationJourneyDiagram() {
           {phases.map((p, i) => (
             <div key={p.phase} className="flex sm:flex-col items-center sm:items-start flex-1">
               <div className="flex sm:flex-col items-center sm:items-start gap-2 sm:gap-1 flex-1 px-3 py-2 sm:py-0">
-                <div className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-lg shrink-0"
+                <div className="w-8 h-8 rounded-full border-2 flex items-center justify-center shrink-0"
                   style={{ borderColor: p.color + "60", background: p.color + "15" }}>
-                  {p.icon}
+                  <p.icon className="w-4 h-4" style={{ color: p.color }} />
                 </div>
                 <div>
                   <div className="text-xs font-bold" style={{ color: p.color }}>{p.phase}. {p.title}</div>
@@ -403,11 +404,11 @@ function SectionHeader({ eyebrow, heading, sub }: { eyebrow: string; heading: Re
 /* ────────────────────────────────────────────────────────────
    Benefit row
 ──────────────────────────────────────────────────────────── */
-function BenefitRow({ icon, title, body }: { icon: string; title: string; body: string }) {
+function BenefitRow({ icon: Icon, title, body }: { icon: LucideIcon; title: string; body: string }) {
   return (
     <div className="flex gap-5 items-start group p-5 rounded-xl border border-white/5 bg-white/[0.02] hover:border-orange-500/25 hover:bg-orange-500/4 transition-all duration-300">
-      <div className="shrink-0 w-11 h-11 rounded-full border border-orange-500/30 bg-orange-500/10 flex items-center justify-center text-xl">
-        {icon}
+      <div className="shrink-0 w-11 h-11 rounded-full border border-orange-500/30 bg-orange-500/10 flex items-center justify-center">
+        <Icon className="w-5 h-5 text-orange-400" />
       </div>
       <div>
         <h4 className="text-slate-100 font-semibold text-sm tracking-wide mb-1.5">{title}</h4>
@@ -495,20 +496,22 @@ export default function LandingPage() {
       <Section style={{ backgroundColor: "#060b16" }} className="border-t border-orange-500/8">
         <div className="max-w-5xl mx-auto space-y-14">
           <SectionHeader
-            eyebrow="Chapter 1 — The Threat"
+            eyebrow="Chapter 1: The Threat"
             heading={<>The Quantum Clock<br /><span className="gradient-text">Is Already Ticking</span></>}
-            sub="Nation-state adversaries are executing Harvest Now, Decrypt Later attacks today — silently archiving your encrypted traffic to decrypt it once quantum computers are powerful enough. Your RSA-2048 and ECC keys are already being collected."
+            sub="Nation-state adversaries are executing Harvest Now, Decrypt Later attacks today, silently archiving your encrypted traffic to decrypt it once quantum computers are powerful enough. Your RSA-2048 and ECC keys are already being collected."
           />
           <HndlDiagram />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { icon: "⚛️", color: "#a78bfa", title: "CRQC Timeline: 2029 to 2033", body: "IBM, Google, and Microsoft all project fault-tolerant quantum computers capable of breaking RSA within this decade. CNSA 2.0 mandates full PQC adoption no later than 2030 for National Security Systems." },
-              { icon: "🏛️", color: "#fb923c", title: "Regulatory Mandates Are Active", body: "NSM-10 requires annual cryptographic inventories. EO 14028 mandates Zero Trust and encrypted communications. CNSA 2.0 formally deprecates RSA, ECDSA, and ECDH. Non-compliance risks mission failure." },
-              { icon: "📊", color: "#34d399", title: "Most Organizations Are Unprepared", body: "CISA estimates fewer than 20% of federal agencies have completed a cryptographic inventory. Without an inventory, there is no migration plan. Without a plan, there is no compliance." },
+              { icon: Cpu, color: "#a78bfa", title: "CRQC Timeline: 2029 to 2033", body: "IBM, Google, and Microsoft all project fault-tolerant quantum computers capable of breaking RSA within this decade. CNSA 2.0 mandates full PQC adoption no later than 2030 for National Security Systems." },
+              { icon: Landmark, color: "#fb923c", title: "Regulatory Mandates Are Active", body: "NSM-10 requires annual cryptographic inventories. EO 14028 mandates Zero Trust and encrypted communications. CNSA 2.0 formally deprecates RSA, ECDSA, and ECDH. Non-compliance risks mission failure." },
+              { icon: BarChart3, color: "#34d399", title: "Most Organizations Are Unprepared", body: "CISA estimates fewer than 20% of federal agencies have completed a cryptographic inventory. Without an inventory, there is no migration plan. Without a plan, there is no compliance." },
             ].map(c => (
               <div key={c.title} className="rounded-xl border bg-white/[0.02] p-6 hover:border-opacity-50 transition-all"
                 style={{ borderColor: c.color + "30" }}>
-                <div className="text-3xl mb-3">{c.icon}</div>
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3" style={{ background: c.color + "15" }}>
+                  <c.icon className="w-5 h-5" style={{ color: c.color }} />
+                </div>
                 <h3 className="font-semibold text-sm mb-2" style={{ color: c.color }}>{c.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{c.body}</p>
               </div>
@@ -521,7 +524,7 @@ export default function LandingPage() {
       <Section className="border-t border-orange-500/8 grid-bg">
         <div className="max-w-5xl mx-auto space-y-14">
           <SectionHeader
-            eyebrow="Chapter 2 — The Solution"
+            eyebrow="Chapter 2: The Solution"
             heading={<>QVault Gives You <span className="gradient-text">Complete Visibility</span></>}
             sub="QVault is a real-time, open-source cryptographic governance platform built for the organizations that operate National Security Systems, critical infrastructure, and regulated enterprise environments. It answers the question every CISO needs answered: where exactly are we exposed, and how fast are we fixing it?"
           />
@@ -544,16 +547,18 @@ export default function LandingPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: "Command Center", desc: "Unified threat and compliance overview", icon: "🎯", color: "#ff8800" },
-                { label: "Node Inventory", desc: "Per-asset cryptographic posture scoring", icon: "🖥️", color: "#ff6600" },
-                { label: "CBOM Explorer", desc: "Machine-readable crypto bill of materials", icon: "📋", color: "#ff4400" },
-                { label: "Zero Trust Alerts", desc: "Real-time policy violation stream", icon: "🚨", color: "#cc3300" },
-                { label: "Compliance Velocity", desc: "CNSA 2.0 migration progress tracker", icon: "📈", color: "#ff8800" },
-                { label: "Telemetry Feed", desc: "eBPF and protocol-level event stream", icon: "📡", color: "#ffaa00" },
+                { label: "Command Center", desc: "Unified threat and compliance overview", icon: Target, color: "#ff8800" },
+                { label: "Node Inventory", desc: "Per-asset cryptographic posture scoring", icon: Monitor, color: "#ff6600" },
+                { label: "CBOM Explorer", desc: "Machine-readable crypto bill of materials", icon: ClipboardList, color: "#ff4400" },
+                { label: "Zero Trust Alerts", desc: "Real-time policy violation stream", icon: Bell, color: "#cc3300" },
+                { label: "Compliance Velocity", desc: "CNSA 2.0 migration progress tracker", icon: TrendingUp, color: "#ff8800" },
+                { label: "Telemetry Feed", desc: "eBPF and protocol-level event stream", icon: Radio, color: "#ffaa00" },
               ].map(m => (
                 <div key={m.label} className="rounded-xl border p-5 hover:bg-white/[0.04] transition-all duration-300 cursor-default"
                   style={{ borderColor: m.color + "25", backgroundColor: m.color + "08" }}>
-                  <div className="text-2xl mb-2">{m.icon}</div>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ background: m.color + "15" }}>
+                    <m.icon className="w-4 h-4" style={{ color: m.color }} />
+                  </div>
                   <div className="text-xs font-bold mb-1" style={{ color: m.color }}>{m.label}</div>
                   <div className="text-slate-500 text-xs leading-relaxed">{m.desc}</div>
                 </div>
@@ -567,9 +572,9 @@ export default function LandingPage() {
       <Section style={{ backgroundColor: "#060b16" }} className="border-t border-orange-500/8">
         <div className="max-w-5xl mx-auto space-y-14">
           <SectionHeader
-            eyebrow="Chapter 3 — The Migration"
+            eyebrow="Chapter 3: The Migration"
             heading={<>From Vulnerable to <span className="gradient-text">Quantum-Safe</span></>}
-            sub="Cryptographic modernization is not a one-time event — it is a structured journey. QVault guides your organization through every phase, from initial inventory to verified deployment and regulatory reporting."
+            sub="Cryptographic modernization is not a one-time event. It is a structured journey. QVault guides your organization through every phase, from initial inventory to verified deployment and regulatory reporting."
           />
           <MigrationJourneyDiagram />
         </div>
@@ -579,22 +584,22 @@ export default function LandingPage() {
       <Section className="border-t border-orange-500/8 grid-bg">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
-            eyebrow="Chapter 4 — The Audience"
+            eyebrow="Chapter 4: The Audience"
             heading={<>Built for Those Who <span className="gradient-text">Secure What Matters</span></>}
             sub="Every role in the PQC migration lifecycle has a specific job to do. QVault is designed so each person can do their job without waiting on someone else."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <BenefitRow icon="🏛️" title="Federal CISOs and Mission Owners"
-              body="Executive-level visibility into cryptographic risk, compliance gaps, and CNSA 2.0 migration velocity — ready for DepSecDef briefings and OMB reporting." />
-            <BenefitRow icon="🔐" title="Cryptographers and Security Engineers"
+            <BenefitRow icon={Landmark} title="Federal CISOs and Mission Owners"
+              body="Executive-level visibility into cryptographic risk, compliance gaps, and CNSA 2.0 migration velocity, ready for DepSecDef briefings and OMB reporting." />
+            <BenefitRow icon={Lock} title="Cryptographers and Security Engineers"
               body="Deep per-algorithm telemetry, CBOM dependency views, and protocol-level events. Find deprecated cipher usage before it becomes an audit finding." />
-            <BenefitRow icon="⚖️" title="Compliance and Risk Officers"
+            <BenefitRow icon={Scale} title="Compliance and Risk Officers"
               body="Map your cryptographic estate to NIST 800-207, NSM-10, EO 14028, and CNSA 2.0. Generate evidence packages and track remediation progress toward deadlines." />
-            <BenefitRow icon="⚡" title="Critical Infrastructure Operators"
+            <BenefitRow icon={Zap} title="Critical Infrastructure Operators"
               body="Protect power grids, water systems, financial rails, and telecom backbones. Monitor OT and IT cryptographic convergence without disrupting operations." />
-            <BenefitRow icon="🎓" title="Researchers and Academic Institutions"
+            <BenefitRow icon={BookOpen} title="Researchers and Academic Institutions"
               body="An open, extensible PQC telemetry platform for studying real-world migration patterns, algorithm adoption rates, and Zero Trust implementation challenges." />
-            <BenefitRow icon="🏢" title="Defense Contractors and System Integrators"
+            <BenefitRow icon={Building2} title="Defense Contractors and System Integrators"
               body="Demonstrate CMMC, FedRAMP, and STIG cryptographic compliance to DoD primes. Accelerate ATO packages with automated cryptographic evidence generation." />
           </div>
         </div>
@@ -717,7 +722,7 @@ export default function LandingPage() {
           </h2>
           <p className="text-slate-400 text-base leading-relaxed">
             Every day without a cryptographic inventory is another day of compounding HNDL risk.
-            QVault gives you the visibility to answer that question in under 30 seconds — and a roadmap to fix it.
+            QVault gives you the visibility to answer that question in under 30 seconds, and a roadmap to fix it.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
-import { ChevronRight, ChevronLeft, Play, RotateCcw, Zap, Shield, AlertTriangle, CheckCircle, Clock, Activity } from "lucide-react";
+import { ChevronRight, ChevronLeft, Play, RotateCcw, Zap, Shield, AlertTriangle, CheckCircle, Clock, Activity, Compass, Monitor, ClipboardList, TrendingUp, Bell, Radio, Target } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const GUIDED_STEPS = [
   {
@@ -8,33 +9,33 @@ const GUIDED_STEPS = [
     module: "Command Center",
     path: "/",
     title: "Start with the Big Picture",
-    description: "The Command Center gives your security team an instant operational snapshot. HNDL Exposure Score, active alerts, compliance velocity, and cryptographic posture — all live, all in one place. A federal CISO can answer 'are we quantum-ready?' in under 30 seconds.",
+    description: "The Command Center gives your security team an instant operational snapshot. HNDL Exposure Score, active alerts, compliance velocity, and cryptographic posture, all live and in one place. A federal CISO can answer 'are we quantum-ready?' in under 30 seconds.",
     operator: "Security Operations Lead",
     action: "Reviews daily cryptographic risk posture before morning stand-up",
     callout: "The HNDL Exposure Score aggregates your RSA and ECC exposure into a single mission-critical number. Lower is better. Zero means fully PQC-migrated.",
-    icon: "🎯",
+    icon: Target,
   },
   {
     id: 2,
     module: "Node Inventory",
     path: "/nodes",
     title: "Know Every Asset",
-    description: "Every system running cryptography is a potential HNDL target. The Node Inventory maps your entire estate — each node's algorithm suite, certificate expiry, TLS version, and compliance status. You cannot migrate what you have not mapped.",
+    description: "Every system running cryptography is a potential HNDL target. The Node Inventory maps your entire estate: each node's algorithm suite, certificate expiry, TLS version, and compliance status. You cannot migrate what you have not mapped.",
     operator: "Cryptographic Asset Manager",
     action: "Identifies nodes still running RSA-2048 for prioritized remediation",
     callout: "Filter by algorithm type to instantly surface all RSA and ECDH nodes. Each node shows its exact cipher suite, so engineers know exactly what to replace.",
-    icon: "🖥️",
+    icon: Monitor,
   },
   {
     id: 3,
     module: "CBOM Explorer",
     path: "/cbom",
     title: "Generate Your Cryptographic BOM",
-    description: "The Cryptographic Bill of Materials (CBOM) is required by NIST SP 800-235 and increasingly expected in ATO packages. QVault auto-generates it from live telemetry — no manual spreadsheets, no gaps.",
+    description: "The Cryptographic Bill of Materials (CBOM) is required by NIST SP 800-235 and increasingly expected in ATO packages. QVault auto-generates it from live telemetry, with no manual spreadsheets or gaps.",
     operator: "Compliance Officer",
     action: "Pulls CBOM to attach to quarterly ATO evidence package",
-    callout: "Every cryptographic dependency — algorithm, key length, usage context, owning node — is catalogued. This is your ground truth for migration planning.",
-    icon: "📋",
+    callout: "Every cryptographic dependency: algorithm, key length, usage context, and owning node, is catalogued. This is your ground truth for migration planning.",
+    icon: ClipboardList,
   },
   {
     id: 4,
@@ -45,29 +46,29 @@ const GUIDED_STEPS = [
     operator: "Program Manager",
     action: "Pulls compliance velocity report for DepSecDef quarterly review",
     callout: "Each framework has its own progress bar and deadline countdown. Red means at risk. Green means on track. The velocity trend shows whether you are accelerating or slipping.",
-    icon: "📈",
+    icon: TrendingUp,
   },
   {
     id: 5,
     module: "Zero Trust Alerts",
     path: "/alerts",
     title: "Catch Violations in Real Time",
-    description: "Zero Trust means never trusting, always verifying — and alerting immediately when a policy is violated. The Alerts Center streams cryptographic policy violations as they happen, with severity classification and affected node attribution.",
+    description: "Zero Trust means never trusting, always verifying, alerting immediately when a policy is violated. The Alerts Center streams cryptographic policy violations as they happen, with severity classification and affected node attribution.",
     operator: "Security Analyst",
     action: "Investigates a critical alert: RSA-2048 key exchange detected on classified segment",
     callout: "Critical alerts fire when deprecated algorithms are negotiated on monitored segments. Each alert includes the node, timestamp, algorithm detected, and recommended remediation step.",
-    icon: "🚨",
+    icon: Bell,
   },
   {
     id: 6,
     module: "Telemetry Feed",
     path: "/telemetry",
     title: "Protocol-Level Visibility",
-    description: "eBPF-level telemetry captures every cryptographic event — TLS handshakes, cipher suite negotiations, key exchange outcomes, and algorithm transitions. This is the raw intelligence layer that powers every other module.",
+    description: "eBPF-level telemetry captures every cryptographic event: TLS handshakes, cipher suite negotiations, key exchange outcomes, and algorithm transitions. This is the raw intelligence layer that powers every other module.",
     operator: "Cryptographic Engineer",
     action: "Validates that ML-KEM-768 is being negotiated on all new TLS connections",
     callout: "The telemetry stream shows the exact algorithm negotiated per connection. When you deploy a PQC update, you can confirm adoption here within seconds.",
-    icon: "📡",
+    icon: Radio,
   },
 ];
 
@@ -79,12 +80,12 @@ const SCENARIO_STEPS = [
     color: "#ff4400",
     title: "HNDL Alert Triggered at Cascade Valley Power",
     org: "Cascade Valley Regional Power Authority",
-    description: "QVault's telemetry collector detects a sustained pattern of encrypted traffic being mirrored to an external IP range associated with a known nation-state collection infrastructure. The traffic is encrypted with RSA-2048 — a HNDL-vulnerable cipher. An automated critical alert fires.",
+    description: "QVault's telemetry collector detects a sustained pattern of encrypted traffic being mirrored to an external IP range associated with a known nation-state collection infrastructure. The traffic is encrypted with RSA-2048, a HNDL-vulnerable cipher. An automated critical alert fires.",
     module: "Zero Trust Alerts",
     path: "/alerts",
     finding: "17 RSA-2048 encrypted sessions captured and mirrored in the last 4 hours. Destination: 185.220.x.x (known SIGINT collection range). Sessions include SCADA control plane communications.",
     action: "Alert escalated to on-call security lead. Incident declared.",
-    icon: "🚨",
+    icon: Bell,
     severity: "CRITICAL",
   },
   {
@@ -92,14 +93,14 @@ const SCENARIO_STEPS = [
     time: "07:02 UTC",
     phase: "Scoping",
     color: "#ff6600",
-    title: "CBOM Pulled — Scope of Exposure Mapped",
+    title: "CBOM Pulled: Scope of Exposure Mapped",
     org: "Cascade Valley Regional Power Authority",
     description: "The incident team opens the CBOM Explorer to understand exactly which systems are running RSA-2048 and what data those sessions carry. The CBOM instantly shows 4 SCADA nodes, 2 historian servers, and 1 EMS gateway as the affected assets.",
     module: "CBOM Explorer",
     path: "/cbom",
     finding: "7 systems identified. All running RSA-2048 key encapsulation. Zero ML-KEM deployment. Estimated data exposure window: 14 months of archived traffic.",
     action: "Affected systems isolated from external routing. CISA notified per sector coordination agreement.",
-    icon: "📋",
+    icon: ClipboardList,
     severity: "HIGH",
   },
   {
@@ -109,12 +110,12 @@ const SCENARIO_STEPS = [
     color: "#ffaa00",
     title: "Compliance Velocity Gap Quantified",
     org: "Cascade Valley Regional Power Authority",
-    description: "The compliance team pulls the Compliance Velocity report to understand how far behind CNSA 2.0 migration the organization actually is. The report shows 23% PQC adoption across monitored endpoints — well below the 60% milestone that should have been reached by Q4 2025.",
+    description: "The compliance team pulls the Compliance Velocity report to understand how far behind CNSA 2.0 migration the organization actually is. The report shows 23% PQC adoption across monitored endpoints, well below the 60% milestone that should have been reached by Q4 2025.",
     module: "Compliance Velocity",
     path: "/compliance",
     finding: "CNSA 2.0 compliance at 23%. 31 endpoints still running RSA or ECC exclusively. ML-KEM-768 deployed on 8 endpoints. Migration velocity insufficient to meet 2028 NSS deadline.",
     action: "Emergency migration plan drafted. Board briefing scheduled for 09:00.",
-    icon: "📈",
+    icon: TrendingUp,
     severity: "HIGH",
   },
   {
@@ -129,7 +130,7 @@ const SCENARIO_STEPS = [
     path: "/nodes",
     finding: "4 SCADA nodes updated to ML-KEM-768 within 2 hours using pre-staged PQC libraries. 3 historian servers queued for maintenance window. TLS 1.3 enforced on all updated nodes.",
     action: "Telemetry confirms ML-KEM-768 negotiation on all updated nodes. Alerts cleared.",
-    icon: "🖥️",
+    icon: Monitor,
     severity: "MEDIUM",
   },
   {
@@ -144,7 +145,7 @@ const SCENARIO_STEPS = [
     path: "/telemetry",
     finding: "4 SCADA nodes: 100% ML-KEM-768 negotiation. 0 RSA events in 6-hour window. 3 historian servers: pending maintenance window. Estimated full remediation: 72 hours.",
     action: "Incident downgraded. CISA notified of partial remediation. Evidence package generated for sector ISAC.",
-    icon: "📡",
+    icon: Radio,
     severity: "LOW",
   },
   {
@@ -152,14 +153,14 @@ const SCENARIO_STEPS = [
     time: "T+72 hours",
     phase: "Closure",
     color: "#00aaff",
-    title: "Full Migration Complete — Posture Restored",
+    title: "Full Migration Complete: Posture Restored",
     org: "Cascade Valley Regional Power Authority",
     description: "All 7 systems migrated to ML-KEM-768. CNSA 2.0 compliance for affected segment rises from 23% to 61%. The Command Center HNDL Exposure Score drops from 74 (critical) to 18 (low). Full incident report filed with CISA and sector ISAC. Lessons learned incorporated into migration roadmap.",
     module: "Command Center",
     path: "/",
     finding: "HNDL Exposure Score: 18 (was 74). PQC adoption on critical segment: 100%. CNSA 2.0 overall velocity: 61%. Zero deprecated algorithm events in 72-hour clean window.",
     action: "Incident closed. Playbook updated. Board received final briefing. Migration acceleration plan approved.",
-    icon: "🎯",
+    icon: CheckCircle,
     severity: "RESOLVED",
   },
 ];
@@ -215,7 +216,9 @@ export default function DemoPage() {
             onClick={() => { setMode("guided"); setStep(0); }}
             className="group text-left rounded-lg border border-orange-500/30 bg-card p-7 hover:border-orange-500/70 hover:bg-orange-500/5 transition-all duration-300"
           >
-            <div className="text-4xl mb-4">🧭</div>
+            <div className="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-4">
+              <Compass className="w-6 h-6 text-orange-400" />
+            </div>
             <div className="font-mono text-orange-400 text-xs uppercase tracking-widest mb-2">Option 1</div>
             <h2 className="text-xl font-bold text-foreground mb-3">Interactive Guided Tour</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
@@ -231,11 +234,13 @@ export default function DemoPage() {
             onClick={() => { setMode("scenario"); setStep(0); }}
             className="group text-left rounded-lg border border-red-500/30 bg-card p-7 hover:border-red-500/60 hover:bg-red-500/5 transition-all duration-300"
           >
-            <div className="text-4xl mb-4">⚡</div>
+            <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4">
+              <Zap className="w-6 h-6 text-red-400" />
+            </div>
             <div className="font-mono text-red-400 text-xs uppercase tracking-widest mb-2">Option 2</div>
             <h2 className="text-xl font-bold text-foreground mb-3">Scenario Simulator</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Follow Cascade Valley Power Authority through a live HNDL quantum threat event — from initial detection
+              Follow Cascade Valley Power Authority through a live HNDL quantum threat event, from initial detection
               at 06:47 UTC to full remediation 72 hours later. Real modules, real data.
             </p>
             <div className="flex items-center gap-2 text-red-400 text-sm font-mono">
@@ -346,7 +351,9 @@ function GuidedStepCard({ step, onNavigate }: { step: typeof GUIDED_STEPS[0]; on
   return (
     <div className="rounded-lg border border-orange-500/25 bg-card overflow-hidden">
       <div className="bg-orange-500/8 border-b border-orange-500/20 p-6 flex items-start gap-5">
-        <div className="text-5xl shrink-0">{step.icon}</div>
+        <div className="shrink-0 w-12 h-12 rounded-xl bg-orange-500/15 border border-orange-500/25 flex items-center justify-center">
+          <step.icon className="w-6 h-6 text-orange-400" />
+        </div>
         <div className="flex-1">
           <div className="font-mono text-xs text-orange-500 uppercase tracking-widest mb-1">{step.module}</div>
           <h2 className="text-2xl font-bold text-foreground mb-2">{step.title}</h2>
@@ -371,7 +378,9 @@ function GuidedStepCard({ step, onNavigate }: { step: typeof GUIDED_STEPS[0]; on
         </div>
         <div className="flex flex-col gap-4">
           <div className="rounded border border-border bg-secondary/10 p-5 flex-1 flex flex-col items-center justify-center text-center gap-3">
-            <div className="text-3xl">{step.icon}</div>
+            <div className="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+              <step.icon className="w-5 h-5 text-orange-400" />
+            </div>
             <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest">{step.module}</div>
             <p className="text-muted-foreground text-xs">Click below to explore this module live in QVault</p>
           </div>
@@ -395,7 +404,9 @@ function ScenarioStepCard({ step, onNavigate }: { step: typeof SCENARIO_STEPS[0]
     <div className="rounded-lg border bg-card overflow-hidden" style={{ borderColor: step.color + "44" }}>
       <div className="p-6 border-b" style={{ borderColor: step.color + "33", background: step.color + "0a" }}>
         <div className="flex items-start gap-4 flex-wrap">
-          <div className="text-4xl shrink-0">{step.icon}</div>
+          <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: step.color + "15", border: `1px solid ${step.color}30` }}>
+            <step.icon className="w-5 h-5" style={{ color: step.color }} />
+          </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-2 flex-wrap">
               <span className="font-mono text-xs uppercase tracking-widest px-2 py-0.5 rounded border" style={{ color: step.color, borderColor: step.color + "55", background: step.color + "22" }}>

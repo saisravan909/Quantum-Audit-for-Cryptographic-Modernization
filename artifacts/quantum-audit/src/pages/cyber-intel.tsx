@@ -130,7 +130,7 @@ const ZT_LEVELS = [
     description: "Full Zero Trust with complete PQC migration. Cryptographic agility built into architecture.",
     criteria: [
       "100% PQC adoption across all systems",
-      "Cryptographic agility — algorithm updates without re-architecture",
+      "Cryptographic agility: algorithm updates without re-architecture",
       "Automated CBOM generation and continuous comparison",
       "CNSA 2.0 fully compliant across all segments",
     ],

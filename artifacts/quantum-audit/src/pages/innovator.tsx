@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Lock, Building2, Globe, Users } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function InnovatorPage() {
@@ -202,14 +204,16 @@ export default function InnovatorPage() {
 
             {/* Contribution cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-              {[
-                { icon: "🔐", label: "PQC Research", desc: "ML-KEM, ML-DSA algorithm adoption tracking" },
-                { icon: "🏛️", label: "Federal Focus", desc: "NSS, CMMC, FedRAMP compliance tooling" },
-                { icon: "🌐", label: "Open Infra", desc: "MIT licensed, fork-friendly architecture" },
-                { icon: "🤝", label: "Community", desc: "PRs, issues, and discussions always welcome" },
-              ].map(({ icon, label, desc }) => (
+              {([
+                { icon: Lock, label: "PQC Research", desc: "ML-KEM, ML-DSA algorithm adoption tracking" },
+                { icon: Building2, label: "Federal Focus", desc: "NSS, CMMC, FedRAMP compliance tooling" },
+                { icon: Globe, label: "Open Infra", desc: "MIT licensed, fork-friendly architecture" },
+                { icon: Users, label: "Community", desc: "PRs, issues, and discussions always welcome" },
+              ] as { icon: LucideIcon; label: string; desc: string }[]).map(({ icon: Icon, label, desc }) => (
                 <div key={label} className="rounded-lg border border-orange-500/15 bg-orange-500/5 p-4 text-center hover:border-orange-500/35 transition-colors">
-                  <div className="text-2xl mb-2">{icon}</div>
+                  <div className="flex justify-center mb-2">
+                    <Icon className="w-6 h-6 text-orange-400" />
+                  </div>
                   <div className="orbitron text-orange-400 text-[10px] font-bold uppercase tracking-wider mb-1">{label}</div>
                   <div className="text-gray-500 text-[10px] leading-relaxed">{desc}</div>
                 </div>
