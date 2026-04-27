@@ -1,22 +1,32 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Quantum Audit Command Center API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: nodes
+    description: Infrastructure node management
+  - name: telemetry
+    description: TLS handshake telemetry
+  - name: compliance
+    description: CNSA 2.0 / NIST compliance
+  - name: cbom
+    description: Cryptographic Bill of Materials
+  - name: alerts
+    description: Zero Trust alerts
+  - name: dashboard
+    description: Dashboard aggregates
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +34,377 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /nodes:
+    get:
+      operationId: listNodes
+      tags: [nodes]
+      summary: List all infrastructure nodes
+      responses:
+        "200":
+          description: List of nodes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Node"
+    post:
+      operationId: createNode
+      tags: [nodes]
+      summary: Register a new node
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNodeBody"
+      responses:
+        "201":
+          description: Created node
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Node"
+
+  /nodes/{id}:
+    get:
+      operationId: getNode
+      tags: [nodes]
+      summary: Get node by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Node
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Node"
+    patch:
+      operationId: updateNode
+      tags: [nodes]
+      summary: Update a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateNodeBody"
+      responses:
+        "200":
+          description: Updated node
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Node"
+    delete:
+      operationId: deleteNode
+      tags: [nodes]
+      summary: Delete a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /nodes/{id}/risk-score:
+    get:
+      operationId: getNodeRiskScore
+      tags: [nodes]
+      summary: Get ML-driven quantum risk score for a node
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Risk score details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeRiskScore"
+
+  /telemetry:
+    get:
+      operationId: listTelemetry
+      tags: [telemetry]
+      summary: List TLS handshake telemetry events
+      parameters:
+        - name: nodeId
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: Telemetry events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TelemetryEvent"
+    post:
+      operationId: createTelemetryEvent
+      tags: [telemetry]
+      summary: Ingest a TLS handshake telemetry event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTelemetryEventBody"
+      responses:
+        "201":
+          description: Created event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TelemetryEvent"
+
+  /telemetry/stream:
+    get:
+      operationId: getTelemetryStream
+      tags: [telemetry]
+      summary: Get recent telemetry stream (last 20 events) for live feed
+      responses:
+        "200":
+          description: Recent telemetry stream
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TelemetryEvent"
+
+  /compliance:
+    get:
+      operationId: listCompliance
+      tags: [compliance]
+      summary: List compliance assessments
+      responses:
+        "200":
+          description: Compliance records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ComplianceRecord"
+
+  /compliance/velocity:
+    get:
+      operationId: getComplianceVelocity
+      tags: [compliance]
+      summary: Get PQC adoption velocity metrics over time
+      responses:
+        "200":
+          description: Velocity data points
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VelocityDataPoint"
+
+  /compliance/overview:
+    get:
+      operationId: getComplianceOverview
+      tags: [compliance]
+      summary: Aggregated compliance overview for all nodes
+      responses:
+        "200":
+          description: Compliance overview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComplianceOverview"
+
+  /cbom:
+    get:
+      operationId: listCbom
+      tags: [cbom]
+      summary: List Cryptographic Bill of Materials entries
+      responses:
+        "200":
+          description: CBOM entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CbomEntry"
+    post:
+      operationId: createCbomEntry
+      tags: [cbom]
+      summary: Add a CBOM entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCbomEntryBody"
+      responses:
+        "201":
+          description: Created CBOM entry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CbomEntry"
+
+  /cbom/{id}:
+    patch:
+      operationId: updateCbomEntry
+      tags: [cbom]
+      summary: Update a CBOM entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCbomEntryBody"
+      responses:
+        "200":
+          description: Updated CBOM entry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CbomEntry"
+    delete:
+      operationId: deleteCbomEntry
+      tags: [cbom]
+      summary: Delete a CBOM entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /alerts:
+    get:
+      operationId: listAlerts
+      tags: [alerts]
+      summary: List Zero Trust alerts
+      responses:
+        "200":
+          description: Alerts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Alert"
+    post:
+      operationId: createAlert
+      tags: [alerts]
+      summary: Create a new alert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAlertBody"
+      responses:
+        "201":
+          description: Created alert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
+
+  /alerts/{id}/acknowledge:
+    post:
+      operationId: acknowledgeAlert
+      tags: [alerts]
+      summary: Acknowledge an alert
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Acknowledged alert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
+
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Full command center summary — node counts, risk distribution, HNDL exposure, compliance rate
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
+  /dashboard/hndl-exposure:
+    get:
+      operationId: getHndlExposure
+      tags: [dashboard]
+      summary: HNDL (Harvest Now Decrypt Later) exposure timeline data
+      responses:
+        "200":
+          description: HNDL exposure data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HndlDataPoint"
+
+  /dashboard/algorithm-breakdown:
+    get:
+      operationId: getAlgorithmBreakdown
+      tags: [dashboard]
+      summary: Breakdown of cryptographic algorithms in use across all nodes
+      responses:
+        "200":
+          description: Algorithm breakdown
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlgorithmBreakdown"
+
 components:
   schemas:
     HealthStatus:
@@ -31,6 +412,411 @@ components:
       properties:
         status:
           type: string
-      required:
-        - status
+      required: [status]
 
+    Node:
+      type: object
+      properties:
+        id:
+          type: integer
+        hostname:
+          type: string
+        ipAddress:
+          type: string
+        environment:
+          type: string
+          enum: [production, staging, development, federal]
+        tlsVersion:
+          type: string
+        opensslVersion:
+          type: string
+        kernelVersion:
+          type: string
+        pqcEnabled:
+          type: boolean
+        riskScore:
+          type: number
+        status:
+          type: string
+          enum: [compliant, at-risk, critical, migrating]
+        lastSeen:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, hostname, ipAddress, environment, tlsVersion, opensslVersion, kernelVersion, pqcEnabled, riskScore, status, lastSeen, createdAt]
+
+    CreateNodeBody:
+      type: object
+      properties:
+        hostname:
+          type: string
+        ipAddress:
+          type: string
+        environment:
+          type: string
+          enum: [production, staging, development, federal]
+        tlsVersion:
+          type: string
+        opensslVersion:
+          type: string
+        kernelVersion:
+          type: string
+        pqcEnabled:
+          type: boolean
+      required: [hostname, ipAddress, environment, tlsVersion, opensslVersion, kernelVersion, pqcEnabled]
+
+    UpdateNodeBody:
+      type: object
+      properties:
+        hostname:
+          type: string
+        tlsVersion:
+          type: string
+        opensslVersion:
+          type: string
+        kernelVersion:
+          type: string
+        pqcEnabled:
+          type: boolean
+        status:
+          type: string
+          enum: [compliant, at-risk, critical, migrating]
+
+    NodeRiskScore:
+      type: object
+      properties:
+        nodeId:
+          type: integer
+        score:
+          type: number
+        factors:
+          type: array
+          items:
+            type: object
+            properties:
+              factor:
+                type: string
+              weight:
+                type: number
+              value:
+                type: string
+            required: [factor, weight, value]
+        recommendation:
+          type: string
+        cnsa20Compliance:
+          type: number
+        predictedMigrationDays:
+          type: integer
+      required: [nodeId, score, factors, recommendation, cnsa20Compliance, predictedMigrationDays]
+
+    TelemetryEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+        nodeId:
+          type: integer
+        sourceIp:
+          type: string
+        destIp:
+          type: string
+        tlsVersion:
+          type: string
+        cipherSuite:
+          type: string
+        keyShareHex:
+          type: string
+        supportedGroupsHex:
+          type: string
+        keyShareDecoded:
+          type: string
+        supportedGroupsDecoded:
+          type: string
+        isHybridPqc:
+          type: boolean
+        isClassicalOnly:
+          type: boolean
+        protocol:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required: [id, nodeId, sourceIp, destIp, tlsVersion, cipherSuite, keyShareHex, supportedGroupsHex, keyShareDecoded, supportedGroupsDecoded, isHybridPqc, isClassicalOnly, protocol, timestamp]
+
+    CreateTelemetryEventBody:
+      type: object
+      properties:
+        nodeId:
+          type: integer
+        sourceIp:
+          type: string
+        destIp:
+          type: string
+        tlsVersion:
+          type: string
+        cipherSuite:
+          type: string
+        keyShareHex:
+          type: string
+        supportedGroupsHex:
+          type: string
+        isHybridPqc:
+          type: boolean
+        isClassicalOnly:
+          type: boolean
+        protocol:
+          type: string
+      required: [nodeId, sourceIp, destIp, tlsVersion, cipherSuite, keyShareHex, supportedGroupsHex, isHybridPqc, isClassicalOnly, protocol]
+
+    ComplianceRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        nodeId:
+          type: integer
+        framework:
+          type: string
+          enum: [CNSA_2_0, NIST_800_207, NSM_10, OMB_M_23_02, NIST_800_53, EO_14028]
+        status:
+          type: string
+          enum: [compliant, partial, non-compliant, pending]
+        score:
+          type: number
+        controls:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              status:
+                type: string
+            required: [id, name, status]
+        lastAssessed:
+          type: string
+          format: date-time
+      required: [id, nodeId, framework, status, score, controls, lastAssessed]
+
+    VelocityDataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+        pqcAdoption:
+          type: number
+        hybridPqc:
+          type: number
+        classicalOnly:
+          type: number
+        mlKemAdoption:
+          type: number
+        mlDsaAdoption:
+          type: number
+      required: [date, pqcAdoption, hybridPqc, classicalOnly, mlKemAdoption, mlDsaAdoption]
+
+    ComplianceOverview:
+      type: object
+      properties:
+        totalNodes:
+          type: integer
+        compliantNodes:
+          type: integer
+        atRiskNodes:
+          type: integer
+        criticalNodes:
+          type: integer
+        overallComplianceRate:
+          type: number
+        cnsa20Rate:
+          type: number
+        zeroTrustScore:
+          type: number
+        frameworks:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              compliance:
+                type: number
+            required: [name, compliance]
+      required: [totalNodes, compliantNodes, atRiskNodes, criticalNodes, overallComplianceRate, cnsa20Rate, zeroTrustScore, frameworks]
+
+    CbomEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+        nodeId:
+          type: integer
+        componentName:
+          type: string
+        componentVersion:
+          type: string
+        algorithm:
+          type: string
+        keySize:
+          type: integer
+        pqcReady:
+          type: boolean
+        expiresAt:
+          type: string
+          format: date-time
+        gitCommit:
+          type: string
+        status:
+          type: string
+          enum: [active, deprecated, migrating, replaced]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required: [id, nodeId, componentName, componentVersion, algorithm, keySize, pqcReady, gitCommit, status, createdAt, updatedAt]
+
+    CreateCbomEntryBody:
+      type: object
+      properties:
+        nodeId:
+          type: integer
+        componentName:
+          type: string
+        componentVersion:
+          type: string
+        algorithm:
+          type: string
+        keySize:
+          type: integer
+        pqcReady:
+          type: boolean
+        expiresAt:
+          type: string
+          format: date-time
+        gitCommit:
+          type: string
+        status:
+          type: string
+          enum: [active, deprecated, migrating, replaced]
+      required: [nodeId, componentName, componentVersion, algorithm, keySize, pqcReady, gitCommit, status]
+
+    UpdateCbomEntryBody:
+      type: object
+      properties:
+        componentVersion:
+          type: string
+        algorithm:
+          type: string
+        pqcReady:
+          type: boolean
+        status:
+          type: string
+          enum: [active, deprecated, migrating, replaced]
+        gitCommit:
+          type: string
+
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+        nodeId:
+          type: integer
+        severity:
+          type: string
+          enum: [critical, high, medium, low]
+        type:
+          type: string
+          enum: [classical-fallback, hndl-risk, cert-expiry, compliance-drift, zero-trust-violation, cbom-stale]
+        title:
+          type: string
+        description:
+          type: string
+        acknowledged:
+          type: boolean
+        acknowledgedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, nodeId, severity, type, title, description, acknowledged, createdAt]
+
+    CreateAlertBody:
+      type: object
+      properties:
+        nodeId:
+          type: integer
+        severity:
+          type: string
+          enum: [critical, high, medium, low]
+        type:
+          type: string
+          enum: [classical-fallback, hndl-risk, cert-expiry, compliance-drift, zero-trust-violation, cbom-stale]
+        title:
+          type: string
+        description:
+          type: string
+      required: [nodeId, severity, type, title, description]
+
+    DashboardSummary:
+      type: object
+      properties:
+        totalNodes:
+          type: integer
+        pqcEnabledNodes:
+          type: integer
+        criticalAlerts:
+          type: integer
+        hndlExposureScore:
+          type: number
+        complianceRate:
+          type: number
+        hybridPqcTrafficPct:
+          type: number
+        classicalOnlyTrafficPct:
+          type: number
+        pendingCbomUpdates:
+          type: integer
+        zeroTrustScore:
+          type: number
+        cnsa20ComplianceRate:
+          type: number
+      required: [totalNodes, pqcEnabledNodes, criticalAlerts, hndlExposureScore, complianceRate, hybridPqcTrafficPct, classicalOnlyTrafficPct, pendingCbomUpdates, zeroTrustScore, cnsa20ComplianceRate]
+
+    HndlDataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+        exposedBytes:
+          type: number
+        protectedBytes:
+          type: number
+        riskScore:
+          type: number
+        eventLabel:
+          type: string
+      required: [date, exposedBytes, protectedBytes, riskScore]
+
+    AlgorithmBreakdown:
+      type: object
+      properties:
+        algorithm:
+          type: string
+        count:
+          type: integer
+        percentage:
+          type: number
+        category:
+          type: string
+          enum: [pqc, hybrid, classical, deprecated]
+        cnsa20Approved:
+          type: boolean
+      required: [algorithm, count, percentage, category, cnsa20Approved]
