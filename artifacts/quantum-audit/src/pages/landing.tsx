@@ -429,6 +429,210 @@ function BenefitRow({ icon: Icon, title, body }: { icon: LucideIcon; title: stri
 }
 
 /* ────────────────────────────────────────────────────────────
+   Innovation Showcase
+──────────────────────────────────────────────────────────── */
+function InnovationShowcase() {
+  const innovations = [
+    {
+      number: "01",
+      color: "#00b4d8",
+      tag: "First of Its Kind",
+      title: "The World's First Open-Source PQC Governance Dashboard",
+      body: "Every major government and enterprise has a PQC problem. Nobody had an open tool to actually see it. QVault fills that gap -- a live, real-time window into cryptographic posture that any organization can deploy, inspect, extend, and trust.",
+    },
+    {
+      number: "02",
+      color: "#4ade80",
+      tag: "Invisible by Design",
+      title: "It Watches Without Touching Anything",
+      body: "QVault uses eBPF -- the same kernel-level technology trusted by Netflix, Google, and Cloudflare -- to observe every cryptographic handshake on your network without installing agents, modifying code, or interrupting a single packet. It is the equivalent of reading every conversation in a building without opening a single door.",
+    },
+    {
+      number: "03",
+      color: "#fb923c",
+      tag: "Quantified Risk",
+      title: "It Turns an Abstract Threat Into a Real Number",
+      body: "Most security tools tell you what is wrong. QVault tells you how exposed you are -- in bytes, in time, in probability. The HNDL Exposure Score is a live calculation of how much of your encrypted data is already harvested and waiting to be broken the moment a quantum computer arrives.",
+    },
+    {
+      number: "04",
+      color: "#c084fc",
+      tag: "Unified Compliance",
+      title: "Five Regulatory Frameworks. One Dashboard. Zero Confusion.",
+      body: "CNSA 2.0, NSM-10, NIST 800-207, EO 14028, FIPS 205/206 -- each framework has different language, different timelines, different requirements. QVault maps your cryptographic estate to all five simultaneously and shows you exactly where you stand on each, with the evidence to prove it.",
+    },
+    {
+      number: "05",
+      color: "#f87171",
+      tag: "Forward-Looking",
+      title: "A Compliance Velocity Engine, Not a Snapshot",
+      body: "Most compliance tools take a picture. QVault measures speed. The Compliance Velocity Engine tracks how fast you are migrating, projects whether you will hit regulatory deadlines, and surfaces the exact nodes slowing you down -- before an auditor finds them.",
+    },
+    {
+      number: "06",
+      color: "#34d399",
+      tag: "The Ingredient Label for Security",
+      title: "CBOM: A Crypto Bill of Materials for Every Asset",
+      body: "Every piece of software you run contains cryptographic ingredients. Most organizations have no idea what those ingredients are. QVault automatically generates a CBOM -- a machine-readable inventory of every algorithm, key length, and cipher in use -- aligned with NIST SP 800-235. Think of it as a nutrition label for your cryptographic health.",
+    },
+  ];
+
+  const formulas = [
+    {
+      color: "#00b4d8",
+      label: "HNDL Exposure Score",
+      formula: "E = Σ ( B\u209c × W\u209c × Q\u209c ) / V",
+      vars: [
+        { sym: "B\u209c", def: "Bytes transmitted over classical encryption per node" },
+        { sym: "W\u209c", def: "Sensitivity weight of that data segment (1.0 to 5.0)" },
+        { sym: "Q\u209c", def: "Quantum threat proximity factor (0 to 1, increasing toward 2031)" },
+        { sym: "V", def: "Migration velocity -- how fast PQC is being deployed" },
+      ],
+      plain: "In plain English: the more sensitive data you have sent over breakable encryption, and the closer we get to a working quantum computer, the higher your score. The only way to bring it down is to migrate faster.",
+    },
+    {
+      color: "#4ade80",
+      label: "Migration Velocity",
+      formula: "V = \u0394PQC\u2099\u2092\u2093\u2091\u209b / \u0394T \u00d7 C\u1d42",
+      vars: [
+        { sym: "\u0394PQC\u2099\u2092\u2093\u2091\u209b", def: "Change in PQC-enabled nodes over the measurement window" },
+        { sym: "\u0394T", def: "Time window (days) of the measurement" },
+        { sym: "C\u1d42", def: "Weighted compliance score across all active frameworks" },
+      ],
+      plain: "This tells you not just where you are today, but whether you are moving fast enough to reach the 2030 CNSA 2.0 mandate on time. A velocity of zero means you are standing still while the clock runs.",
+    },
+    {
+      color: "#fb923c",
+      label: "Why Quantum Breaks RSA: The Math in Plain Terms",
+      formula: "RSA: N = p \u00d7 q \u2003\u2003 Classical: 10\u00b3\u2070\u2070 years \u2003\u2003 Shor's: hours",
+      vars: [
+        { sym: "N", def: "The public key -- a number so large it seems impossible to factor" },
+        { sym: "p, q", def: "Two secret prime numbers whose product is N" },
+        { sym: "Shor's Algorithm", def: "A quantum algorithm that finds p and q in polynomial time, collapsing RSA security to zero" },
+      ],
+      plain: "RSA security relies on a simple fact: multiplying two large primes is easy, but reversing the operation -- finding those primes from the result -- takes longer than the age of the universe on a classical computer. Shor's algorithm running on a quantum computer does it in hours. That is the entire threat model.",
+    },
+    {
+      color: "#c084fc",
+      label: "The New Math: Why ML-KEM Is Quantum-Safe",
+      formula: "ML-KEM: b = A\u00b7s + e (mod q) \u2003 SVP remains hard even for quantum",
+      vars: [
+        { sym: "A", def: "A large random matrix (public parameter)" },
+        { sym: "s", def: "The secret vector -- the private key" },
+        { sym: "e", def: "A small error vector that hides s even when you know A and b" },
+        { sym: "SVP", def: "Shortest Vector Problem -- finding s requires solving a lattice problem with no known quantum shortcut" },
+      ],
+      plain: "Instead of prime factoring, ML-KEM hides secrets inside a high-dimensional mathematical lattice -- a structure so complex that no quantum algorithm, not even Shor's, can solve it efficiently. This is the math at the heart of CNSA 2.0's replacement for RSA. QVault tracks adoption of exactly this algorithm across your infrastructure.",
+    },
+  ];
+
+  return (
+    <Section style={{ backgroundColor: "#060b16" }} className="border-t border-slate-700/50">
+      <div className="max-w-5xl mx-auto space-y-20">
+
+        {/* Header */}
+        <SectionHeader
+          eyebrow="Chapter 5: The Innovation"
+          heading={<>What We Built and <span className="gradient-text">Why It Matters</span></>}
+          sub="QVault is not a feature list. It is a set of original ideas applied to one of the most consequential security problems of our generation. Here is the thinking behind it -- the math, the engineering decisions, and the outcomes only this approach can deliver."
+        />
+
+        {/* 6 innovations */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {innovations.map(inn => (
+            <div key={inn.number} className="rounded-xl p-7 landing-card landing-card-accent-l transition-all group hover:border-opacity-80"
+              style={{ borderLeftColor: inn.color }}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="orbitron font-black text-3xl shrink-0" style={{ color: inn.color + "40" }}>{inn.number}</div>
+                <div>
+                  <div className="mono text-xs uppercase tracking-widest font-semibold mb-1" style={{ color: inn.color }}>{inn.tag}</div>
+                  <h3 className="text-white font-bold text-lg leading-snug">{inn.title}</h3>
+                </div>
+              </div>
+              <p className="text-slate-200 text-base leading-relaxed">{inn.body}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div className="flex items-center gap-6">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-600/60 to-transparent" />
+          <div className="mono text-sm text-[#48cae4] uppercase tracking-widest font-semibold whitespace-nowrap">The Mathematics</div>
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-600/60 to-transparent" />
+        </div>
+
+        {/* Math intro */}
+        <div className="text-center max-w-2xl mx-auto">
+          <p className="text-slate-200 text-lg leading-relaxed">
+            QVault's scoring and alerting system is grounded in real cryptographic mathematics.
+            No hand-waving. No magic scores. Every number in the dashboard traces back to a formula
+            -- and every formula traces back to the standards. Here they are, explained in human terms.
+          </p>
+        </div>
+
+        {/* Formulas */}
+        <div className="space-y-8">
+          {formulas.map(f => (
+            <div key={f.label} className="rounded-xl overflow-hidden" style={{ border: `1px solid ${f.color}35` }}>
+              {/* Formula header */}
+              <div className="px-8 py-5 flex flex-col sm:flex-row sm:items-center gap-4" style={{ background: `${f.color}12` }}>
+                <div className="flex-1">
+                  <div className="mono text-xs uppercase tracking-widest mb-2 font-semibold" style={{ color: f.color }}>{f.label}</div>
+                  <div className="orbitron font-bold text-xl md:text-2xl text-white tracking-wide">{f.formula}</div>
+                </div>
+              </div>
+              {/* Variables */}
+              <div className="px-8 py-6 space-y-4" style={{ background: "rgba(10, 20, 40, 0.85)" }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {f.vars.map(v => (
+                    <div key={v.sym} className="flex items-start gap-3">
+                      <code className="orbitron text-sm font-bold shrink-0 mt-0.5 w-28 text-right" style={{ color: f.color }}>{v.sym}</code>
+                      <span className="text-slate-300 text-sm leading-relaxed border-l border-slate-700 pl-3">{v.def}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 pt-5 border-t border-slate-700/60">
+                  <p className="text-slate-100 text-base leading-relaxed italic">"{f.plain}"</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* The "so what" executive callout */}
+        <div className="rounded-2xl p-10 text-center" style={{ background: "linear-gradient(135deg, rgba(0,100,150,0.30), rgba(60,20,100,0.30))", border: "1px solid rgba(0,180,216,0.35)" }}>
+          <div className="mono text-[#48cae4] text-sm uppercase tracking-widest font-semibold mb-6">The Bottom Line for Decision-Makers</div>
+          <h3 className="orbitron font-black text-3xl md:text-4xl text-white mb-6 leading-tight">
+            Every Day You Wait Is Another Day<br />
+            <span className="gradient-text">of Harvested, Unprotected Data</span>
+          </h3>
+          <p className="text-slate-100 text-lg leading-relaxed max-w-3xl mx-auto mb-8">
+            Nation-state adversaries are not waiting for 2031. They are collecting your encrypted traffic today --
+            patient, systematic, and certain that quantum computers will eventually hand them the keys.
+            The question QVault answers is not "are we at risk?" -- every organization with RSA or ECC is at risk.
+            The question is: "exactly how much of our data is already waiting to be decrypted, and how fast are we fixing it?"
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            {[
+              { num: "10", unit: "Minutes", label: "to run your first cryptographic inventory with QVault", color: "#00b4d8" },
+              { num: "2030", unit: "Deadline", label: "CNSA 2.0 requires full PQC adoption for National Security Systems", color: "#fb923c" },
+              { num: "0", unit: "Cost", label: "QVault is fully open source. No license. No vendor. No lock-in.", color: "#4ade80" },
+            ].map(s => (
+              <div key={s.label} className="rounded-xl p-6 text-center" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)" }}>
+                <div className="orbitron font-black text-4xl mb-1" style={{ color: s.color }}>{s.num}</div>
+                <div className="mono text-sm font-bold uppercase tracking-widest mb-2" style={{ color: s.color }}>{s.unit}</div>
+                <div className="text-slate-200 text-sm leading-relaxed">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </Section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
    Main landing page
 ──────────────────────────────────────────────────────────── */
 export default function LandingPage() {
@@ -655,6 +859,9 @@ export default function LandingPage() {
           </div>
         </div>
       </Section>
+
+      {/* ── INNOVATION SHOWCASE ──────────────────────────────── */}
+      <InnovationShowcase />
 
       {/* ── INNOVATOR ────────────────────────────────────────── */}
       <Section style={{ backgroundColor: "#080e1c" }} className="border-t border-slate-700/50 grid-bg">
