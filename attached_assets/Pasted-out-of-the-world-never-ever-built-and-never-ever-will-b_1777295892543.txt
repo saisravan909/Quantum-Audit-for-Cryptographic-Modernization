@@ -1,0 +1,42 @@
+out of the world , never ever built and never ever will be built in future, with wow factors, unique approach and novel approach with innovatiion and creativity- ubmission Title
+The Quantum Audit: Leveraging OpenSearch to Map and Navigate Cryptographic Modernization — CNSA 2.0 Compliance, Zero Trust, and PQC Governance
+
+Abstract
+The "Harvest Now, Decrypt Later" (HNDL) threat is no longer a distant concern; it is a present-day risk to long-term data integrity. As the Linux ecosystem transitions toward Post-Quantum Cryptography (PQC), infrastructure leads face a massive visibility gap: How do you verify compliance with CNSA 2.0 and NIST SP 800-207 (Zero Trust Architecture) in real-time?
+
+This session introduces a groundbreaking approach to cryptographic governance. By treating TLS handshake telemetry as high-fidelity log data, we demonstrate how to use OpenSearch to build a real-time "Quantum Readiness Command Center." We move beyond basic log searching to parse complex hex-encoded extensions (like key_share and supported_groups), identifying legacy at-risk endpoints that fail to meet new federal mandates.Attendees will learn how to:
+
+Architect a High-Scale Pipeline: Use Fluent Bit and OpenSearch Data Prepper to ingest telemetry compliant with OMB M-23-02 and NSM-10 inventory requirements.
+
+Visualize Compliance Velocity: Build dashboards that track the adoption of NIST-standardized algorithms (ML-KEM/ML-DSA) across distributed Linux environments.
+
+Operationalize Zero Trust: Implement Security-as-Code to trigger automated alerts when mission-critical services fall back to "classical-only" encryption, violating Zero Trust "Never Trust, Always Verify" principles.Detailed Description
+To ensure this proposal stands out, we highlight three unique technical pillars that bridge the gap between observability and security enforcement:
+
+Deep Packet Inspection (DPI) & eBPF for NIST Compliance:
+Most observability stacks ignore TLS handshake specifics. We demonstrate using eBPF-based probes and OpenSSL 3.x logs to capture exact cryptographic negotiations. This provides the granular visibility required for NIST SP 800-53 (SC-12, SC-13) and CNSA 2.0 verification.
+
+The "Quantum Risk Score" (ML-Driven Observability):
+Using the OpenSearch ML Commons plugin, we assign a "Risk Score" to individual nodes. By correlating Linux kernel versions, crypto-library age, and active traffic patterns, OpenSearch predicts migration friction points—turning raw logs into a strategic modernization roadmap.
+
+Automated Governance via Docs-as-Code:
+We demonstrate a "Living Audit." OpenSearch findings are exported directly into Git-based documentation, ensuring your Cryptographic Bill of Materials (CBOM) is always current, version-controlled, and audit-ready—a critical requirement for Executive Order 14028.Outcome for Attendees
+The Blueprint: A reference architecture for a PQC-aware, Zero Trust observability stack.
+
+The Compliance Kit: Templates for mapping OpenSearch telemetry to CNSA 2.0 milestones and OMB M-23-02 reporting requirements.
+
+The Code: Example configuration files for OpenSearch Index State Management (ISM) and Data Prepper pipelines.
+
+Technical Details & Metadata
+Session Type: Technical Breakout / Architecture Deep Dive
+
+Track: Analytics, Security, and Observability
+
+Primary Keywords: PQC, CNSA 2.0, NSM-10, NIST 800-207, OpenSearch, Zero Trust, eBPF, CBOM, Cryptographic Agility.
+
+Visuals/Demos: * Live Demo: A real-time OpenSearch Dashboard showing a "Hybrid-PQC" vs. "Classical" traffic split.
+
+Architecture Diagram: Data flow from a Linux Kernel event through Fluent Bit to an OpenSearch visualization.
+
+Speaker Bio
+Sai Sravan Cherukuri is an Enterprise Modernization Architect and DevSecOps Engineering Lead with over 20 years of experience delivering mission-critical Federal IT solutions. A specialist in Zero Trust Architecture and compliance automation, Sai is a frequent contributor to the open-source "Docs-as-Code" movement. He currently focuses on bridging the gap between infrastructure engineering and post-quantum cryptographic readiness.
