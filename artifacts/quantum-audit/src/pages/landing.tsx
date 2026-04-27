@@ -77,18 +77,18 @@ function StarField() {
     const c = ref.current; if (!c) return;
     const ctx = c.getContext("2d")!;
     c.width = c.offsetWidth; c.height = c.offsetHeight;
-    const stars = Array.from({ length: 120 }, () => ({
+    const stars = Array.from({ length: 160 }, () => ({
       x: Math.random() * c.width, y: Math.random() * c.height,
-      r: Math.random() * 1.2 + 0.3, t: Math.random() * Math.PI * 2,
+      r: Math.random() * 1.4 + 0.4, t: Math.random() * Math.PI * 2,
     }));
     let af: number;
     function draw() {
       ctx.clearRect(0, 0, c.width, c.height);
       stars.forEach(s => {
-        s.t += 0.005;
-        const a = 0.06 + Math.sin(s.t) * 0.04;
+        s.t += 0.004;
+        const a = 0.18 + Math.sin(s.t) * 0.12;
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,100,160,${a})`; ctx.fill();
+        ctx.fillStyle = `rgba(72,202,228,${a})`; ctx.fill();
       });
       af = requestAnimationFrame(draw);
     }
@@ -134,8 +134,8 @@ function HndlDiagram() {
     { icon: Unlock, label: "Plaintext Revealed", sub: "Every archived session, years of classified data, becomes readable", color: "#f87171" },
   ];
   return (
-    <div className="rounded-xl border border-red-200 bg-red-50 p-8 shadow-sm">
-      <div className="mono text-red-600/80 text-xs uppercase tracking-widest mb-6 text-center">
+    <div className="rounded-xl border border-red-500/20 bg-red-950/15 p-8">
+      <div className="mono text-red-400/80 text-xs uppercase tracking-widest mb-6 text-center">
         The HNDL Attack Chain · Happening Right Now
       </div>
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-0">
@@ -148,7 +148,7 @@ function HndlDiagram() {
                 <s.icon className="w-6 h-6" style={{ color: s.color }} />
               </div>
               <div className="font-semibold text-sm mb-1" style={{ color: s.color }}>{s.label}</div>
-              <div className="text-[#6e6e73] text-xs leading-relaxed max-w-[140px]">{s.sub}</div>
+              <div className="text-slate-400 text-xs leading-relaxed max-w-[140px]">{s.sub}</div>
             </div>
             {/* Arrow */}
             {i < steps.length - 1 && (
@@ -167,9 +167,9 @@ function HndlDiagram() {
           </div>
         ))}
       </div>
-      <div className="mt-6 rounded-lg border border-orange-300/50 bg-orange-50 p-4 text-center">
-        <p className="text-orange-800 text-sm leading-relaxed">
-          <strong className="text-orange-700">The risk is retroactive.</strong> Data encrypted yesterday with RSA-2048 is already archived and waiting to be decrypted. Migration cannot wait for the quantum computer to arrive; it has to happen before.
+      <div className="mt-6 rounded-lg border border-orange-500/25 bg-orange-950/25 p-4 text-center">
+        <p className="text-orange-300 text-sm leading-relaxed">
+          <strong className="text-orange-200">The risk is retroactive.</strong> Data encrypted yesterday with RSA-2048 is already archived and waiting to be decrypted. Migration cannot wait for the quantum computer to arrive; it has to happen before.
         </p>
       </div>
     </div>
@@ -190,18 +190,18 @@ function PipelineDiagram() {
     { icon: Radio, label: "Telemetry Feed", color: "#ffaa00", desc: "eBPF event stream" },
   ];
   return (
-    <div className="rounded-xl border border-[#d2d2d7] bg-white p-8 shadow-sm">
-      <div className="mono text-[#007aae]/80 text-xs uppercase tracking-widest mb-8 text-center">
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-8">
+      <div className="mono text-[#00b4d8]/70 text-xs uppercase tracking-widest mb-8 text-center">
         How QVault Works: The Data Pipeline
       </div>
       <div className="flex flex-col gap-6">
         {/* Layer 1: Sources */}
         <div>
-          <div className="mono text-[10px] text-[#6e6e73] uppercase tracking-widest mb-3 text-center">Your Infrastructure</div>
+          <div className="mono text-[10px] text-slate-500 uppercase tracking-widest mb-3 text-center">Your Infrastructure</div>
           <div className="flex flex-wrap justify-center gap-3">
             {sources.map(s => (
-              <div key={s} className="px-3 py-2 rounded-lg border border-[#d2d2d7] bg-[#f5f5f7] text-[#1c1c1e] text-xs font-mono flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#007aae] animate-pulse" />
+              <div key={s} className="px-3 py-2 rounded-lg border border-white/12 bg-white/[0.06] text-slate-300 text-xs font-mono flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#00b4d8] animate-pulse" />
                 {s}
               </div>
             ))}
@@ -210,28 +210,28 @@ function PipelineDiagram() {
 
         {/* Arrow down */}
         <div className="flex flex-col items-center gap-1">
-          <div className="flow-arrow w-px h-8 bg-gradient-to-b from-[#d2d2d7] to-[#007aae]" />
-          <div className="mono text-[9px] text-[#6e6e73] uppercase tracking-widest">Passive telemetry collection via eBPF + TLS inspection</div>
+          <div className="flow-arrow w-px h-8 bg-gradient-to-b from-white/10 to-[#007aae]" />
+          <div className="mono text-[9px] text-slate-500 uppercase tracking-widest">Passive telemetry collection via eBPF + TLS inspection</div>
           <div className="flow-arrow w-px h-8 bg-gradient-to-b from-[#007aae]/60 to-[#007aae]/30" />
         </div>
 
         {/* Layer 2: Engine */}
-        <div className="rounded-lg border-2 border-[#007aae]/30 bg-[#007aae]/5 p-5 text-center relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4">
-            <span className="mono text-[9px] text-[#007aae]/80 uppercase tracking-widest">QVault Analysis Engine</span>
+        <div className="rounded-lg border-2 border-[#007aae]/30 bg-[#007aae]/8 p-5 text-center relative">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#080e1c] px-4">
+            <span className="mono text-[9px] text-[#00b4d8]/80 uppercase tracking-widest">QVault Analysis Engine</span>
           </div>
           <div className="grid grid-cols-3 gap-4 text-xs mt-2">
-            <div className="rounded bg-white border border-[#d2d2d7] px-3 py-2 shadow-sm">
-              <div className="text-[#007aae] font-semibold mb-0.5">Algorithm Classifier</div>
-              <div className="text-[#6e6e73] text-[10px]">Identifies RSA, ECC, ML-KEM, ML-DSA per connection</div>
+            <div className="rounded border border-white/12 bg-white/[0.06] px-3 py-2">
+              <div className="text-[#00b4d8] font-semibold mb-0.5">Algorithm Classifier</div>
+              <div className="text-slate-400 text-[10px]">Identifies RSA, ECC, ML-KEM, ML-DSA per connection</div>
             </div>
-            <div className="rounded bg-white border border-[#d2d2d7] px-3 py-2 shadow-sm">
-              <div className="text-[#007aae] font-semibold mb-0.5">Compliance Scorer</div>
-              <div className="text-[#6e6e73] text-[10px]">Maps posture to CNSA 2.0, NIST 800-207, NSM-10</div>
+            <div className="rounded border border-white/12 bg-white/[0.06] px-3 py-2">
+              <div className="text-[#00b4d8] font-semibold mb-0.5">Compliance Scorer</div>
+              <div className="text-slate-400 text-[10px]">Maps posture to CNSA 2.0, NIST 800-207, NSM-10</div>
             </div>
-            <div className="rounded bg-white border border-[#d2d2d7] px-3 py-2 shadow-sm">
-              <div className="text-[#007aae] font-semibold mb-0.5">CBOM Generator</div>
-              <div className="text-[#6e6e73] text-[10px]">Builds machine-readable crypto inventory per NIST SP 800-235</div>
+            <div className="rounded border border-white/12 bg-white/[0.06] px-3 py-2">
+              <div className="text-[#00b4d8] font-semibold mb-0.5">CBOM Generator</div>
+              <div className="text-slate-400 text-[10px]">Builds machine-readable crypto inventory per NIST SP 800-235</div>
             </div>
           </div>
         </div>
@@ -239,22 +239,22 @@ function PipelineDiagram() {
         {/* Arrow down */}
         <div className="flex flex-col items-center gap-1">
           <div className="flow-arrow w-px h-8 bg-gradient-to-b from-[#007aae]/30 to-[#007aae]" />
-          <div className="mono text-[9px] text-[#6e6e73] uppercase tracking-widest">Live enriched events and compliance signals</div>
+          <div className="mono text-[9px] text-slate-500 uppercase tracking-widest">Live enriched events and compliance signals</div>
           <div className="flow-arrow w-px h-8 bg-gradient-to-b from-[#007aae] to-[#007aae]/30" />
         </div>
 
         {/* Layer 3: Modules */}
         <div>
-          <div className="mono text-[10px] text-[#6e6e73] uppercase tracking-widest mb-3 text-center">Dashboard Modules: Operator Visibility</div>
+          <div className="mono text-[10px] text-slate-500 uppercase tracking-widest mb-3 text-center">Dashboard Modules: Operator Visibility</div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {modules.map(m => (
-              <div key={m.label} className="rounded-lg border border-[#d2d2d7] bg-[#f5f5f7] hover:bg-white hover:shadow-sm p-4 transition-all"
+              <div key={m.label} className="rounded-lg border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] p-4 transition-all"
                 style={{ borderLeftColor: m.color, borderLeftWidth: "3px" }}>
                 <div className="flex items-center gap-2 mb-1">
                   <m.icon className="w-4 h-4 shrink-0" style={{ color: m.color }} />
-                  <span className="text-xs font-semibold text-[#1c1c1e]">{m.label}</span>
+                  <span className="text-xs font-semibold text-white">{m.label}</span>
                 </div>
-                <div className="text-[#6e6e73] text-[11px] leading-relaxed">{m.desc}</div>
+                <div className="text-slate-400 text-[11px] leading-relaxed">{m.desc}</div>
               </div>
             ))}
           </div>
@@ -288,7 +288,7 @@ function MigrationJourneyDiagram() {
     { phase: "5", title: "Report", desc: "NSM-10 evidence package", icon: FileText, color: "#60a5fa" },
   ];
   return (
-    <div className="rounded-xl border border-green-500/20 bg-[#071210]/60 p-8 space-y-8">
+    <div className="rounded-xl border border-green-500/15 bg-green-950/10 p-8 space-y-8">
       <div className="mono text-green-400/70 text-xs uppercase tracking-widest text-center">
         The Migration Journey: Before and After
       </div>
@@ -301,10 +301,10 @@ function MigrationJourneyDiagram() {
           </div>
           <div className="space-y-2">
             {before.map(b => (
-              <div key={b.algo} className="flex items-center justify-between px-3 py-2 rounded border border-[#d2d2d7] bg-white">
+              <div key={b.algo} className="flex items-center justify-between px-3 py-2 rounded border border-white/10 bg-white/[0.05]">
                 <div>
-                  <div className="text-[#1c1c1e] text-sm font-mono font-semibold">{b.algo}</div>
-                  <div className="text-[#6e6e73] text-xs">{b.use}</div>
+                  <div className="text-white text-sm font-mono font-semibold">{b.algo}</div>
+                  <div className="text-slate-400 text-xs">{b.use}</div>
                 </div>
                 <span className={`mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border ${
                   b.safe === true ? "text-green-400 border-green-500/30 bg-green-500/10" :
@@ -318,17 +318,17 @@ function MigrationJourneyDiagram() {
           </div>
         </div>
         {/* After */}
-        <div className="rounded-lg border border-green-500/30 bg-green-50 p-5">
+        <div className="rounded-lg border border-green-500/25 bg-green-950/25 p-5">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <div className="mono text-green-600 text-xs uppercase tracking-widest">Target State: Quantum-Safe</div>
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <div className="mono text-green-400 text-xs uppercase tracking-widest">Target State: Quantum-Safe</div>
           </div>
           <div className="space-y-2">
             {after.map(a => (
-              <div key={a.algo} className="flex items-center justify-between px-3 py-2 rounded border border-green-200 bg-white">
+              <div key={a.algo} className="flex items-center justify-between px-3 py-2 rounded border border-green-900/50 bg-white/[0.04]">
                 <div>
-                  <div className="text-[#1c1c1e] text-sm font-mono font-semibold">{a.algo}</div>
-                  <div className="text-green-700/70 text-xs">{a.use}</div>
+                  <div className="text-green-200 text-sm font-mono font-semibold">{a.algo}</div>
+                  <div className="text-green-400/60 text-xs">{a.use}</div>
                 </div>
                 <span className="mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border text-green-400 border-green-500/30 bg-green-500/10">
                   safe
@@ -340,7 +340,7 @@ function MigrationJourneyDiagram() {
       </div>
       {/* Migration phases */}
       <div>
-        <div className="mono text-[10px] text-[#6e6e73] uppercase tracking-widest mb-4 text-center">QVault Guides Every Phase</div>
+        <div className="mono text-[10px] text-slate-500 uppercase tracking-widest mb-4 text-center">QVault Guides Every Phase</div>
         <div className="flex flex-col sm:flex-row gap-0">
           {phases.map((p, i) => (
             <div key={p.phase} className="flex sm:flex-col items-center sm:items-start flex-1">
@@ -351,7 +351,7 @@ function MigrationJourneyDiagram() {
                 </div>
                 <div>
                   <div className="text-xs font-bold" style={{ color: p.color }}>{p.phase}. {p.title}</div>
-                  <div className="text-[#6e6e73] text-[11px]">{p.desc}</div>
+                  <div className="text-slate-400 text-[11px]">{p.desc}</div>
                 </div>
               </div>
               {i < phases.length - 1 && (
@@ -386,9 +386,9 @@ function Section({ children, className = "" }: { children: React.ReactNode; clas
 function SectionHeader({ eyebrow, heading, sub }: { eyebrow: string; heading: React.ReactNode; sub?: string }) {
   return (
     <div className="text-center mb-14">
-      <div className="mono text-[#007aae]/70 text-xs tracking-[0.4em] uppercase mb-3">{eyebrow}</div>
-      <h2 className="orbitron font-black text-3xl md:text-4xl text-[#1c1c1e] mb-5 leading-tight">{heading}</h2>
-      {sub && <p className="text-[#6e6e73] max-w-2xl mx-auto text-base leading-relaxed">{sub}</p>}
+      <div className="mono text-[#00b4d8]/70 text-xs tracking-[0.4em] uppercase mb-3">{eyebrow}</div>
+      <h2 className="orbitron font-black text-3xl md:text-4xl text-white mb-5 leading-tight">{heading}</h2>
+      {sub && <p className="text-slate-400 max-w-2xl mx-auto text-base leading-relaxed">{sub}</p>}
     </div>
   );
 }
@@ -398,13 +398,13 @@ function SectionHeader({ eyebrow, heading, sub }: { eyebrow: string; heading: Re
 ──────────────────────────────────────────────────────────── */
 function BenefitRow({ icon: Icon, title, body }: { icon: LucideIcon; title: string; body: string }) {
   return (
-    <div className="flex gap-5 items-start group p-5 rounded-xl border border-[#d2d2d7] bg-white hover:border-[#007aae]/40 hover:shadow-md transition-all duration-300">
-      <div className="shrink-0 w-11 h-11 rounded-full border border-[#007aae]/25 bg-[#007aae]/8 flex items-center justify-center">
-        <Icon className="w-5 h-5 text-[#007aae]" />
+    <div className="flex gap-5 items-start group p-5 rounded-xl border border-white/10 bg-white/[0.04] hover:border-[#00b4d8]/35 hover:bg-white/[0.07] transition-all duration-300">
+      <div className="shrink-0 w-11 h-11 rounded-full border border-[#007aae]/30 bg-[#007aae]/10 flex items-center justify-center">
+        <Icon className="w-5 h-5 text-[#00b4d8]" />
       </div>
       <div>
-        <h4 className="text-[#1c1c1e] font-semibold text-sm tracking-wide mb-1.5">{title}</h4>
-        <p className="text-[#6e6e73] text-sm leading-relaxed">{body}</p>
+        <h4 className="text-white font-semibold text-sm tracking-wide mb-1.5">{title}</h4>
+        <p className="text-slate-400 text-sm leading-relaxed">{body}</p>
       </div>
     </div>
   );
@@ -422,10 +422,10 @@ export default function LandingPage() {
   }, []);
   const glow = 0.6 + Math.sin(tick * 0.1) * 0.35;
 
-  const BG = "#f5f5f7";
+  const BG = "#080e1c";
 
   return (
-    <div style={{ backgroundColor: BG, color: "#1c1c1e" }} className="min-h-screen overflow-x-hidden">
+    <div style={{ backgroundColor: BG, color: "#e2e8f0" }} className="min-h-screen overflow-x-hidden">
       <style>{STYLES}</style>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
@@ -440,8 +440,8 @@ export default function LandingPage() {
 
         <div className="relative z-10 text-center fade-up fade-up-1 px-4">
           <div className="orbitron font-black text-5xl sm:text-6xl md:text-8xl gradient-text tracking-tight leading-none mb-2">QVault</div>
-          <div className="orbitron text-xs sm:text-sm md:text-base tracking-[0.3em] sm:tracking-[0.5em] text-[#007aae]/70 uppercase mb-4 md:mb-6">PQC Command Center</div>
-          <div className="mono text-[10px] sm:text-xs text-[#007aae]/40 tracking-[0.2em] sm:tracking-[0.3em] mb-8 md:mb-10">CNSA 2.0 · PQC · ZERO TRUST · ML-KEM-768 · ML-DSA-65</div>
+          <div className="orbitron text-xs sm:text-sm md:text-base tracking-[0.3em] sm:tracking-[0.5em] text-[#00b4d8]/80 uppercase mb-4 md:mb-6">PQC Command Center</div>
+          <div className="mono text-[10px] sm:text-xs text-[#48cae4]/50 tracking-[0.2em] sm:tracking-[0.3em] mb-8 md:mb-10">CNSA 2.0 · PQC · ZERO TRUST · ML-KEM-768 · ML-DSA-65</div>
         </div>
 
         <div className="relative z-10 flex flex-col sm:flex-row gap-3 sm:gap-4 fade-up fade-up-2 mb-12 md:mb-16 px-6 w-full sm:w-auto">
@@ -455,7 +455,7 @@ export default function LandingPage() {
           <a
             href="https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization"
             target="_blank" rel="noopener noreferrer"
-            className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl border border-[#d2d2d7] bg-white text-[#1c1c1e] orbitron text-xs sm:text-sm tracking-widest uppercase hover:border-[#007aae]/50 hover:text-[#007aae] transition-all duration-300 text-center shadow-sm"
+            className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl border border-white/20 bg-white/[0.06] text-slate-200 orbitron text-xs sm:text-sm tracking-widest uppercase hover:border-[#00b4d8]/40 hover:text-[#00b4d8] hover:bg-white/[0.10] transition-all duration-300 text-center"
           >
             GitHub Repository
           </a>
@@ -469,22 +469,22 @@ export default function LandingPage() {
             { label: "Year of CNSA 2.0 Mandate", n: 2030 },
           ].map(({ label, n, s = "" }) => (
             <div key={label}>
-              <div className="orbitron text-2xl font-black text-[#007aae] mb-1">
+              <div className="orbitron text-2xl font-black text-[#00b4d8] mb-1">
                 <Counter target={n} suffix={s} />
               </div>
-              <div className="mono text-[10px] text-[#6e6e73] uppercase tracking-widest leading-tight max-w-[100px] mx-auto">{label}</div>
+              <div className="mono text-[10px] text-slate-500 uppercase tracking-widest leading-tight max-w-[100px] mx-auto">{label}</div>
             </div>
           ))}
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 fade-up fade-up-4">
-          <span className="mono text-[9px] tracking-widest text-[#007aae]">SCROLL TO EXPLORE</span>
+          <span className="mono text-[9px] tracking-widest text-[#00b4d8]/70">SCROLL TO EXPLORE</span>
           <div className="w-px h-8 bg-gradient-to-b from-[#007aae] to-transparent animate-pulse" />
         </div>
       </section>
 
       {/* ── THE STORY: THE PROBLEM ───────────────────────────── */}
-      <Section style={{ backgroundColor: "#ffffff" }} className="border-t border-[#d2d2d7]">
+      <Section style={{ backgroundColor: "#060b16" }} className="border-t border-white/8">
         <div className="max-w-5xl mx-auto space-y-14">
           <SectionHeader
             eyebrow="Chapter 1: The Threat"
@@ -498,12 +498,13 @@ export default function LandingPage() {
               { icon: Landmark, color: "#fb923c", title: "Regulatory Mandates Are Active", body: "NSM-10 requires annual cryptographic inventories. EO 14028 mandates Zero Trust and encrypted communications. CNSA 2.0 formally deprecates RSA, ECDSA, and ECDH. Non-compliance risks mission failure." },
               { icon: BarChart3, color: "#34d399", title: "Most Organizations Are Unprepared", body: "CISA estimates fewer than 20% of federal agencies have completed a cryptographic inventory. Without an inventory, there is no migration plan. Without a plan, there is no compliance." },
             ].map(c => (
-              <div key={c.title} className="rounded-xl border border-[#d2d2d7] bg-white p-6 hover:shadow-md transition-all">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3" style={{ background: c.color + "12" }}>
+              <div key={c.title} className="rounded-xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.07] hover:border-white/20 transition-all"
+                style={{ borderLeftColor: c.color, borderLeftWidth: "3px" }}>
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3" style={{ background: c.color + "15" }}>
                   <c.icon className="w-5 h-5" style={{ color: c.color }} />
                 </div>
-                <h3 className="font-semibold text-sm mb-2" style={{ color: c.color }}>{c.title}</h3>
-                <p className="text-[#6e6e73] text-sm leading-relaxed">{c.body}</p>
+                <h3 className="font-semibold text-sm mb-2 text-white">{c.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{c.body}</p>
               </div>
             ))}
           </div>
@@ -511,7 +512,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── THE STORY: THE SOLUTION ──────────────────────────── */}
-      <Section style={{ backgroundColor: "#f5f5f7" }} className="border-t border-[#d2d2d7] grid-bg">
+      <Section style={{ backgroundColor: "#080e1c" }} className="border-t border-white/8 grid-bg">
         <div className="max-w-5xl mx-auto space-y-14">
           <SectionHeader
             eyebrow="Chapter 2: The Solution"
@@ -529,27 +530,27 @@ export default function LandingPage() {
                 "NSM-10 and EO 14028 migration timeline dashboards",
                 "Real-time HNDL exposure risk quantification per segment",
               ].map(f => (
-                <div key={f} className="flex items-start gap-3 p-3 rounded-lg bg-white border border-[#d2d2d7] shadow-sm">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#007aae] shrink-0 mt-1.5" />
-                  <span className="text-[#1c1c1e] text-sm leading-relaxed">{f}</span>
+                <div key={f} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.05] border border-white/10 hover:bg-white/[0.08] transition-all">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#00b4d8] shrink-0 mt-1.5" />
+                  <span className="text-slate-200 text-sm leading-relaxed">{f}</span>
                 </div>
               ))}
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: "Command Center", desc: "Unified threat and compliance overview", icon: Target, color: "#007aae" },
-                { label: "Node Inventory", desc: "Per-asset cryptographic posture scoring", icon: Monitor, color: "#0096c7" },
-                { label: "CBOM Explorer", desc: "Machine-readable crypto bill of materials", icon: ClipboardList, color: "#0071e3" },
-                { label: "Zero Trust Alerts", desc: "Real-time policy violation stream", icon: Bell, color: "#d92c2c" },
-                { label: "Compliance Velocity", desc: "CNSA 2.0 migration progress tracker", icon: TrendingUp, color: "#34a853" },
-                { label: "Telemetry Feed", desc: "eBPF and protocol-level event stream", icon: Radio, color: "#8e44ad" },
+                { label: "Command Center", desc: "Unified threat and compliance overview", icon: Target, color: "#00b4d8" },
+                { label: "Node Inventory", desc: "Per-asset cryptographic posture scoring", icon: Monitor, color: "#48cae4" },
+                { label: "CBOM Explorer", desc: "Machine-readable crypto bill of materials", icon: ClipboardList, color: "#60a5fa" },
+                { label: "Zero Trust Alerts", desc: "Real-time policy violation stream", icon: Bell, color: "#f87171" },
+                { label: "Compliance Velocity", desc: "CNSA 2.0 migration progress tracker", icon: TrendingUp, color: "#4ade80" },
+                { label: "Telemetry Feed", desc: "eBPF and protocol-level event stream", icon: Radio, color: "#c084fc" },
               ].map(m => (
-                <div key={m.label} className="rounded-xl border border-[#d2d2d7] bg-white p-5 hover:shadow-md transition-all duration-300 cursor-default">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ background: m.color + "12" }}>
+                <div key={m.label} className="rounded-xl border border-white/10 bg-white/[0.04] p-5 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 cursor-default">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ background: m.color + "18" }}>
                     <m.icon className="w-4 h-4" style={{ color: m.color }} />
                   </div>
                   <div className="text-xs font-bold mb-1" style={{ color: m.color }}>{m.label}</div>
-                  <div className="text-[#6e6e73] text-xs leading-relaxed">{m.desc}</div>
+                  <div className="text-slate-400 text-xs leading-relaxed">{m.desc}</div>
                 </div>
               ))}
             </div>
@@ -558,7 +559,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── THE STORY: THE JOURNEY ───────────────────────────── */}
-      <Section style={{ backgroundColor: "#ffffff" }} className="border-t border-[#d2d2d7]">
+      <Section style={{ backgroundColor: "#060b16" }} className="border-t border-white/8">
         <div className="max-w-5xl mx-auto space-y-14">
           <SectionHeader
             eyebrow="Chapter 3: The Migration"
@@ -570,7 +571,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── WHO IT'S BUILT FOR ───────────────────────────────── */}
-      <Section style={{ backgroundColor: "#f5f5f7" }} className="border-t border-[#d2d2d7] grid-bg">
+      <Section style={{ backgroundColor: "#080e1c" }} className="border-t border-white/8 grid-bg">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="Chapter 4: The Audience"
@@ -595,7 +596,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── OPEN ARCHITECTURE ────────────────────────────────── */}
-      <Section style={{ backgroundColor: "#ffffff" }} className="border-t border-[#d2d2d7]">
+      <Section style={{ backgroundColor: "#060b16" }} className="border-t border-white/8">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="Open Source"
@@ -604,16 +605,17 @@ export default function LandingPage() {
           />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
             {[
-              { cat: "Frontend", color: "#0071e3", items: ["React 18", "TypeScript", "Vite 5", "Recharts", "Tailwind CSS"] },
-              { cat: "Backend", color: "#34a853", items: ["Node.js 20", "Express 5", "REST / OpenAPI", "Drizzle ORM", "Zod Validation"] },
-              { cat: "Data Layer", color: "#007aae", items: ["PostgreSQL 16", "Live telemetry polling", "CBOM schema", "Alert engine"] },
-              { cat: "Standards", color: "#8e44ad", items: ["CNSA 2.0", "NIST 800-207", "NSM-10", "EO 14028", "FIPS 205 / 206"] },
+              { cat: "Frontend", color: "#60a5fa", items: ["React 18", "TypeScript", "Vite 5", "Recharts", "Tailwind CSS"] },
+              { cat: "Backend", color: "#4ade80", items: ["Node.js 20", "Express 5", "REST / OpenAPI", "Drizzle ORM", "Zod Validation"] },
+              { cat: "Data Layer", color: "#00b4d8", items: ["PostgreSQL 16", "Live telemetry polling", "CBOM schema", "Alert engine"] },
+              { cat: "Standards", color: "#c084fc", items: ["CNSA 2.0", "NIST 800-207", "NSM-10", "EO 14028", "FIPS 205 / 206"] },
             ].map(({ cat, color, items }) => (
-              <div key={cat} className="rounded-xl border border-[#d2d2d7] bg-[#f5f5f7] p-5 hover:shadow-md hover:bg-white transition-all">
+              <div key={cat} className="rounded-xl border border-white/10 bg-white/[0.04] p-5 hover:bg-white/[0.08] hover:border-white/20 transition-all"
+                style={{ borderTopColor: color, borderTopWidth: "2px" }}>
                 <div className="mono text-xs font-bold uppercase tracking-widest mb-4" style={{ color }}>{cat}</div>
                 <ul className="space-y-2">
                   {items.map(i => (
-                    <li key={i} className="text-[#6e6e73] text-xs flex items-center gap-2">
+                    <li key={i} className="text-slate-400 text-xs flex items-center gap-2">
                       <span style={{ color }} className="shrink-0">▸</span>
                       {i}
                     </li>
@@ -626,7 +628,7 @@ export default function LandingPage() {
             <a
               href="https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization"
               target="_blank" rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-8 py-3.5 rounded-xl border border-[#d2d2d7] bg-white text-[#1c1c1e] hover:border-[#007aae]/50 hover:text-[#007aae] transition-all duration-300 text-sm orbitron tracking-wider uppercase shadow-sm"
+              className="group flex items-center gap-3 px-8 py-3.5 rounded-xl border border-white/15 bg-white/[0.05] text-slate-200 hover:border-[#00b4d8]/40 hover:text-[#00b4d8] hover:bg-white/[0.09] transition-all duration-300 text-sm orbitron tracking-wider uppercase"
             >
               View Source on GitHub
               <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -636,7 +638,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── INNOVATOR ────────────────────────────────────────── */}
-      <Section style={{ backgroundColor: "#f5f5f7" }} className="border-t border-[#d2d2d7] grid-bg">
+      <Section style={{ backgroundColor: "#080e1c" }} className="border-t border-white/8 grid-bg">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="The Innovator"
@@ -650,15 +652,15 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="text-center">
-                <div className="orbitron font-black text-xl text-[#007aae] mb-1">Sai Sravan Cherukuri</div>
-                <div className="mono text-[#007aae]/60 text-xs tracking-widest uppercase mb-4">Innovator and Open Source Contributor</div>
+                <div className="orbitron font-black text-xl text-[#00b4d8] mb-1">Sai Sravan Cherukuri</div>
+                <div className="mono text-[#48cae4]/60 text-xs tracking-widest uppercase mb-4">Innovator and Open Source Contributor</div>
                 <div className="flex gap-3 justify-center">
                   <a href="https://github.com/saisravan909" target="_blank" rel="noopener noreferrer"
-                    className="px-4 py-1.5 rounded-lg border border-[#d2d2d7] bg-white text-[#1c1c1e] mono text-xs hover:border-[#007aae]/50 hover:text-[#007aae] transition-all shadow-sm">
+                    className="px-4 py-1.5 rounded-lg border border-white/15 bg-white/[0.06] text-slate-300 mono text-xs hover:border-[#00b4d8]/40 hover:text-[#00b4d8] transition-all">
                     GitHub
                   </a>
                   <a href="https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization" target="_blank" rel="noopener noreferrer"
-                    className="px-4 py-1.5 rounded-lg border border-[#d2d2d7] bg-white text-[#1c1c1e] mono text-xs hover:border-[#007aae]/50 hover:text-[#007aae] transition-all shadow-sm">
+                    className="px-4 py-1.5 rounded-lg border border-white/15 bg-white/[0.06] text-slate-300 mono text-xs hover:border-[#00b4d8]/40 hover:text-[#00b4d8] transition-all">
                     Repository
                   </a>
                 </div>
@@ -666,18 +668,18 @@ export default function LandingPage() {
             </div>
             <div className="flex-1 space-y-5">
               <blockquote className="border-l-2 border-[#007aae]/50 pl-6">
-                <p className="text-[#1c1c1e] text-xl leading-relaxed italic mb-3">
+                <p className="text-white text-xl leading-relaxed italic mb-3">
                   "Our critical infrastructure runs on cryptographic assumptions made in the 1970s and 80s.
                   Every organization that can see the problem clearly can start fixing it. QVault makes the invisible visible."
                 </p>
-                <cite className="text-[#007aae]/70 mono text-xs uppercase tracking-widest">Sai Sravan Cherukuri, Creator of QVault</cite>
+                <cite className="text-[#00b4d8]/70 mono text-xs uppercase tracking-widest">Sai Sravan Cherukuri, Creator of QVault</cite>
               </blockquote>
-              <p className="text-[#6e6e73] leading-relaxed">
+              <p className="text-slate-400 leading-relaxed">
                 Sai built QVault because he kept running into the same gap across organizations: security teams knew
                 the quantum threat was real, but had no practical way to measure their actual exposure or track progress
                 toward fixing it. Strategy documents were everywhere. Real-time operational visibility was not.
               </p>
-              <p className="text-[#6e6e73] leading-relaxed">
+              <p className="text-slate-400 leading-relaxed">
                 With deep roots in post-quantum cryptography, Zero Trust architecture, and national security systems,
                 Sai understood both the technical depth of the problem and the operational urgency it carries.
                 The regulatory clock is running. NSM-10, CNSA 2.0, and EO 14028 have set timelines.
@@ -689,9 +691,9 @@ export default function LandingPage() {
                   { label: "Domain", value: "Zero Trust and NSS" },
                   { label: "License", value: "MIT / Free Forever" },
                 ].map(({ label, value }) => (
-                  <div key={label} className="rounded-lg border border-[#d2d2d7] bg-white p-3 text-center shadow-sm">
-                    <div className="mono text-[9px] text-[#6e6e73] uppercase tracking-widest mb-1">{label}</div>
-                    <div className="text-[#007aae] text-xs font-semibold">{value}</div>
+                  <div key={label} className="rounded-lg border border-white/10 bg-white/[0.05] p-3 text-center">
+                    <div className="mono text-[9px] text-slate-500 uppercase tracking-widest mb-1">{label}</div>
+                    <div className="text-[#00b4d8] text-xs font-semibold">{value}</div>
                   </div>
                 ))}
               </div>

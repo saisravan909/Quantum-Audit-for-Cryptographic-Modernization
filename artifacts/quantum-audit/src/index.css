@@ -55,33 +55,33 @@
 }
 
 :root {
-  --background: 0 0% 97%;
-  --foreground: 0 0% 11%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 11%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 11%;
+  --background: 222 47% 7%;
+  --foreground: 210 20% 93%;
+  --card: 222 40% 9%;
+  --card-foreground: 210 20% 93%;
+  --popover: 222 40% 9%;
+  --popover-foreground: 210 20% 93%;
   --primary: 195 100% 34%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 94%;
-  --secondary-foreground: 0 0% 30%;
-  --muted: 0 0% 94%;
-  --muted-foreground: 0 0% 43%;
+  --secondary: 222 30% 13%;
+  --secondary-foreground: 210 15% 75%;
+  --muted: 222 30% 12%;
+  --muted-foreground: 220 15% 52%;
   --accent: 195 100% 34%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 83%;
-  --input: 0 0% 91%;
+  --border: 220 28% 17%;
+  --input: 222 35% 13%;
   --ring: 195 100% 34%;
 
-  --sidebar: 0 0% 100%;
-  --sidebar-foreground: 0 0% 11%;
-  --sidebar-border: 0 0% 88%;
+  --sidebar: 222 47% 6%;
+  --sidebar-foreground: 210 20% 90%;
+  --sidebar-border: 220 28% 15%;
   --sidebar-primary: 195 100% 34%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 0 0% 94%;
-  --sidebar-accent-foreground: 0 0% 11%;
+  --sidebar-accent: 222 30% 13%;
+  --sidebar-accent-foreground: 210 15% 80%;
   --sidebar-ring: 195 100% 34%;
 
   --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
