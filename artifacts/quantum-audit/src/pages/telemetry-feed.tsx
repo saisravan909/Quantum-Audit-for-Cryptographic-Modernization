@@ -14,21 +14,22 @@ export default function TelemetryFeed() {
   }, [stream]);
 
   return (
-    <div className="h-[calc(100vh-8rem)] flex flex-col max-w-7xl mx-auto border border-border rounded-lg bg-[#0a0a0a] overflow-hidden shadow-2xl">
-      <div className="p-4 border-b border-border bg-card/80 backdrop-blur flex justify-between items-center shrink-0">
+    <div className="p-3 md:p-0 h-[calc(100dvh-3rem)] md:h-[calc(100dvh-3.5rem)]">
+    <div className="h-full flex flex-col max-w-7xl mx-auto border border-border rounded-lg bg-[#0a0a0a] overflow-hidden shadow-2xl">
+      <div className="p-3 md:p-4 border-b border-border bg-card/80 backdrop-blur flex justify-between items-center shrink-0 gap-3">
         <div>
-          <h1 className="text-xl font-bold tracking-tight uppercase flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <h1 className="text-base md:text-xl font-bold tracking-tight uppercase flex items-center gap-2 md:gap-3">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
             Live TLS Telemetry
           </h1>
-          <p className="text-xs text-muted-foreground font-mono mt-1">eBPF Packet Inspection Engine Active</p>
+          <p className="text-xs text-muted-foreground font-mono mt-0.5 hidden sm:block">eBPF Packet Inspection Engine Active</p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-xs font-mono">
-            <span className="w-2 h-2 rounded-full bg-primary" /> Hybrid PQC
+        <div className="flex items-center gap-2 md:gap-4 shrink-0">
+          <div className="flex items-center gap-1.5 text-[10px] md:text-xs font-mono">
+            <span className="w-2 h-2 rounded-full bg-primary shrink-0" /> <span className="hidden xs:inline">Hybrid</span> PQC
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono">
-            <span className="w-2 h-2 rounded-full bg-destructive" /> Classical Only
+          <div className="flex items-center gap-1.5 text-[10px] md:text-xs font-mono">
+            <span className="w-2 h-2 rounded-full bg-destructive shrink-0" /> Classical
           </div>
         </div>
       </div>
@@ -100,6 +101,7 @@ export default function TelemetryFeed() {
         )}
         <div ref={bottomRef} className="h-4" />
       </div>
+    </div>
     </div>
   );
 }

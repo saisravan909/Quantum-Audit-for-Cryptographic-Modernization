@@ -28,11 +28,11 @@ export default function NodeInventory() {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight uppercase">Node Inventory</h1>
-          <p className="text-muted-foreground mt-1">Global infrastructure registry and PQC risk assessment.</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase">Node Inventory</h1>
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">Global infrastructure registry and PQC risk assessment.</p>
         </div>
       </div>
 

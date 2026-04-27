@@ -10,13 +10,13 @@ export default function ComplianceDashboard() {
   if (!velocity || !overview) return <div className="p-8 text-primary font-mono animate-pulse uppercase">Compiling compliance matrices...</div>;
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-10">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6 max-w-7xl mx-auto pb-10">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight uppercase">Compliance Velocity</h1>
-        <p className="text-muted-foreground mt-1">NIST 800-207 and CNSA 2.0 readiness tracking across all enclaves.</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase">Compliance Velocity</h1>
+        <p className="text-muted-foreground mt-1 text-sm md:text-base">NIST 800-207 and CNSA 2.0 readiness tracking across all enclaves.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         <div className="border border-border bg-card p-5 rounded-lg relative overflow-hidden group">
           <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity"><ShieldCheck className="w-32 h-32" /></div>
           <span className="text-sm font-medium text-muted-foreground mb-1 block uppercase tracking-widest">Overall Rate</span>

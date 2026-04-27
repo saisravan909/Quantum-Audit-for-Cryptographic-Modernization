@@ -443,27 +443,27 @@ export default function LandingPage() {
           style={{ background: `radial-gradient(circle, rgba(255,136,0,${glow * 0.1}) 0%, transparent 65%)`, transition: "background 0.15s" }} />
 
         <div className="float relative z-10 mb-2">
-          <QuantumKeyLogo width={300} height={180} />
+          <QuantumKeyLogo width={200} height={120} className="sm:w-[300px] sm:h-[180px]" />
         </div>
 
-        <div className="relative z-10 text-center fade-up fade-up-1">
-          <div className="orbitron font-black text-6xl md:text-8xl gradient-text tracking-tight leading-none mb-2">QVault</div>
-          <div className="orbitron text-sm md:text-base tracking-[0.5em] text-orange-400/70 uppercase mb-6">PQC Command Center</div>
-          <div className="mono text-xs text-orange-500/40 tracking-[0.3em] mb-10">CNSA 2.0 · PQC · ZERO TRUST · ML-KEM-768 · ML-DSA-65</div>
+        <div className="relative z-10 text-center fade-up fade-up-1 px-4">
+          <div className="orbitron font-black text-5xl sm:text-6xl md:text-8xl gradient-text tracking-tight leading-none mb-2">QVault</div>
+          <div className="orbitron text-xs sm:text-sm md:text-base tracking-[0.3em] sm:tracking-[0.5em] text-orange-400/70 uppercase mb-4 md:mb-6">PQC Command Center</div>
+          <div className="mono text-[10px] sm:text-xs text-orange-500/40 tracking-[0.2em] sm:tracking-[0.3em] mb-8 md:mb-10">CNSA 2.0 · PQC · ZERO TRUST · ML-KEM-768 · ML-DSA-65</div>
         </div>
 
-        <div className="relative z-10 flex flex-col sm:flex-row gap-4 fade-up fade-up-2 mb-16">
+        <div className="relative z-10 flex flex-col sm:flex-row gap-3 sm:gap-4 fade-up fade-up-2 mb-12 md:mb-16 px-6 w-full sm:w-auto">
           <button
             onClick={() => setLocation("/dashboard")}
-            className="group px-8 py-3.5 rounded border border-orange-500 bg-orange-500/12 text-orange-200 orbitron text-sm tracking-widest uppercase hover:bg-orange-500/25 transition-all duration-300 relative overflow-hidden"
+            className="group px-6 sm:px-8 py-3 sm:py-3.5 rounded border border-orange-500 bg-orange-500/12 text-orange-200 orbitron text-xs sm:text-sm tracking-widest uppercase hover:bg-orange-500/25 transition-all duration-300 relative overflow-hidden"
           >
-            <span className="relative z-10 flex items-center gap-2">Launch Dashboard <ChevronRight className="w-4 h-4" /></span>
+            <span className="relative z-10 flex items-center justify-center gap-2">Launch Dashboard <ChevronRight className="w-4 h-4" /></span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           </button>
           <a
             href="https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization"
             target="_blank" rel="noopener noreferrer"
-            className="px-8 py-3.5 rounded border border-slate-600/50 text-slate-400 orbitron text-sm tracking-widest uppercase hover:border-orange-500/40 hover:text-orange-300 transition-all duration-300"
+            className="px-6 sm:px-8 py-3 sm:py-3.5 rounded border border-slate-600/50 text-slate-400 orbitron text-xs sm:text-sm tracking-widest uppercase hover:border-orange-500/40 hover:text-orange-300 transition-all duration-300 text-center"
           >
             GitHub Repository
           </a>

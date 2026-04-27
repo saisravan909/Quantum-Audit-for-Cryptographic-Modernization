@@ -10,15 +10,15 @@ export default function CommandCenter() {
   if (!summary) return <div className="p-8 text-primary font-mono animate-pulse">INITIATING COMMAND CENTER...</div>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight uppercase text-foreground">Command Center</h1>
-          <p className="text-muted-foreground mt-1">Real-time PQC readiness and HNDL threat vector analysis.</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase text-foreground">Command Center</h1>
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">Real-time PQC readiness and HNDL threat vector analysis.</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="border border-border bg-card p-5 rounded-lg flex flex-col relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 opacity-20"><Cpu className="w-16 h-16" /></div>
           <span className="text-sm font-medium text-muted-foreground mb-1 z-10">PQC Enabled Nodes</span>

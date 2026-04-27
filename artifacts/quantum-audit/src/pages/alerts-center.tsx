@@ -40,10 +40,10 @@ export default function AlertsCenter() {
   const ackedAlerts = alerts?.filter(a => a.acknowledged) || [];
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-10">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6 max-w-5xl mx-auto pb-10">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight uppercase">Zero Trust Alerts</h1>
-        <p className="text-muted-foreground mt-1">Real-time classical fallback and HNDL threat event feed.</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase">Zero Trust Alerts</h1>
+        <p className="text-muted-foreground mt-1 text-sm md:text-base">Real-time classical fallback and HNDL threat event feed.</p>
       </div>
 
       <div className="space-y-4">
@@ -70,27 +70,29 @@ export default function AlertsCenter() {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95, height: 0, marginBottom: 0 }}
-                  className={`p-4 border rounded-lg flex items-start gap-4 ${getSeverityColor(alert.severity)}`}
+                  className={`p-4 border rounded-lg flex flex-col sm:flex-row items-start gap-3 ${getSeverityColor(alert.severity)}`}
                 >
-                  <div className="mt-1">{getSeverityIcon(alert.severity)}</div>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <h3 className="font-bold text-foreground tracking-tight">{alert.title}</h3>
-                      <span className="text-xs font-mono text-muted-foreground flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {formatDistanceToNow(new Date(alert.createdAt), { addSuffix: true })}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-1">{alert.description}</p>
-                    <div className="mt-3 flex items-center gap-3">
-                      <span className="text-xs font-mono bg-background border border-border px-2 py-1 rounded">Node: {alert.nodeId}</span>
-                      <span className="text-xs font-mono bg-background border border-border px-2 py-1 rounded">Type: {alert.type}</span>
+                  <div className="flex items-start gap-3 flex-1 min-w-0">
+                    <div className="mt-0.5 shrink-0">{getSeverityIcon(alert.severity)}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2 flex-wrap">
+                        <h3 className="font-bold text-foreground tracking-tight text-sm md:text-base">{alert.title}</h3>
+                        <span className="text-xs font-mono text-muted-foreground flex items-center gap-1 shrink-0">
+                          <Clock className="w-3 h-3" />
+                          {formatDistanceToNow(new Date(alert.createdAt), { addSuffix: true })}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">{alert.description}</p>
+                      <div className="mt-3 flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-mono bg-background border border-border px-2 py-1 rounded">Node: {alert.nodeId}</span>
+                        <span className="text-xs font-mono bg-background border border-border px-2 py-1 rounded">Type: {alert.type}</span>
+                      </div>
                     </div>
                   </div>
                   <button 
                     onClick={() => handleAcknowledge(alert.id)}
                     disabled={ackAlert.isPending}
-                    className="shrink-0 px-3 py-1.5 border border-border bg-background hover:bg-secondary rounded text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50"
+                    className="shrink-0 w-full sm:w-auto px-3 py-1.5 border border-border bg-background hover:bg-secondary rounded text-xs font-medium uppercase tracking-wider transition-colors disabled:opacity-50"
                   >
                     Acknowledge
                   </button>
