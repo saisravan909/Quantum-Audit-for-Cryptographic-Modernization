@@ -15,6 +15,9 @@ import TelemetryFeed from "@/pages/telemetry-feed";
 import LandingPage from "@/pages/landing";
 import InnovatorPage from "@/pages/innovator";
 import RegulatoryPage from "@/pages/regulatory";
+import DemoPage from "@/pages/demo";
+import IndustriesPage from "@/pages/industries";
+import CyberIntelPage from "@/pages/cyber-intel";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +29,9 @@ function Router() {
         <Route path="/about" component={LandingPage} />
         <Route path="/innovator" component={InnovatorPage} />
         <Route path="/regulatory" component={RegulatoryPage} />
+        <Route path="/demo" component={DemoPage} />
+        <Route path="/industries" component={IndustriesPage} />
+        <Route path="/cyber-intel" component={CyberIntelPage} />
         <Route path="/nodes" component={NodeInventory} />
         <Route path="/nodes/:id" component={NodeDetail} />
         <Route path="/compliance" component={ComplianceDashboard} />
