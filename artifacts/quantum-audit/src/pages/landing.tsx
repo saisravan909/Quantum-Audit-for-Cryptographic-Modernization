@@ -190,7 +190,7 @@ export default function LandingPage() {
         {/* CTA buttons */}
         <div className="relative z-10 flex flex-col sm:flex-row gap-4 fade-up fade-up-2 mb-16">
           <button
-            onClick={() => setLocation("/")}
+            onClick={() => setLocation("/dashboard")}
             className="group px-8 py-3 rounded-sm border border-orange-500 bg-orange-500/10 text-orange-300 orbitron text-sm tracking-widest uppercase hover:bg-orange-500/25 transition-all duration-300 relative overflow-hidden"
           >
             <span className="relative z-10">Launch Dashboard</span>
@@ -482,7 +482,7 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => setLocation("/")}
+              onClick={() => setLocation("/dashboard")}
               className="group px-10 py-4 rounded-sm border border-orange-500 bg-orange-500/15 text-orange-200 orbitron text-sm tracking-widest uppercase hover:bg-orange-500/30 transition-all duration-300 relative overflow-hidden"
             >
               <span className="relative z-10">Enter Command Center</span>

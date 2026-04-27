@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   const mainNav = [
-    { href: "/", label: "Command Center", icon: Orbit },
+    { href: "/dashboard", label: "Command Center", icon: Orbit },
     { href: "/nodes", label: "Node Inventory", icon: Server },
     { href: "/telemetry", label: "Telemetry Feed", icon: Activity },
     { href: "/compliance", label: "Compliance Velocity", icon: CheckCircle },
@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   const infoNav = [
-    { href: "/about", label: "About QVault", icon: Info },
+    { href: "/", label: "About QVault", icon: Info },
     { href: "/innovator", label: "About the Innovator", icon: User },
     { href: "/regulatory", label: "Regulatory Mapping", icon: Scale },
     { href: "/industries", label: "Industry Use Cases", icon: Building2 },
@@ -23,14 +23,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { href: "/demo", label: "Live Demo", icon: Play },
   ];
 
-  const isActive = (href: string) =>
-    location === href || (href !== "/" && location.startsWith(href));
+  const isActive = (href: string) => {
+    if (href === "/") return location === "/" || location === "/about";
+    return location === href || location.startsWith(href);
+  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans">
       <aside className="w-64 border-r border-border bg-card flex flex-col">
         {/* Animated logo header */}
-        <Link href="/about" className="block border-b border-border hover:bg-orange-500/5 transition-colors group">
+        <Link href="/" className="block border-b border-border hover:bg-orange-500/5 transition-colors group">
           <div className="flex items-center gap-2 px-3 pt-2 pb-0">
             <div style={{ marginLeft: "-8px", marginBottom: "-8px" }}>
               <QuantumKeyLogo width={100} height={60} />

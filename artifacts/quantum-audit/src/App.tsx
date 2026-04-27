@@ -25,7 +25,8 @@ function Router() {
   return (
     <Layout>
       <Switch>
-        <Route path="/" component={CommandCenter} />
+        <Route path="/" component={LandingPage} />
+        <Route path="/dashboard" component={CommandCenter} />
         <Route path="/about" component={LandingPage} />
         <Route path="/innovator" component={InnovatorPage} />
         <Route path="/regulatory" component={RegulatoryPage} />
