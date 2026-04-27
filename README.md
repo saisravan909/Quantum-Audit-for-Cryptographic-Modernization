@@ -70,12 +70,12 @@ graph TB
     end
 
     subgraph API["API Layer (Express 5 + OpenAPI)"]
-        NR[/api/nodes]
-        TR[/api/telemetry]
-        CR[/api/compliance]
-        CBR[/api/cbom]
-        AR[/api/alerts]
-        DR[/api/dashboard]
+        NR["api/nodes"]
+        TR["api/telemetry"]
+        CR["api/compliance"]
+        CBR["api/cbom"]
+        AR["api/alerts"]
+        DR["api/dashboard"]
     end
 
     subgraph DB["Data Layer (PostgreSQL + Drizzle ORM)"]
@@ -91,7 +91,7 @@ graph TB
         NIST[NIST 800-207]
         NSM[NSM-10]
         EO[EO 14028]
-        FIPS[FIPS 205 / 206]
+        FIPS["FIPS 205 and 206"]
     end
 
     CC --> DR

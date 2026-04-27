@@ -394,21 +394,12 @@ export default function LandingPage() {
             {/* Avatar / Photo */}
             <div className="shrink-0 flex flex-col items-center gap-5">
               <div className="relative pulse-ring">
-                <div className="avatar-glow w-52 h-52 rounded-full border-2 border-orange-500/60 overflow-hidden bg-gradient-to-br from-orange-900/60 to-black flex items-center justify-center">
-                  {/* Replace the div below with an <img> tag once a photo is available */}
-                  <div className="flex flex-col items-center justify-center text-center p-4">
-                    <svg viewBox="0 0 80 80" className="w-24 h-24 mb-2" fill="none">
-                      <circle cx="40" cy="28" r="16" fill="rgba(255,136,0,0.25)" stroke="rgba(255,136,0,0.7)" strokeWidth="1.5"/>
-                      <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(255,136,0,0.15)" stroke="rgba(255,136,0,0.5)" strokeWidth="1.5"/>
-                      <circle cx="40" cy="28" r="8" fill="rgba(255,160,0,0.5)"/>
-                      <circle cx="40" cy="12" r="2" fill="rgba(255,136,0,0.8)"/>
-                      <circle cx="56" cy="20" r="2" fill="rgba(255,136,0,0.8)"/>
-                      <circle cx="56" cy="36" r="2" fill="rgba(255,136,0,0.8)"/>
-                      <circle cx="24" cy="20" r="2" fill="rgba(255,136,0,0.8)"/>
-                      <circle cx="24" cy="36" r="2" fill="rgba(255,136,0,0.8)"/>
-                    </svg>
-                    <span className="mono text-orange-500/60 text-[9px] tracking-widest">PHOTO</span>
-                  </div>
+                <div className="avatar-glow w-52 h-52 rounded-full border-2 border-orange-500/60 overflow-hidden">
+                  <img
+                    src="/sai-sravan.png"
+                    alt="Sai Sravan Cherukuri"
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
               </div>
               <div className="text-center">
