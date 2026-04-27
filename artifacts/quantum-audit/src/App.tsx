@@ -12,6 +12,7 @@ import ComplianceDashboard from "@/pages/compliance-dashboard";
 import CbomExplorer from "@/pages/cbom-explorer";
 import AlertsCenter from "@/pages/alerts-center";
 import TelemetryFeed from "@/pages/telemetry-feed";
+import LandingPage from "@/pages/landing";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={CommandCenter} />
+        <Route path="/about" component={LandingPage} />
         <Route path="/nodes" component={NodeInventory} />
         <Route path="/nodes/:id" component={NodeDetail} />
         <Route path="/compliance" component={ComplianceDashboard} />

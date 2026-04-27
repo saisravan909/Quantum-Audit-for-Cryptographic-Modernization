@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
-import { Shield, Activity, Server, FileText, Bell, CheckCircle, Orbit } from "lucide-react";
+import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info } from "lucide-react";
+import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -16,24 +17,54 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans">
       <aside className="w-64 border-r border-border bg-card flex flex-col">
-        <div className="p-4 border-b border-border flex items-center gap-3">
-          <Shield className="text-primary w-8 h-8" />
-          <div>
-            <div className="font-bold text-sm tracking-widest text-primary uppercase">QUANTUM</div>
-            <div className="text-xs text-muted-foreground uppercase tracking-widest">Audit Command</div>
+        {/* Animated logo header */}
+        <Link href="/about" className="block border-b border-border hover:bg-orange-500/5 transition-colors group">
+          <div className="flex items-center gap-2 px-3 pt-2 pb-0">
+            <div style={{ marginLeft: "-8px", marginBottom: "-8px" }}>
+              <QuantumKeyLogo width={100} height={60} />
+            </div>
+            <div style={{ marginLeft: "-4px" }}>
+              <div className="font-bold text-[11px] tracking-widest text-orange-400 uppercase group-hover:text-orange-300 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QUANTUM</div>
+              <div className="text-[9px] text-muted-foreground uppercase tracking-widest">Audit Command</div>
+            </div>
           </div>
-        </div>
+        </Link>
+
         <nav className="flex-1 overflow-y-auto p-4 space-y-1">
           {navItems.map((item) => {
             const isActive = location === item.href || (item.href !== "/" && location.startsWith(item.href));
             return (
-              <Link key={item.href} href={item.href} className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${isActive ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-secondary hover:text-foreground"}`}>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                  isActive
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                }`}
+              >
                 <item.icon className="w-4 h-4" />
                 {item.label}
               </Link>
             );
           })}
         </nav>
+
+        {/* About link */}
+        <div className="px-4 pb-2">
+          <Link
+            href="/about"
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+              location === "/about"
+                ? "bg-orange-500/10 text-orange-400 font-medium"
+                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+            }`}
+          >
+            <Info className="w-4 h-4" />
+            About & Mission
+          </Link>
+        </div>
+
         <div className="p-4 border-t border-border">
           <div className="text-xs text-muted-foreground flex justify-between items-center">
             <span>SYS: ONLINE</span>
@@ -41,6 +72,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </aside>
+
       <main className="flex-1 flex flex-col h-full overflow-hidden">
         <header className="h-14 border-b border-border bg-card/50 backdrop-blur-md flex items-center px-6 justify-between shrink-0">
           <div className="flex items-center gap-2">
@@ -53,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <span>CNSA 2.0</span>
           </div>
         </header>
-        <div className="flex-1 overflow-auto p-6 relative">
+        <div className="flex-1 overflow-auto relative">
           {children}
         </div>
       </main>
