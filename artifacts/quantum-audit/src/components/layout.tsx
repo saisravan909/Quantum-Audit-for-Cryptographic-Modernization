@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale, Play, Building2, Cpu, GitBranch, Menu, X } from "lucide-react";
+import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale, Play, Building2, Cpu, GitBranch, Menu, X, Network, Key, Target, Clock, Terminal } from "lucide-react";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -26,6 +26,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { href: "/compliance", label: "Compliance Velocity", icon: CheckCircle },
     { href: "/cbom", label: "CBOM Explorer", icon: FileText },
     { href: "/alerts", label: "Zero Trust Alerts", icon: Bell },
+  ];
+
+  const showcaseNav = [
+    { href: "/pipeline", label: "Pipeline Architecture", icon: Network },
+    { href: "/handshake", label: "Handshake Inspector", icon: Key },
+    { href: "/risk-map", label: "Risk Scorecard", icon: Target },
+    { href: "/threat-clock", label: "HNDL Threat Clock", icon: Clock },
+    { href: "/config-builder", label: "Config Builder", icon: Terminal },
   ];
 
   const infoNav = [
@@ -67,6 +75,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
               isActive(item.href)
                 ? "bg-primary/10 text-primary font-medium"
+                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+            }`}
+          >
+            <item.icon className="w-4 h-4 shrink-0" />
+            {item.label}
+          </Link>
+        ))}
+
+        <div className="py-2">
+          <div className="h-px bg-border" />
+        </div>
+
+        <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Showcase</div>
+        {showcaseNav.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+              isActive(item.href)
+                ? "bg-cyan-500/10 text-cyan-400 font-medium"
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >

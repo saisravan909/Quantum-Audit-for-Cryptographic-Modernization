@@ -19,6 +19,11 @@ import DemoPage from "@/pages/demo";
 import IndustriesPage from "@/pages/industries";
 import CyberIntelPage from "@/pages/cyber-intel";
 import RoadmapPage from "@/pages/roadmap";
+import PipelineDiagram from "@/pages/pipeline-diagram";
+import HandshakeInspector from "@/pages/handshake-inspector";
+import RiskScorecard from "@/pages/risk-scorecard";
+import ThreatClock from "@/pages/threat-clock";
+import ConfigBuilder from "@/pages/config-builder";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +46,11 @@ function Router() {
         <Route path="/cbom" component={CbomExplorer} />
         <Route path="/alerts" component={AlertsCenter} />
         <Route path="/telemetry" component={TelemetryFeed} />
+        <Route path="/pipeline" component={PipelineDiagram} />
+        <Route path="/handshake" component={HandshakeInspector} />
+        <Route path="/risk-map" component={RiskScorecard} />
+        <Route path="/threat-clock" component={ThreatClock} />
+        <Route path="/config-builder" component={ConfigBuilder} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
@@ -49,7 +59,6 @@ function Router() {
 
 function App() {
   useEffect(() => {
-    // Force dark mode
     document.documentElement.classList.add("dark");
   }, []);
 
