@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "vHfbcQsvDmbJB2ni_co-2"
+uri = "file://.local/ip/QVault-IP-Capture-CONFIDENTIAL.md"
+type = "text"
+title = "QVault IP Capture -- CONFIDENTIAL"
