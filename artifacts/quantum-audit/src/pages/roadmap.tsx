@@ -61,29 +61,29 @@ const PHASES: Phase[] = [
 const ITEMS: RoadmapItem[] = [
   // Phase 1 — shipped
   {
-    id: "p1-1", phase: 1, quarter: "Q2 2025", status: "shipped", label: "core",
+    id: "p1-1", phase: 1, quarter: "Q2 2025", status: "shipped", label: "core", githubIssue: 9,
     title: "Real-Time Telemetry Feed",
-    description: "eBPF-level cryptographic event stream capturing every TLS handshake, cipher suite negotiation, and algorithm transition across monitored endpoints.",
+    description: "eBPF-level cryptographic event stream capturing every TLS handshake, cipher suite negotiation, and algorithm transition across monitored endpoints. Shipped July 2025.",
   },
   {
-    id: "p1-2", phase: 1, quarter: "Q2 2025", status: "shipped", label: "core",
+    id: "p1-2", phase: 1, quarter: "Q2 2025", status: "shipped", label: "core", githubIssue: 10,
     title: "Node Inventory and Posture Scoring",
-    description: "Comprehensive cryptographic asset inventory with per-node algorithm audit, certificate tracking, and quantum vulnerability scoring.",
+    description: "Comprehensive cryptographic asset inventory with per-node algorithm audit, certificate tracking, and quantum vulnerability scoring. Shipped August 2025.",
   },
   {
-    id: "p1-3", phase: 1, quarter: "Q3 2025", status: "shipped", label: "compliance",
+    id: "p1-3", phase: 1, quarter: "Q3 2025", status: "shipped", label: "compliance", githubIssue: 11,
     title: "CBOM Explorer",
-    description: "Cryptographic Bill of Materials generation aligned with NIST SP 800-235, with per-asset algorithm cataloguing and dependency mapping.",
+    description: "Cryptographic Bill of Materials generation aligned with NIST SP 800-235, with per-asset algorithm cataloguing and dependency mapping. Shipped September 2025.",
   },
   {
-    id: "p1-4", phase: 1, quarter: "Q3 2025", status: "shipped", label: "compliance",
+    id: "p1-4", phase: 1, quarter: "Q3 2025", status: "shipped", label: "compliance", githubIssue: 12,
     title: "Compliance Velocity Dashboard",
-    description: "CNSA 2.0, NSM-10, and EO 14028 migration progress scoring with milestone tracking and deadline countdown.",
+    description: "CNSA 2.0, NSM-10, and EO 14028 migration progress scoring with milestone tracking and deadline countdown. Shipped September 2025.",
   },
   {
-    id: "p1-5", phase: 1, quarter: "Q3 2025", status: "shipped", label: "zero-trust",
+    id: "p1-5", phase: 1, quarter: "Q3 2025", status: "shipped", label: "zero-trust", githubIssue: 13,
     title: "Zero Trust Alerts Center",
-    description: "Real-time cryptographic policy violation stream with severity classification, node attribution, and remediation guidance.",
+    description: "Real-time cryptographic policy violation stream with severity classification, node attribution, and remediation guidance aligned with NIST SP 800-207. Shipped September 2025.",
   },
   // Phase 2 — in progress / planned
   {
