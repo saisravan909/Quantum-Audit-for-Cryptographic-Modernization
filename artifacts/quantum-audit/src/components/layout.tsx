@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User } from "lucide-react";
+import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale } from "lucide-react";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -17,6 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const infoNav = [
     { href: "/about", label: "About QVault", icon: Info },
     { href: "/innovator", label: "About the Innovator", icon: User },
+    { href: "/regulatory", label: "Regulatory Mapping", icon: Scale },
   ];
 
   const isActive = (href: string) =>

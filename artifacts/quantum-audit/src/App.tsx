@@ -14,6 +14,7 @@ import AlertsCenter from "@/pages/alerts-center";
 import TelemetryFeed from "@/pages/telemetry-feed";
 import LandingPage from "@/pages/landing";
 import InnovatorPage from "@/pages/innovator";
+import RegulatoryPage from "@/pages/regulatory";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ function Router() {
         <Route path="/" component={CommandCenter} />
         <Route path="/about" component={LandingPage} />
         <Route path="/innovator" component={InnovatorPage} />
+        <Route path="/regulatory" component={RegulatoryPage} />
         <Route path="/nodes" component={NodeInventory} />
         <Route path="/nodes/:id" component={NodeDetail} />
         <Route path="/compliance" component={ComplianceDashboard} />
