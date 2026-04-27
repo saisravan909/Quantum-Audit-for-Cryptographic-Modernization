@@ -50,7 +50,6 @@ Thumbs.db
 .replit
 .replitignore
 replit.md
-**/.replit-artifact/
 attached_assets/
 
 # Environment and secrets — never commit
