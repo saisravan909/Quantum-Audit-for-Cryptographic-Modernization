@@ -11,18 +11,15 @@
 <br /><br />
 
 ```
- ██████  ██    ██  █████  ███    ██ ████████ ██    ██ ███    ███
-██    ██ ██    ██ ██   ██ ████   ██    ██    ██    ██ ████  ████
-██    ██ ██    ██ ███████ ██ ██  ██    ██    ██    ██ ██ ████ ██
-██ ▄▄ ██ ██    ██ ██   ██ ██  ██ ██    ██    ██    ██ ██  ██  ██
- ██████   ██████  ██   ██ ██   ████    ██     ██████  ██      ██
-    ▀▀
- █████  ██    ██ ██████  ██ ████████     ██████  ██████  ███    ███ ███    ███  █████  ███    ██ ██████
-██   ██ ██    ██ ██   ██ ██    ██       ██      ██    ██ ████  ████ ████  ████ ██   ██ ████   ██ ██   ██
-███████ ██    ██ ██   ██ ██    ██       ██      ██    ██ ██ ████ ██ ██ ████ ██ ███████ ██ ██  ██ ██   ██
-██   ██ ██    ██ ██   ██ ██    ██       ██      ██    ██ ██  ██  ██ ██  ██  ██ ██   ██ ██  ██ ██ ██   ██
-██   ██  ██████  ██████  ██    ██        ██████  ██████  ██      ██ ██      ██ ██   ██ ██   ████ ██████
+  ██████  ██    ██  █████  ██    ██ ██      ████████
+ ██    ██ ██    ██ ██   ██ ██    ██ ██         ██
+ ██    ██ ██    ██ ███████ ██    ██ ██         ██
+ ██ ▄▄ ██  ██  ██  ██   ██ ██    ██ ██         ██
+  ██████    ████   ██   ██  ██████  ███████    ██
+     ▀▀
 ```
+
+**Quantum Cryptographic Governance Platform**
 
 ### Real-Time PQC Governance for the Quantum Age
 
@@ -36,7 +33,7 @@
 
 ## What This Project Is
 
-Quantum Audit Command Center is a real-time cryptographic governance platform built for federal agencies, defense contractors, and critical infrastructure operators who need to understand and act on their post-quantum cryptography readiness today, not in a future planning cycle.
+QVault is a real-time cryptographic governance platform built for federal agencies, defense contractors, and critical infrastructure operators who need to understand and act on their post-quantum cryptography readiness today, not in a future planning cycle.
 
 It gives security teams a unified operational view of their entire cryptographic estate. That means knowing which nodes are running deprecated algorithms, tracking compliance progress against CNSA 2.0 timelines, generating Cryptographic Bills of Materials (CBOMs), and seeing Zero Trust policy violations the moment they happen.
 
@@ -50,7 +47,7 @@ Nation-state adversaries are actively running "Harvest Now, Decrypt Later" (HNDL
 
 At the same time, regulatory pressure is intensifying. NSM-10 mandates cryptographic inventories. EO 14028 requires Zero Trust adoption. CNSA 2.0 sets hard timelines for PQC migration. NIST FIPS 205 and 206 have finalized ML-DSA and ML-KEM as the approved post-quantum standards. Organizations that are not actively measuring their progress will be caught flat-footed.
 
-The core gap is visibility. You cannot migrate what you have not mapped. Quantum Audit Command Center closes that gap.
+The core gap is visibility. You cannot migrate what you have not mapped. QVault closes that gap.
 
 ---
 
@@ -190,7 +187,7 @@ timeline
          : EO 14028 establishes Zero Trust requirements
     2024 : NIST finalizes FIPS 205 (ML-DSA) and FIPS 206 (ML-KEM)
          : CNSA 2.0 migration timeline enforced
-    2026 : Quantum Audit Command Center released as open source
+    2026 : QVault released as open source
          : SP 800-235 CBOM standard adopted
     2028 : CNSA 2.0 compliance deadline for NSS systems
          : First fault-tolerant QC demonstrations expected
@@ -330,7 +327,7 @@ In separate terminals:
 pnpm --filter @workspace/api-server run dev
 
 # Frontend Dashboard
-pnpm --filter @workspace/quantum-audit run dev
+pnpm --filter @workspace/qvault run dev
 ```
 
 The dashboard runs at `http://localhost:5173` and the API at `http://localhost:8080`.
@@ -466,7 +463,7 @@ This project builds on the work of the NIST Post-Quantum Cryptography Standardiz
 
 <div align="center">
 
-**Quantum Audit Command Center**
+**QVault**
 
 Open Source. Community Driven. Built to secure the future.
 

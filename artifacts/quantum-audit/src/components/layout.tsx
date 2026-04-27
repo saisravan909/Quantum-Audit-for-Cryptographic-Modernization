@@ -24,8 +24,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <QuantumKeyLogo width={100} height={60} />
             </div>
             <div style={{ marginLeft: "-4px" }}>
-              <div className="font-bold text-[11px] tracking-widest text-orange-400 uppercase group-hover:text-orange-300 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QUANTUM</div>
-              <div className="text-[9px] text-muted-foreground uppercase tracking-widest">Audit Command</div>
+              <div className="font-bold text-[13px] tracking-widest text-orange-400 uppercase group-hover:text-orange-300 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QVault</div>
+              <div className="text-[9px] text-muted-foreground uppercase tracking-widest">PQC Command Center</div>
             </div>
           </div>
         </Link>

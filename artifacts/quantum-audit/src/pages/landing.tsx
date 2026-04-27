@@ -176,11 +176,11 @@ export default function LandingPage() {
 
         {/* Wordmark */}
         <div className="relative z-10 text-center fade-up fade-up-1">
-          <div className="orbitron font-black text-5xl md:text-7xl gradient-text tracking-tight leading-none mb-2">
-            QUANTUM AUDIT
+          <div className="orbitron font-black text-6xl md:text-8xl gradient-text tracking-tight leading-none mb-2">
+            QVault
           </div>
           <div className="orbitron text-sm md:text-base tracking-[0.5em] text-orange-400/70 uppercase mb-8">
-            Command Center
+            PQC Command Center
           </div>
           <div className="mono text-xs text-orange-500/50 tracking-[0.3em] mb-10">
             CNSA 2.0 · PQC · ZERO TRUST · ML-KEM-768 · ML-DSA-65
@@ -275,7 +275,7 @@ export default function LandingPage() {
                 <span className="gradient-text">Governance at Scale</span>
               </h2>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                <strong className="text-orange-300">Quantum Audit Command Center</strong> is an open-source, real-time cryptographic governance
+                <strong className="text-orange-300">QVault</strong> is an open-source, real-time cryptographic governance
                 platform engineered for defense, intelligence, and critical infrastructure organizations navigating the migration to
                 Post-Quantum Cryptography under CNSA 2.0.
               </p>
@@ -438,7 +438,7 @@ export default function LandingPage() {
 
               <p className="text-gray-400 leading-relaxed">
                 Rather than building a proprietary, paywalled solution, Sai made a deliberate choice to release
-                Quantum Audit Command Center as fully open-source software — believing that the national security
+                QVault as fully open-source software, believing that the national security
                 implications of the quantum transition are too important to be locked behind commercial gates.
                 The ecosystem needs shared tools, shared visibility, and shared urgency.
               </p>
@@ -505,8 +505,8 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <QuantumKeyLogo width={80} height={48} />
             <div>
-              <div className="orbitron text-orange-400 text-xs font-bold tracking-widest">QUANTUM AUDIT</div>
-              <div className="mono text-orange-600/50 text-[9px] tracking-widest">COMMAND CENTER</div>
+              <div className="orbitron text-orange-400 text-xs font-bold tracking-widest">QVault</div>
+              <div className="mono text-orange-600/50 text-[9px] tracking-widest">PQC COMMAND CENTER</div>
             </div>
           </div>
           <div className="mono text-gray-600 text-xs text-center">
