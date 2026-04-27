@@ -60,8 +60,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <QuantumKeyLogo width={100} height={60} />
           </div>
           <div style={{ marginLeft: "-4px" }}>
-            <div className="font-bold text-[13px] tracking-widest text-primary uppercase group-hover:text-primary/80 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QVault</div>
-            <div className="text-[9px] text-muted-foreground uppercase tracking-widest">PQC Command Center</div>
+            <div className="font-bold text-sm tracking-widest text-primary uppercase group-hover:text-primary/80 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QVault</div>
+            <div className="text-xs text-muted-foreground uppercase tracking-widest">PQC Command Center</div>
           </div>
         </div>
       </Link>
@@ -80,7 +80,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <span>Readiness Assessment</span>
           <span className="ml-auto text-[9px] font-bold tracking-widest px-1.5 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">NEW</span>
         </Link>
-        <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Platform</div>
+        <div className="mono text-xs text-muted-foreground/70 tracking-[0.25em] uppercase px-3 pb-1">Platform</div>
         {mainNav.map((item) => (
           <Link
             key={item.href}
@@ -100,7 +100,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="h-px bg-border" />
         </div>
 
-        <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Showcase</div>
+        <div className="mono text-xs text-muted-foreground/70 tracking-[0.25em] uppercase px-3 pb-1">Showcase</div>
         {showcaseNav.map((item) => (
           <Link
             key={item.href}
@@ -120,7 +120,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="h-px bg-border" />
         </div>
 
-        <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Info</div>
+        <div className="mono text-xs text-muted-foreground/70 tracking-[0.25em] uppercase px-3 pb-1">Info</div>
         {infoNav.map((item) => (
           <Link
             key={item.href}

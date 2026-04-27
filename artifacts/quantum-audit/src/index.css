@@ -55,34 +55,47 @@
 }
 
 :root {
+  /* Page background stays deep navy */
   --background: 222 47% 7%;
-  --foreground: 210 20% 93%;
-  --card: 222 40% 9%;
-  --card-foreground: 210 20% 93%;
-  --popover: 222 40% 9%;
-  --popover-foreground: 210 20% 93%;
-  --primary: 195 100% 34%;
+  --foreground: 210 20% 96%;
+
+  /* Cards are clearly lighter than background - was 9%, now 14% */
+  --card: 222 38% 14%;
+  --card-foreground: 210 20% 96%;
+
+  --popover: 222 38% 14%;
+  --popover-foreground: 210 20% 96%;
+
+  --primary: 195 100% 40%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 222 30% 13%;
-  --secondary-foreground: 210 15% 75%;
-  --muted: 222 30% 12%;
-  --muted-foreground: 220 15% 52%;
-  --accent: 195 100% 34%;
+
+  /* Secondary/muted surfaces - clearly distinct from card */
+  --secondary: 222 30% 20%;
+  --secondary-foreground: 210 15% 92%;
+
+  --muted: 222 30% 18%;
+  /* muted-foreground was 52% lightness (hard to read) - now 72% (slate-300 equivalent) */
+  --muted-foreground: 220 14% 72%;
+
+  --accent: 195 100% 40%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 72% 51%;
+
+  --destructive: 0 72% 58%;
   --destructive-foreground: 0 0% 100%;
-  --border: 220 28% 17%;
-  --input: 222 35% 13%;
-  --ring: 195 100% 34%;
+
+  /* Borders - was 17% lightness (invisible), now 28% (clearly visible) */
+  --border: 220 28% 28%;
+  --input: 222 35% 18%;
+  --ring: 195 100% 40%;
 
   --sidebar: 222 47% 6%;
-  --sidebar-foreground: 210 20% 90%;
-  --sidebar-border: 220 28% 15%;
-  --sidebar-primary: 195 100% 34%;
+  --sidebar-foreground: 210 20% 92%;
+  --sidebar-border: 220 28% 22%;
+  --sidebar-primary: 195 100% 40%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 222 30% 13%;
-  --sidebar-accent-foreground: 210 15% 80%;
-  --sidebar-ring: 195 100% 34%;
+  --sidebar-accent: 222 30% 18%;
+  --sidebar-accent-foreground: 210 15% 90%;
+  --sidebar-ring: 195 100% 40%;
 
   --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   --app-font-serif: Georgia, serif;
@@ -97,6 +110,7 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    font-size: 16px;
   }
 }
 
