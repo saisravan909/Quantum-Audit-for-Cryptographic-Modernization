@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale, Play, Building2, Cpu } from "lucide-react";
+import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale, Play, Building2, Cpu, GitBranch } from "lucide-react";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -21,6 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { href: "/industries", label: "Industry Use Cases", icon: Building2 },
     { href: "/cyber-intel", label: "Cyber Intel", icon: Cpu },
     { href: "/demo", label: "Live Demo", icon: Play },
+    { href: "/roadmap", label: "Roadmap", icon: GitBranch },
   ];
 
   const isActive = (href: string) => {

@@ -18,6 +18,7 @@ import RegulatoryPage from "@/pages/regulatory";
 import DemoPage from "@/pages/demo";
 import IndustriesPage from "@/pages/industries";
 import CyberIntelPage from "@/pages/cyber-intel";
+import RoadmapPage from "@/pages/roadmap";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ function Router() {
         <Route path="/demo" component={DemoPage} />
         <Route path="/industries" component={IndustriesPage} />
         <Route path="/cyber-intel" component={CyberIntelPage} />
+        <Route path="/roadmap" component={RoadmapPage} />
         <Route path="/nodes" component={NodeInventory} />
         <Route path="/nodes/:id" component={NodeDetail} />
         <Route path="/compliance" component={ComplianceDashboard} />
