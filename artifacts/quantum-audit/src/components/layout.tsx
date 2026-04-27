@@ -54,13 +54,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const SidebarContent = () => (
     <>
       {/* Logo header */}
-      <Link href="/" className="block border-b border-border hover:bg-orange-500/5 transition-colors group">
+      <Link href="/" className="block border-b border-border hover:bg-secondary/60 transition-colors group">
         <div className="flex items-center gap-2 px-3 pt-2 pb-0">
           <div style={{ marginLeft: "-8px", marginBottom: "-8px" }}>
             <QuantumKeyLogo width={100} height={60} />
           </div>
           <div style={{ marginLeft: "-4px" }}>
-            <div className="font-bold text-[13px] tracking-widest text-orange-400 uppercase group-hover:text-orange-300 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QVault</div>
+            <div className="font-bold text-[13px] tracking-widest text-primary uppercase group-hover:text-primary/80 transition-colors" style={{ fontFamily: "'Orbitron', monospace" }}>QVault</div>
             <div className="text-[9px] text-muted-foreground uppercase tracking-widest">PQC Command Center</div>
           </div>
         </div>
@@ -70,15 +70,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* Assessment CTA */}
         <Link
           href="/assessment"
-          className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg mb-3 text-sm font-semibold transition-all"
-          style={isActive("/assessment")
-            ? { background: "rgba(255,255,255,0.12)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" }
-            : { background: "rgba(255,255,255,0.06)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,0.1)" }
-          }
+          className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg mb-3 text-sm font-semibold transition-all border ${
+            isActive("/assessment")
+              ? "bg-primary text-primary-foreground border-primary shadow-sm"
+              : "bg-secondary text-foreground border-border hover:bg-secondary/80"
+          }`}
         >
-          <ClipboardList className="w-4 h-4 shrink-0" style={{ color: isActive("/assessment") ? "#fff" : "#94a3b8" }} />
+          <ClipboardList className="w-4 h-4 shrink-0" />
           <span>Readiness Assessment</span>
-          <span className="ml-auto text-[9px] font-bold tracking-widest px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.12)", color: "#94a3b8" }}>NEW</span>
+          <span className="ml-auto text-[9px] font-bold tracking-widest px-1.5 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">NEW</span>
         </Link>
         <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Platform</div>
         {mainNav.map((item) => (
@@ -107,7 +107,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             href={item.href}
             className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
               isActive(item.href)
-                ? "bg-cyan-500/10 text-cyan-400 font-medium"
+                ? "bg-primary/10 text-primary font-medium"
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >
@@ -127,7 +127,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             href={item.href}
             className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
               isActive(item.href)
-                ? "bg-orange-500/10 text-orange-400 font-medium"
+                ? "bg-primary/10 text-primary font-medium"
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >

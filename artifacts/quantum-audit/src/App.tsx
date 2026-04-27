@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect, useRef } from "react";
 import { ClerkProvider, useClerk } from "@clerk/react";
-import { dark } from "@clerk/themes";
 import NotFound from "@/pages/not-found";
 import Layout from "@/components/layout";
 import CommandCenter from "@/pages/command-center";
@@ -44,7 +43,6 @@ function stripBase(path: string): string {
 }
 
 const clerkAppearance = {
-  baseTheme: dark,
   cssLayerName: "clerk",
   options: {
     logoPlacement: "inside" as const,
@@ -53,43 +51,43 @@ const clerkAppearance = {
     socialButtonsVariant: "blockButton" as const,
   },
   variables: {
-    colorPrimary: "#00ccff",
-    colorForeground: "#eef3fc",
-    colorMutedForeground: "#7a99b8",
-    colorDanger: "#ff4d4d",
-    colorBackground: "#0b1323",
-    colorInput: "#162030",
-    colorInputForeground: "#eef3fc",
-    colorNeutral: "#1c2d42",
-    fontFamily: "Inter, sans-serif",
-    borderRadius: "0.5rem",
+    colorPrimary: "#007aae",
+    colorForeground: "#1c1c1e",
+    colorMutedForeground: "#6e6e73",
+    colorDanger: "#d92c2c",
+    colorBackground: "#ffffff",
+    colorInput: "#f5f5f7",
+    colorInputForeground: "#1c1c1e",
+    colorNeutral: "#d2d2d7",
+    fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+    borderRadius: "0.75rem",
   },
   elements: {
     rootBox: "w-full",
-    cardBox: "w-[440px] max-w-full overflow-hidden rounded-xl border border-[#1c2d42]",
-    card: "!shadow-none !border-0 !bg-[#0f1a29] !rounded-none",
-    footer: "!shadow-none !border-0 !bg-[#0b1323] !rounded-none",
-    headerTitle: "text-[#eef3fc] font-semibold",
-    headerSubtitle: "text-[#7a99b8]",
-    socialButtonsBlockButtonText: "text-[#eef3fc]",
-    socialButtonsBlockButton: "border-[#1c2d42] hover:bg-[#162030]",
-    formFieldLabel: "text-[#7a99b8] text-sm",
-    formFieldInput: "bg-[#162030] border-[#1c2d42] text-[#eef3fc]",
-    formButtonPrimary: "bg-[#00ccff] text-black hover:bg-[#00b3e0] font-medium",
-    footerActionLink: "text-[#00ccff] hover:text-[#00e5ff]",
-    footerActionText: "text-[#7a99b8]",
-    dividerText: "text-[#3a5570]",
-    dividerLine: "bg-[#1c2d42]",
-    identityPreviewEditButton: "text-[#00ccff]",
-    formFieldSuccessText: "text-[#00ccff]",
-    alertText: "text-[#eef3fc]",
-    alert: "border-[#1c2d42] bg-[#162030]",
+    cardBox: "w-[440px] max-w-full overflow-hidden rounded-2xl shadow-xl border border-[#d2d2d7]",
+    card: "!shadow-none !border-0 !bg-white !rounded-none",
+    footer: "!shadow-none !border-0 !bg-[#f5f5f7] !rounded-none",
+    headerTitle: "text-[#1c1c1e] font-semibold text-xl",
+    headerSubtitle: "text-[#6e6e73]",
+    socialButtonsBlockButton: "border border-[#d2d2d7] bg-white hover:bg-[#f5f5f7] text-[#1c1c1e] shadow-sm",
+    socialButtonsBlockButtonText: "text-[#1c1c1e] font-medium",
+    formFieldLabel: "text-[#1c1c1e] text-sm font-medium",
+    formFieldInput: "bg-[#f5f5f7] border border-[#d2d2d7] text-[#1c1c1e] focus:border-[#007aae]",
+    formButtonPrimary: "bg-[#007aae] text-white hover:bg-[#006090] font-medium shadow-sm",
+    footerActionLink: "text-[#007aae] hover:text-[#005f8a] font-medium",
+    footerActionText: "text-[#6e6e73]",
+    dividerText: "text-[#6e6e73] text-xs",
+    dividerLine: "bg-[#d2d2d7]",
+    identityPreviewEditButton: "text-[#007aae]",
+    formFieldSuccessText: "text-[#007aae]",
+    alertText: "text-[#1c1c1e]",
+    alert: "border border-[#d2d2d7] bg-[#f5f5f7]",
     logoBox: "justify-center",
     logoImage: "h-10 w-10",
-    otpCodeFieldInput: "bg-[#162030] border-[#1c2d42] text-[#eef3fc]",
+    otpCodeFieldInput: "bg-[#f5f5f7] border-[#d2d2d7] text-[#1c1c1e]",
     formFieldRow: "gap-3",
     main: "gap-5",
-    footerAction: "bg-[#0b1323]",
+    footerAction: "bg-[#f5f5f7]",
   },
 };
 
@@ -189,10 +187,6 @@ function ClerkProviderWithRoutes() {
 }
 
 function App() {
-  useEffect(() => {
-    document.documentElement.classList.add("dark");
-  }, []);
-
   return (
     <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
       <ClerkProviderWithRoutes />

@@ -55,70 +55,39 @@
 }
 
 :root {
-  --background: 220 40% 98%;
-  --foreground: 224 71% 4%;
+  --background: 0 0% 97%;
+  --foreground: 0 0% 11%;
   --card: 0 0% 100%;
-  --card-foreground: 224 71% 4%;
+  --card-foreground: 0 0% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 224 71% 4%;
-  --primary: 190 100% 35%;
+  --popover-foreground: 0 0% 11%;
+  --primary: 195 100% 34%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 220 14% 96%;
-  --secondary-foreground: 220 9% 46%;
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 9% 46%;
-  --accent: 40 100% 50%;
-  --accent-foreground: 0 0% 0%;
-  --destructive: 0 84% 60%;
+  --secondary: 0 0% 94%;
+  --secondary-foreground: 0 0% 30%;
+  --muted: 0 0% 94%;
+  --muted-foreground: 0 0% 43%;
+  --accent: 195 100% 34%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 190 100% 35%;
-  
-  --sidebar: 220 40% 98%;
-  --sidebar-foreground: 224 71% 4%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-primary: 190 100% 35%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 220 14% 96%;
-  --sidebar-accent-foreground: 224 71% 4%;
-  --sidebar-ring: 190 100% 35%;
+  --border: 0 0% 83%;
+  --input: 0 0% 91%;
+  --ring: 195 100% 34%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 0 0% 11%;
+  --sidebar-border: 0 0% 88%;
+  --sidebar-primary: 195 100% 34%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 94%;
+  --sidebar-accent-foreground: 0 0% 11%;
+  --sidebar-ring: 195 100% 34%;
+
+  --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --radius: 0.5rem;
-}
-
-.dark {
-  --background: 222 47% 7%;
-  --foreground: 210 40% 98%;
-  --card: 217 33% 10%;
-  --card-foreground: 210 40% 98%;
-  --popover: 217 33% 10%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 190 100% 50%;
-  --primary-foreground: 0 0% 0%;
-  --secondary: 217 33% 15%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217 33% 15%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 40 100% 50%;
-  --accent-foreground: 0 0% 0%;
-  --destructive: 0 100% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 217 33% 15%;
-  --input: 217 33% 15%;
-  --ring: 190 100% 50%;
-  
-  --sidebar: 222 47% 7%;
-  --sidebar-foreground: 210 40% 98%;
-  --sidebar-border: 217 33% 15%;
-  --sidebar-primary: 190 100% 50%;
-  --sidebar-primary-foreground: 0 0% 0%;
-  --sidebar-accent: 217 33% 15%;
-  --sidebar-accent-foreground: 210 40% 98%;
-  --sidebar-ring: 190 100% 50%;
+  --radius: 0.75rem;
 }
 
 @layer base {
