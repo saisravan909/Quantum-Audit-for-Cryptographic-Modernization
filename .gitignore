@@ -44,6 +44,32 @@ Thumbs.db
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
-# Replit
+# Replit — never commit these to GitHub
 .cache/
 .local/
+.replit
+.replitignore
+replit.md
+**/.replit-artifact/
+
+# Environment and secrets — never commit
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Logs
+logs/
+*.log
+
+# Test and coverage artifacts
+coverage/
+.nyc_output/
