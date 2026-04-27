@@ -24,6 +24,9 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `/threat-clock` — HNDL Threat Clock (countdown + live harvest feed)
 - `/config-builder` — Fluent Bit + Data Prepper Config Generator (downloadable)
 
+### Assessment
+- `/assessment` — Quantum Readiness Assessment (5-step intake, processing animation, animated score gauge, risk findings, 90-day roadmap, downloadable Markdown report)
+
 ### Info
 - `/` — Landing page
 - `/innovator` — About the Innovator (Sai Sravan Cherukuri)

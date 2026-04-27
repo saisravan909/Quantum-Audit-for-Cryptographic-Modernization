@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale, Play, Building2, Cpu, GitBranch, Menu, X, Network, Key, Target, Clock, Terminal } from "lucide-react";
+import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User, Scale, Play, Building2, Cpu, GitBranch, Menu, X, Network, Key, Target, Clock, Terminal, ClipboardList } from "lucide-react";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -67,6 +67,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </Link>
 
       <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+        {/* Assessment CTA */}
+        <Link
+          href="/assessment"
+          className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg mb-3 text-sm font-semibold transition-all"
+          style={isActive("/assessment")
+            ? { background: "rgba(255,255,255,0.12)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" }
+            : { background: "rgba(255,255,255,0.06)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,0.1)" }
+          }
+        >
+          <ClipboardList className="w-4 h-4 shrink-0" style={{ color: isActive("/assessment") ? "#fff" : "#94a3b8" }} />
+          <span>Readiness Assessment</span>
+          <span className="ml-auto text-[9px] font-bold tracking-widest px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.12)", color: "#94a3b8" }}>NEW</span>
+        </Link>
         <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Platform</div>
         {mainNav.map((item) => (
           <Link

@@ -24,6 +24,7 @@ import HandshakeInspector from "@/pages/handshake-inspector";
 import RiskScorecard from "@/pages/risk-scorecard";
 import ThreatClock from "@/pages/threat-clock";
 import ConfigBuilder from "@/pages/config-builder";
+import Assessment from "@/pages/assessment";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ function Router() {
         <Route path="/risk-map" component={RiskScorecard} />
         <Route path="/threat-clock" component={ThreatClock} />
         <Route path="/config-builder" component={ConfigBuilder} />
+        <Route path="/assessment" component={Assessment} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
