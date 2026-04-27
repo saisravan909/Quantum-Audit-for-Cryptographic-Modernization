@@ -6,6 +6,7 @@
 <img src="https://img.shields.io/badge/NIST-800--207-blue?style=for-the-badge" />
 <img src="https://img.shields.io/badge/ML--KEM-768-purple?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Zero%20Trust-eBPF%20Ready-red?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Auth-Clerk-blueviolet?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Open%20Source-Community%20Driven-success?style=for-the-badge&logo=github" />
 
 <br /><br />
@@ -25,7 +26,7 @@
 
 **Post-Quantum Cryptography · CNSA 2.0 · Zero Trust · CBOM · HNDL Defense**
 
-[View Dashboard](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization) · [Report a Bug](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/issues) · [Request a Feature](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/issues) · [Discussions](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/discussions)
+[View Dashboard](https://qvault.saisravancherukuri.com) · [Report a Bug](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/issues) · [Request a Feature](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/issues) · [Discussions](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/discussions)
 
 </div>
 
@@ -64,9 +65,25 @@ graph TB
         AC[Alerts Center]
         TF[Telemetry Feed]
         LP[Landing Page]
+        AS[Assessment]
+        PL[Pipeline Diagram]
+        HI[Handshake Inspector]
+        RM[Risk Scorecard]
+        TC[Threat Clock]
+        CB[Config Builder]
     end
 
-    subgraph API["API Layer (Express 5 + OpenAPI)"]
+    subgraph Auth["Auth Layer (Clerk)"]
+        CL[Clerk Provider]
+        SI[Sign-In Page]
+        SU[Sign-Up Page]
+        CG[5-Click Free Gate]
+    end
+
+    subgraph API["API Layer (Express 5 + Security Middleware)"]
+        HM[Helmet Headers]
+        RL[Rate Limiter]
+        AL[Audit Logger]
         NR["api/nodes"]
         TR["api/telemetry"]
         CR["api/compliance"]
@@ -91,9 +108,13 @@ graph TB
         FIPS["FIPS 205 and 206"]
     end
 
+    Frontend --> Auth
+    Auth --> API
+    HM --> RL
+    RL --> AL
+    AL --> NR
     CC --> DR
     NI --> NR
-    ND --> NR
     CD --> CR
     CE --> CBR
     AC --> AR
@@ -112,10 +133,67 @@ graph TB
     CT --> FIPS
 
     style Frontend fill:#1a0a00,stroke:#ff8800,color:#ffcc88
+    style Auth fill:#0a001a,stroke:#aa44ff,color:#ccaaff
     style API fill:#0a0a1a,stroke:#4466ff,color:#aabbff
     style DB fill:#0a1a0a,stroke:#44aa44,color:#aaffaa
     style Standards fill:#1a0a1a,stroke:#aa44ff,color:#ccaaff
 ```
+
+---
+
+## Security Architecture
+
+QVault is built with security-first principles appropriate for a cryptographic governance tool.
+
+```mermaid
+graph LR
+    subgraph Browser["Browser"]
+        U[User]
+        CG[Click Gate\n5 free navigations]
+        CL[Clerk Auth\nSession Cookies]
+    end
+
+    subgraph Edge["API Layer"]
+        HM[Helmet\nSecurity Headers]
+        RL[Rate Limiter\n200 req / 15 min]
+        WL[Write Limiter\n30 req / 15 min]
+        CM[Clerk Middleware\nSession Validation]
+        AL[Audit Logger\nWrite Operations]
+        EH[Error Handler\nSanitized Responses]
+    end
+
+    U -->|1 to 5 visits| CG
+    U -->|6th visit| CL
+    CL -->|Session Cookie| CM
+    CM --> RL
+    RL --> WL
+    WL --> AL
+    HM -->|X-Frame-Options DENY| Browser
+    HM -->|X-Content-Type-Options| Browser
+    HM -->|Strict-Transport-Security| Browser
+    HM -->|Referrer-Policy| Browser
+    EH -->|Sanitized errors in prod| Browser
+
+    style Browser fill:#0a001a,stroke:#aa44ff,color:#ccaaff
+    style Edge fill:#001a0a,stroke:#44cc44,color:#aaffaa
+```
+
+### Security Controls
+
+| Control | Implementation | Detail |
+|---|---|---|
+| Authentication | Clerk (managed) | Email, Google, GitHub SSO |
+| Free preview gate | localStorage counter | 5 tool-page navigations before auth |
+| Security headers | Helmet | HSTS, X-Frame-Options, X-Content-Type-Options, CSP, Referrer-Policy |
+| General rate limiting | express-rate-limit | 200 requests per 15 minutes per IP |
+| Write rate limiting | express-rate-limit | 30 POST/PUT/PATCH/DELETE per 15 minutes per IP |
+| Audit logging | Pino structured log | All mutating API calls logged with method, path, IP, timestamp |
+| Error sanitization | Global Express handler | Stack traces stripped in production |
+| Request size cap | Express body-parser | 1 MB max on JSON and URL-encoded payloads |
+| Secret management | Environment variables | No secrets in source code |
+| Dependency scanning | Dependabot | Automated CVE alerts on all dependencies |
+
+See [SECURITY.md](SECURITY.md) for the vulnerability disclosure policy.
 
 ---
 
@@ -125,6 +203,7 @@ graph TB
 sequenceDiagram
     participant Node as Cryptographic Node
     participant Collector as Telemetry Collector
+    participant Auth as Clerk Auth
     participant API as API Server
     participant Engine as Compliance Engine
     participant UI as Command Center
@@ -132,6 +211,8 @@ sequenceDiagram
 
     Node->>Collector: TLS handshake metadata
     Node->>Collector: Algorithm negotiation events
+    Collector->>Auth: Session validation
+    Auth-->>Collector: Authorized
     Collector->>API: POST /api/telemetry
     API->>Engine: Score compliance posture
     Engine->>Engine: Map to CNSA 2.0 requirements
@@ -234,15 +315,37 @@ graph LR
 
 ## Feature Set
 
+### Platform (live data)
+
 | Module | What It Does |
 |---|---|
 | Command Center | Executive overview of cryptographic posture, HNDL exposure score, active alerts, and migration velocity |
 | Node Inventory | Per-node cryptographic fingerprint including algorithm suite, certificate details, and compliance status |
-| CBOM Explorer | Full Cryptographic Bill of Materials aligned to NIST SP 800-235 with dependency mapping |
-| Compliance Dashboard | CNSA 2.0, NIST 800-207, NSM-10, and EO 14028 progress tracking with remediation timelines |
+| Node Detail | Deep drill-down on a single node: algorithm history, cert chain, telemetry timeline |
+| CBOM Explorer | Full Cryptographic Bill of Materials aligned to NIST SP 800-235 with dependency mapping and downloadable Markdown report |
+| Compliance Dashboard | CNSA 2.0, NIST 800-207, NSM-10, and EO 14028 progress tracking with migration velocity |
 | Zero Trust Alerts | Real-time policy violation stream with severity classification and affected node attribution |
-| Telemetry Feed | Protocol-level cryptographic events including TLS version, cipher suite negotiation, and algorithm transitions |
-| Landing Page | Public mission and architecture overview for onboarding teams and stakeholders |
+| Telemetry Feed | Protocol-level cryptographic events: TLS version, cipher suite negotiation, algorithm transitions |
+
+### Showcase (interactive tools)
+
+| Module | What It Does |
+|---|---|
+| Pipeline Architecture | Animated 6-stage interactive data flow diagram showing the full telemetry-to-compliance pipeline |
+| TLS Handshake Inspector | Step-by-step classical vs. post-quantum TLS handshake comparison with algorithm detail |
+| Quantum Risk Scorecard | 2x2 scatter plot mapping all monitored nodes by impact and likelihood |
+| HNDL Threat Clock | Live countdown to quantum threat threshold with active harvest feed simulation |
+| Config Builder | Fluent Bit and Data Prepper configuration generator with downloadable output |
+| Cyber Intel | Threat intelligence feed mapped to active algorithm vulnerabilities |
+
+### Assessment and Onboarding
+
+| Module | What It Does |
+|---|---|
+| Quantum Readiness Assessment | 5-step intake form, processing animation, animated score gauge, risk findings, 90-day roadmap, downloadable Markdown report |
+| Regulatory Mapping | Side-by-side framework coverage for CNSA 2.0, NSM-10, EO 14028, NIST 800-207 |
+| Industries | Use case library for Defense, Energy, Finance, and Healthcare sectors |
+| Development Roadmap | 5-phase public roadmap with GitHub issue links |
 
 ---
 
@@ -254,23 +357,29 @@ graph TB
         R[React 18]
         TS[TypeScript]
         V[Vite 7]
-        TW[Tailwind CSS]
+        TW[Tailwind CSS v4]
         RC[Recharts]
         FM[Framer Motion]
         SH[shadcn/ui]
         WO[Wouter Router]
+        CK[Clerk React]
+        LU[Lucide Icons]
     end
 
     subgraph Server["Server"]
         EX[Express 5]
-        NO[Node.js]
-        ZO[Zod Validation]
+        NO[Node.js 24]
+        ZO[Zod v4 Validation]
+        HE[Helmet Security]
+        RA[express-rate-limit]
+        CE[Clerk Express]
+        PI[Pino Logging]
         OA[OpenAPI Spec]
         OR[Orval Codegen]
     end
 
     subgraph Data["Data"]
-        PG[PostgreSQL]
+        PG[PostgreSQL 16]
         DR[Drizzle ORM]
     end
 
@@ -293,6 +402,7 @@ graph TB
 - Node.js 20 or later
 - PostgreSQL 15 or later
 - pnpm 9 or later
+- A free [Clerk](https://clerk.com) account for authentication
 
 ### Installation
 
@@ -307,15 +417,19 @@ pnpm install
 Create a `.env` file in the project root:
 
 ```env
-DATABASE_URL=postgresql://user:password@localhost:5432/quantum_audit
+DATABASE_URL=postgresql://user:password@localhost:5432/qvault
 SESSION_SECRET=your_session_secret_here
+
+# Clerk authentication (from your Clerk dashboard)
+CLERK_SECRET_KEY=sk_live_...
+CLERK_PUBLISHABLE_KEY=pk_live_...
+VITE_CLERK_PUBLISHABLE_KEY=pk_live_...
 ```
 
 ### Database Setup
 
 ```bash
-pnpm --filter @workspace/api-server run db:push
-pnpm --filter @workspace/api-server run db:seed
+pnpm --filter @workspace/db run push
 ```
 
 ### Start Development Servers
@@ -323,14 +437,36 @@ pnpm --filter @workspace/api-server run db:seed
 In separate terminals:
 
 ```bash
-# API Server
+# API Server (port 8080)
 pnpm --filter @workspace/api-server run dev
 
 # Frontend Dashboard
-pnpm --filter @workspace/qvault run dev
+pnpm --filter @workspace/quantum-audit run dev
 ```
 
-The dashboard runs at `http://localhost:5173` and the API at `http://localhost:8080`.
+---
+
+## How the Free Preview Gate Works
+
+QVault offers 5 free navigations to tool pages before requiring an account. Public and informational pages (landing, about, industries, regulatory, roadmap, innovator) are always open. Once a visitor navigates to 5 distinct tool pages, the 6th click redirects to the sign-in page and resumes from the intended destination after authentication. The counter is stored in `localStorage` and resets permanently once signed in.
+
+```mermaid
+flowchart TD
+    A[User visits QVault] --> B{Free page?}
+    B -->|Yes: landing, about, industries, etc.| C[Always accessible]
+    B -->|No: dashboard, nodes, CBOM, etc.| D{Click count}
+    D -->|1 to 5| E[Access granted\nCounter increments]
+    D -->|6+| F[Redirect to Sign In]
+    F --> G{Clerk Auth}
+    G -->|Success| H[Counter reset\nRedirect to intended page]
+    G -->|Cancel| A
+
+    style A fill:#0a001a,stroke:#aa44ff,color:#ccaaff
+    style C fill:#001a00,stroke:#00cc00,color:#aaffaa
+    style E fill:#001a00,stroke:#00cc00,color:#aaffaa
+    style F fill:#1a0000,stroke:#cc0000,color:#ffaaaa
+    style H fill:#001a00,stroke:#00cc00,color:#aaffaa
+```
 
 ---
 
@@ -371,7 +507,7 @@ GET /api/compliance/velocity    Migration progress and timeline tracking
 ```
 GET  /api/cbom          Full Cryptographic Bill of Materials
 GET  /api/cbom/:id      Single CBOM entry with dependency detail
-POST /api/cbom           Add or update a CBOM entry
+POST /api/cbom          Add or update a CBOM entry
 ```
 
 ### Alerts
@@ -428,6 +564,8 @@ This project thrives on community involvement. Here is how to get involved.
 
 **Reporting issues:** Use the [Issues tab](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/issues) with as much context as possible.
 
+**Reporting security vulnerabilities:** Follow the process in [SECURITY.md](SECURITY.md). Do not open a public issue for security bugs.
+
 **Submitting changes:** Fork the repository, create a feature branch, make your changes with tests where applicable, and open a pull request against the main branch.
 
 **Requesting features:** Start a [Discussion](https://github.com/saisravan909/Quantum-Audit-for-Cryptographic-Modernization/discussions) before building something large, so the community can align on the approach.
@@ -446,6 +584,7 @@ This project thrives on community involvement. Here is how to get involved.
 - [ ] Role-based access control for multi-team environments
 - [ ] Export to PDF for ATO evidence packages
 - [ ] Kubernetes operator for automated node discovery
+- [ ] Per-user saved assessments and historical posture tracking
 
 ---
 
