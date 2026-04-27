@@ -1,11 +1,11 @@
 import { Link, useLocation } from "wouter";
-import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info } from "lucide-react";
+import { Activity, Server, FileText, Bell, CheckCircle, Orbit, Info, User } from "lucide-react";
 import { QuantumKeyLogo } from "@/components/QuantumKeyLogo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
-  const navItems = [
+  const mainNav = [
     { href: "/", label: "Command Center", icon: Orbit },
     { href: "/nodes", label: "Node Inventory", icon: Server },
     { href: "/telemetry", label: "Telemetry Feed", icon: Activity },
@@ -13,6 +13,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { href: "/cbom", label: "CBOM Explorer", icon: FileText },
     { href: "/alerts", label: "Zero Trust Alerts", icon: Bell },
   ];
+
+  const infoNav = [
+    { href: "/about", label: "About QVault", icon: Info },
+    { href: "/innovator", label: "About the Innovator", icon: User },
+  ];
+
+  const isActive = (href: string) =>
+    location === href || (href !== "/" && location.startsWith(href));
 
   return (
     <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans">
@@ -31,39 +39,45 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Link>
 
         <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-          {navItems.map((item) => {
-            const isActive = location === item.href || (item.href !== "/" && location.startsWith(item.href));
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                  isActive
-                    ? "bg-primary/10 text-primary font-medium"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+          {/* Main tools */}
+          <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Platform</div>
+          {mainNav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                isActive(item.href)
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              }`}
+            >
+              <item.icon className="w-4 h-4" />
+              {item.label}
+            </Link>
+          ))}
 
-        {/* About link */}
-        <div className="px-4 pb-2">
-          <Link
-            href="/about"
-            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-              location === "/about"
-                ? "bg-orange-500/10 text-orange-400 font-medium"
-                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-            }`}
-          >
-            <Info className="w-4 h-4" />
-            About & Mission
-          </Link>
-        </div>
+          {/* Divider */}
+          <div className="py-2">
+            <div className="h-px bg-border" />
+          </div>
+
+          {/* Info pages */}
+          <div className="mono text-[9px] text-muted-foreground/50 tracking-[0.3em] uppercase px-3 pb-1">Info</div>
+          {infoNav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                isActive(item.href)
+                  ? "bg-orange-500/10 text-orange-400 font-medium"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              }`}
+            >
+              <item.icon className="w-4 h-4" />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className="p-4 border-t border-border">
           <div className="text-xs text-muted-foreground flex justify-between items-center">
