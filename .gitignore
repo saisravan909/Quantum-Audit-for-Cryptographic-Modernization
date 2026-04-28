@@ -44,13 +44,14 @@ Thumbs.db
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
-# Replit — never commit these to GitHub
+# Platform workspace files -- never commit
 .cache/
 .local/
 .replit
 .replitignore
 replit.md
 attached_assets/
+.replit-artifact/
 
 # Environment and secrets — never commit
 .env
